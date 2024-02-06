@@ -1,0 +1,15 @@
+{
+  "name": "pickup",
+  "version": "1.0.0",
+  "description": "package for the pickup app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "pickup"
+  },
+  "author": "",
+  "license": "ISC"
+}
