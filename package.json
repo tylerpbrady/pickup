@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm -w react-frontend start"
   },
   "repository": {
     "type": "git",
@@ -12,4 +13,12 @@
   },
   "author": "",
   "license": "ISC"
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "create-react-app": "^5.0.1",
+    "mongoose": "^8.1.1",
+    "react-scripts": "^5.0.1"
+  }
 }
