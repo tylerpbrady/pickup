@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Form from "./Form";
+import Header from "./Header"
 
 function MyApp() {
   const [characters, setCharacters] = useState([]);
@@ -74,6 +75,7 @@ function MyApp() {
 
   return (
     <div className="container">
+      <Header /> {}
       <Table
         characterData={characters}
         removeCharacter={removeOneCharacter}

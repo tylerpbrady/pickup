@@ -1,0 +1,32 @@
+
+#header {
+    background-color: #c4eefd;
+    color: white; /* Text color */
+    padding: 20px; /* Padding around the header content */
+    text-align: left; /* Align text to the center */
+    width: 100%; /* Set width to 100% */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    padding-bottom: 10px;
+  }
+  
+  .large-title {
+    font-size: 36px; /* Font size of the large title */
+    margin: 0; /* Remove margin to ensure the title is properly centered */
+  }
+  
+  .container {
+    max-width: 800px; /* Set max-width for content container */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 0px; /* Add padding to the container */
+    padding-top: 50px;
+  }
+  
+.create-game-button {
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove button border */
+    padding: 10px 20px; /* Add padding to the button */
+    padding-top: 10px;
+    border-radius: 5px; /* Add border radius to the button */
+    cursor: pointer; /* Change cursor to pointer on hover */
+  }
