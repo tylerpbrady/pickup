@@ -3,7 +3,8 @@
 }
 
 .large-title {
-  font-size: 36px; /* Font size of the large title */
+  font-size: 50px; /* Font size of the large title */
+  font-weight: 'bold';
   margin: 0; /* Remove margin to ensure the title is properly centered */
 }
 
