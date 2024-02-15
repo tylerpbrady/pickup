@@ -1,14 +1,19 @@
 // src/Table.js
 import React from "react";
+import GamePreviewElement from "./GamePreview";
+
+
+const nameStyles = {
+  fontSize: '2.0em', // Adjust the font size for row.name
+  fontWeight: 'bold', // Set font weight to bold
+};
 
 function TableHeader() {
   return (
     <thead>
-      <tr>
-        <th>Sport</th>
-        <th>Time</th>
-        <th>ID</th>
-      </tr>
+      <div>
+        <div style={nameStyles}>Current Games</div>
+      </div>
     </thead>
   );
 }
@@ -33,7 +38,7 @@ function Table(props) {
   return (
     <table>
       <TableHeader />
-      <TableBody
+      <GamePreviewElement
         characterData={props.characterData}
         removeCharacter={props.removeCharacter}
       />
