@@ -15,9 +15,14 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.post("/post", async (req, res) => {
+  const game = req.body
+  
+})
+
 app.get("/users", async (req, res) => {
   const name = req.query["name"];
-  const job = req.query["job"]; 
+  const job = req.query["job"];
 
   try {
     const result = await userServices.getUsers(name, job);
