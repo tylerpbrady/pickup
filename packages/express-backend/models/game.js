@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const gameSchema = new mongoose.schema(
+const GameSchema = new mongoose.schema(
 
     {
         title: {
@@ -40,8 +40,21 @@ const gameSchema = new mongoose.schema(
             type: Date,
             required: true,
         },
+        equipment: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        skillLevel: {
+            type: String,
+            required: true,
+        }
     },
     {
         timestamps: true,
     }
 );
+
+const Game = mongoose.model("Game", GameSchema);
+
+export default Game;
