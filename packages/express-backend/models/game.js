@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const GameSchema = new mongoose.schema(
+const GameSchema = new mongoose.Schema(
 
     {
         title: {
@@ -8,11 +8,12 @@ const GameSchema = new mongoose.schema(
             required: true,
             trim: true,
         },
-        hostId: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: "User",
-        },
+        // commenting out for simplicity
+        // hostId: {
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     required: true,
+        //     ref: "User",
+        // },
         sport: {
             type: String,
             required: true,
@@ -36,10 +37,10 @@ const GameSchema = new mongoose.schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
         }],
-        dateTime: {
-            type: Date,
-            required: true,
-        },
+        // dateTime: {
+        //     type: Date,
+        //     required: true,
+        // },
         equipment: {
             type: String,
             required: true,
