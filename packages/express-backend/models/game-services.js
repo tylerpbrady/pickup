@@ -14,6 +14,10 @@ function findGameById(id) {
     return gameModel.findById(id);
 }
 
+function findGameByTitle(title) {
+    return gameModel.find({title: title})
+}
+
 function getGames() {
     return gameModel.find();
 }
@@ -22,7 +26,11 @@ function getPlayersInGame(gameId) {
     return findGameById(gameId).populate("players")
 }
 
-export default {getGames}
+function createGame(game) {
+    return new gameModel(game).save()
+}
+
+export default {getGames, findGameById, getPlayersInGame, createGame, findGameByTitle}
 
 
 
