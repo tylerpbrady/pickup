@@ -30,7 +30,11 @@ function createGame(game) {
     return new gameModel(game).save()
 }
 
-export default {getGames, findGameById, getPlayersInGame, createGame, findGameByTitle}
+function deleteGame(id) {
+    return gameModel.findByIdAndDelete(id)
+}
+
+export default {getGames, findGameById, getPlayersInGame, createGame, findGameByTitle, deleteGame}
 
 
 
