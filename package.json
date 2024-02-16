@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "package for the pickup app",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "npm -w react-frontend start",
     "dev": "cd ./packages/express-backend && npx nodemon backend.js"

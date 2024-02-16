@@ -22,7 +22,7 @@ function getPlayersInGame(gameId) {
     return findGameById(gameId).populate("players")
 }
 
-
+export default {getGames}
 
 
 

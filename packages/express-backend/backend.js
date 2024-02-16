@@ -4,6 +4,7 @@ import cors from "cors";
 
 
 import userServices from "./models/user-services.js";
+import gameServices from "./models/game-services.js";
 
 const app = express();
 const port = 8000;
@@ -15,10 +16,18 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/post", async (req, res) => {
+app.post("/games", async (req, res) => {
   const game = req.body
   
-})
+});
+
+app.get("/games", async (req, res) => {
+  gameServices.getGames()
+});
+
+app.delete("/games", async(req, res) => {
+
+});
 
 app.get("/users", async (req, res) => {
   const name = req.query["name"];
