@@ -16,18 +16,26 @@ app.get("/", (req, res) => {
 });
 
 app.post("/games", async (req, res) => {
-  const newGame = req.body
-  gameServices.createGame(newGame).then(() => res.status(201).send(newGame))
+  try {
+    const newGame = req.body
+    gameServices.createGame(newGame).then(() => res.status(201).send(newGame))
+  }
+  catch {
+    res.status(500)
+  }
   
 });
 
 app.get("/games", async (req, res) => {
   const games = await gameServices.getGames()
-  res.status(200).send(games)
+  console.log(games)
+  res.status(200).send({"users_list": games})
 });
 
-app.delete("/games", async(req, res) => {
-
+app.delete("/games/:id", async(req, res) => {
+  const deletion = await gameServices.deleteGame(req.params.id)
+  console.log(deletion)
+  res.status(204);
 });
 
 app.listen(port, () => {

@@ -10,6 +10,7 @@ function MyApp() {
   function removeOneCharacter(index) {
     deleteUser(characters[index])
     .then(deleted => {
+      console.log(deleted.status)
       if (deleted.status === 204) {
         const updated = characters.filter((character, i) => {
           return i !== index;
@@ -39,12 +40,13 @@ function MyApp() {
   }
 
   function fetchUsers() {
-    const promise = fetch("http://localhost:8000/users");
+    const promise = fetch("http://localhost:8000/games");
     return promise;
   }
 
   function postUser(person) {
-    const promise = fetch("Http://localhost:8000/users", {
+    console.log(person)
+    const promise = fetch("http://localhost:8000/games", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +58,8 @@ function MyApp() {
   }
 
   function deleteUser(person) {
-    const promise = fetch(("http://localhost:8000/users/" + person._id), {
+    console.log(person._id)
+    const promise = fetch(("http://localhost:8000/games/" + person._id), {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
