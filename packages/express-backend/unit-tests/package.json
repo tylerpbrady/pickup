@@ -1,0 +1,15 @@
+{
+  "name": "unit.test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "../backend.js",
+  "type": "module",
+  "scripts": {
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "jest": {
+    "transform": {}
+  },
+  "author": "",
+  "license": "ISC"
+}
