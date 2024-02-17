@@ -4,19 +4,20 @@ import React, { useState } from "react";
 function Form(props) {
   const [person, setPerson] = useState({
     sport: "",
-    time: ""
+    title: ""
   });
 
+  // handle change and submit form has hacky fixes inplace
+  // Will change when expanded
   function handleChange(event) {
     const { name, value } = event.target;
-    if (name === "job")
-      setPerson({ name: person["name"], job: value });
-    else setPerson({ name: value, job: person["job"] });
+    if (name === "name")
+      setPerson({ sport : value, title: value });
   }
 
   function submitForm() {
     props.handleSubmit(person);
-    setPerson({ name: "", job: "" });
+    setPerson({ sport: "", title: "" });
   }
 
   return (

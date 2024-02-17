@@ -27,14 +27,13 @@ function GamePreviewBody(props) {
 			fontSize: '1.5em', // Adjust the font size for row.name
 			fontWeight: 'bold', // Set font weight to bold
 		};
-  
     const rows = props.characterData.map((row, index) => {
         return (
 					<div key={index}>
 						<div className='rounded-rectangle' style={rectangleStyles}>
 							<div>
 								<div style={{ marginBottom: '10px' }}>
-									<span style={nameStyles}>{row.name}</span>
+									<span style={nameStyles}>{row.sport}</span>
 								</div>
 								<div style={{ marginBottom: '10px' }}>Time: {row.job}</div>
 								<div style={{ marginBottom: '10px' }}>id: {row._id}</div>
