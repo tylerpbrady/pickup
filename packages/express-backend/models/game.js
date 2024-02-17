@@ -19,37 +19,37 @@ const GameSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        description: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        location: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        maxPlayers: {
-            type: Number,
-            required: false,
-        },
-        players: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-        }],
+        // description: {
+        //     type: String,
+        //     required: true,
+        //     trim: true,
+        // },
+        // location: {
+        //     type: String,
+        //     required: true,
+        //     trim: true,
+        // },
+        // maxPlayers: {
+        //     type: Number,
+        //     required: false,
+        // },
+        // players: [{
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     ref: "User",
+        // }],
         // dateTime: {
         //     type: Date,
         //     required: true,
         // },
-        equipment: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        skillLevel: {
-            type: String,
-            required: true,
-        }
+        // equipment: {
+        //     type: String,
+        //     required: true,
+        //     trim: true,
+        // },
+        // skillLevel: {
+        //     type: String,
+        //     required: true,
+        // }
     },
     {
         timestamps: true,
