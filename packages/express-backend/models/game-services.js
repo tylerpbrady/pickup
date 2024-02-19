@@ -4,7 +4,7 @@ import gameModel from "./game.js";
 mongoose.set("debug", true);
 
 mongoose
-  .connect("mongodb://localhost:27017/users", {
+  .connect("mongodb://localhost:27017/games", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

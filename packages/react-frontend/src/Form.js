@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 function Form(props) {
-  const [person, setPerson] = useState({
+  const [game, setGame] = useState({
     sport: "",
     title: ""
   });
@@ -12,12 +12,12 @@ function Form(props) {
   function handleChange(event) {
     const { name, value } = event.target;
     if (name === "name")
-      setPerson({ sport : value, title: value });
+      setGame({ sport : value, title: value });
   }
 
   function submitForm() {
-    props.handleSubmit(person);
-    setPerson({ sport: "", title: "" });
+    props.handleSubmit(game);
+    setGame({ sport: "", title: "" });
   }
 
   return (
@@ -27,15 +27,15 @@ function Form(props) {
         type="text"
         name="name"
         id="name"
-        value={person.name}
+        value={game.name}
         onChange={handleChange}
       />
-      <label htmlFor="job">Time</label>
+      <label htmlFor="time">Time</label>
       <input
         type="text"
-        name="job"
-        id="job"
-        value={person.job}
+        name="time"
+        id="time"
+        value={game.time}
         onChange={handleChange}
       />
       <input type="button" value="Submit" onClick={submitForm} />
