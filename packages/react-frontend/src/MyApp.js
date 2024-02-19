@@ -3,28 +3,28 @@ import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import CreateGamePage from './CreateGameWindow.js';
+//import CreateGamePage from './CreateGameWindow.js';
 
 function MyApp() {
-  const [characters, setCharacters] = useState([]);
+  const [games, setGames] = useState([]);
 
-  function removeOneCharacter(index) {
-    deleteUser(characters[index])
+  function removeOneGame(index) {
+    deleteGame(games[index])
     .then(deleted => {
       console.log(deleted.status)
       if (deleted.status === 204) {
-        const updated = characters.filter((character, i) => {
+        const updated = games.filter((game, i) => {
           return i !== index;
         });
-        setCharacters(updated);
+        setGames(updated);
       } else {
-        console.log("Failed to delete user")
+        console.log("Failed to delete game")
       }
     })
   }
 
-  function updateList(person) { 
-    postUser(person)
+  function updateList(game) { 
+    postGame(game)
       .then(response => {
         if (response.status === 201) {
           return response.json();
@@ -32,36 +32,36 @@ function MyApp() {
           console.log('Failed to update list. Invalid HTTP Code (not 201).');
         }
       })
-      .then(updatedUser => {
-        console.log(updatedUser.user)
-        setCharacters([...characters, updatedUser]);
+      .then(updatedGame => {
+        console.log(updatedGame.game)
+        setGames([...games, updatedGame]);
       })
       .catch((error) => {
         console.log(error);
       })
   }
 
-  function fetchUsers() {
+  function fetchGames() {
     const promise = fetch("http://localhost:8000/games");
     return promise;
   }
 
-  function postUser(person) {
-    console.log(person)
+  function postGame(game) {
+    console.log(game)
     const promise = fetch("http://localhost:8000/games", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(person),
+      body: JSON.stringify(game),
     });
 
     return promise;
   }
 
-  function deleteUser(person) {
-    console.log(person._id)
-    const promise = fetch(("http://localhost:8000/games/" + person._id), {
+  function deleteGame(game) {
+    console.log(game._id)
+    const promise = fetch(("http://localhost:8000/games/" + game._id), {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -72,14 +72,14 @@ function MyApp() {
   }
 
   useEffect(() => {
-    fetchUsers()
+    fetchGames()
       .then((res) => res.json())
-      .then((json) => setCharacters(json["users_list"]))
+      .then((json) => setGames(json["games_list"]))
       .catch((error) => { console.log(error); });
   }, [] );
 
 
-function CreateGame({updateList }) {
+function CreateGame({ updateList }) {
   return (
     <div>
       <Form handleSubmit={updateList}/>
@@ -87,10 +87,13 @@ function CreateGame({updateList }) {
   );
 }
 
-function Home({ characters }) {
+function Home({ games }) {
   return (
     <div>
-      <Table characterData={characters} />
+      <Table 
+      gameData={games}
+      removeGame={removeOneGame}
+      />
     </div>
   );
 }
@@ -100,7 +103,7 @@ return (
     <div className="container">
       <Header />
       <Routes>
-        <Route path="/" element={<Home characters={characters}/>} />
+        <Route path="/" element={<Home games={games}/>} />
         <Route path="/create-game" element={<CreateGame path="/create-game" updateList={updateList}/>} />
       </Routes>
     </div>

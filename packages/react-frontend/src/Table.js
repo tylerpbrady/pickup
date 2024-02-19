@@ -39,8 +39,8 @@ function Table(props) {
     <table>
       <TableHeader />
       <GamePreviewElement
-        characterData={props.characterData}
-        removeCharacter={props.removeCharacter}
+        gameData={props.gameData}
+        removeGame={props.removeGame}
       />
     </table>
   );

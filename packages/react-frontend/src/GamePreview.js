@@ -27,24 +27,24 @@ function GamePreviewBody(props) {
 			fontSize: '1.5em', // Adjust the font size for row.name
 			fontWeight: 'bold', // Set font weight to bold
 		};
-    const rows = props.characterData.map((row, index) => {
+    const rows = props.gameData.map((game, index) => {
         return (
 					<div key={index}>
 						<div className='rounded-rectangle' style={rectangleStyles}>
 							<div>
 								<div style={{ marginBottom: '10px' }}>
-									<span style={nameStyles}>{row.sport}</span>
+									<span style={nameStyles}>{game.sport}</span>
 								</div>
-								<div style={{ marginBottom: '10px' }}>Time: {row.job}</div>
-								<div style={{ marginBottom: '10px' }}>id: {row._id}</div>
+								<div style={{ marginBottom: '10px' }}>Time: {game.time}</div>
+								<div style={{ marginBottom: '10px' }}>id: {game._id}</div>
 								<div style={{ marginBottom: '10px' }}>Location: N/A</div>
 								<div style={{ marginBottom: '10px' }}>Numbers: #/10</div>
 							</div>
 							<div style={buttonStyles}>
-								<button onClick={() => props.removeCharacter(index)}>Delete</button>
+								<button onClick={() => props.removeGame(index)}>Delete</button>
 							</div>
 						</div>
-						{index < props.characterData.length - 1 && <div style={spacerStyles} />} {/* Add spacer between rows */}
+						{index < props.gameData.length - 1 && <div style={spacerStyles} />} {/* Add spacer between rows */}
 					</div>
         );
       });
@@ -59,8 +59,8 @@ function GamePreviewBody(props) {
     return (
       <table>
         <GamePreviewBody
-          characterData={props.characterData}
-          removeCharacter={props.removeCharacter}
+          gameData={props.gameData}
+          removeGame={props.removeGame}
         />
       </table>
     );

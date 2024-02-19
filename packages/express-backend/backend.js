@@ -17,25 +17,36 @@ app.get("/", (req, res) => {
 
 app.post("/games", async (req, res) => {
   try {
-    const newGame = req.body
-    gameServices.createGame(newGame).then(() => res.status(201).send(newGame))
+    const newGame = req.body;
+    const createdGame = await gameServices.createGame(newGame);
+    res.status(201).json(createdGame); // Send the created game as part of the response
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Internal server error" });
   }
-  catch {
-    res.status(500)
-  }
-  
 });
 
 app.get("/games", async (req, res) => {
   const games = await gameServices.getGames()
   console.log(games)
-  res.status(200).send({"users_list": games})
+  res.status(200).send({"games_list": games})
 });
 
-app.delete("/games/:id", async(req, res) => {
-  const deletion = await gameServices.deleteGame(req.params.id)
-  console.log(deletion)
-  res.status(204);
+app.delete("/games/:id", async (req, res) => {
+  try {
+    const deletedGame = await gameServices.deleteGame(req.params.id);
+    console.log(deletedGame);
+
+    // Check if the deletion was successful before sending a response
+    if (deletedGame) {
+      res.status(204).json(deletedGame); // Include deleted game in the response
+    } else {
+      res.status(404).send({ error: "Game not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Internal server error" });
+  }
 });
 
 app.listen(port, () => {
