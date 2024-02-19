@@ -19,6 +19,12 @@ const GameSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
+        //temporary time attribute to be switched to dateTime later
+        time: {
+            type: String,
+            required: false,
+            trim: true
+        },
         // description: {
         //     type: String,
         //     required: true,

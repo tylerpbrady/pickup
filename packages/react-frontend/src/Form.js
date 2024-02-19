@@ -4,30 +4,43 @@ import React, { useState } from "react";
 function Form(props) {
   const [game, setGame] = useState({
     sport: "",
-    title: ""
+    title: "",
+    time: ""
   });
 
   // handle change and submit form has hacky fixes inplace
   // Will change when expanded
   function handleChange(event) {
     const { name, value } = event.target;
-    if (name === "name")
-      setGame({ sport : value, title: value });
+    if (name === "sport")
+      setGame({ sport : value, title: game["title"], time: game["time"] });    
+    else if (name === "title")
+      setGame({ sport : game["sport"], title: value, time: game["time"] });    
+    else if (name === "time")
+      setGame({ sport : game["sport"], title: game["title"], time: value });
   }
 
   function submitForm() {
     props.handleSubmit(game);
-    setGame({ sport: "", title: "" });
+    setGame({ sport: "", title: "", time: "" });
   }
 
   return (
     <form>
-      <label htmlFor="name">Sport</label>
+      <label htmlFor="title">Title</label>
       <input
         type="text"
-        name="name"
-        id="name"
-        value={game.name}
+        name="title"
+        id="title"
+        value={game.title}
+        onChange={handleChange}
+      />
+      <label htmlFor="sport">Sport</label>
+      <input
+        type="text"
+        name="sport"
+        id="sport"
+        value={game.sport}
         onChange={handleChange}
       />
       <label htmlFor="time">Time</label>
