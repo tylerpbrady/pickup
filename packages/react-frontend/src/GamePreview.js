@@ -33,8 +33,9 @@ function GamePreviewBody(props) {
 						<div className='rounded-rectangle' style={rectangleStyles}>
 							<div>
 								<div style={{ marginBottom: '10px' }}>
-									<span style={nameStyles}>{game.sport}</span>
+									<span style={nameStyles}>{game.title}</span>
 								</div>
+								<div style={{ marginBottom: '10px' }}>Sport: {game.sport}</div>
 								<div style={{ marginBottom: '10px' }}>Time: {game.time}</div>
 								<div style={{ marginBottom: '10px' }}>id: {game._id}</div>
 								<div style={{ marginBottom: '10px' }}>Location: N/A</div>
