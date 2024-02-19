@@ -1,8 +1,9 @@
-// src/MyApp.js
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Form from "./Form";
-import Header from "./Header"
+import Header from "./Header";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CreateGamePage from './CreateGameWindow.js';
 
 function MyApp() {
   const [characters, setCharacters] = useState([]);
@@ -77,15 +78,34 @@ function MyApp() {
       .catch((error) => { console.log(error); });
   }, [] );
 
+
+function CreateGame({updateList }) {
   return (
-    <div className="container">
-      <Header /> {}
-      <Table
-        characterData={characters}
-        removeCharacter={removeOneCharacter}
-      />
+    <div>
       <Form handleSubmit={updateList}/>
     </div>
   );
 }
+
+function Home({ characters }) {
+  return (
+    <div>
+      <Table characterData={characters} />
+    </div>
+  );
+}
+
+return (
+  <Router>
+    <div className="container">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home characters={characters}/>} />
+        <Route path="/create-game" element={<CreateGame path="/create-game" updateList={updateList}/>} />
+      </Routes>
+    </div>
+  </Router>
+);
+}
+
 export default MyApp;
