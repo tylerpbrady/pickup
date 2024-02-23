@@ -10,8 +10,7 @@ function Form(props) {
     maxPlayers: 0,
     equipment: "",
     skill: 0,
-    time: new Date(),
-    created: new Date()
+    time: new Date()
   });
 
   const [selectedDate, setSelectedDate] = useState('');
@@ -46,7 +45,7 @@ function Form(props) {
 
   function submitForm() {
     props.handleSubmit(game);
-    setGame({ sport: "", title: "", description: "", location: "", maxPlayers: 0, equipment: "", skill: 0, time: new Date(), created: new Date() });
+    setGame({ sport: "", title: "", description: "", location: "", maxPlayers: 0, equipment: "", skill: 0, time: new Date() });
   }
 
   return (
