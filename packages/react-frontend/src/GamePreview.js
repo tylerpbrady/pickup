@@ -27,6 +27,7 @@ function GamePreviewBody(props) {
 			fontSize: '1.5em', // Adjust the font size for row.name
 			fontWeight: 'bold', // Set font weight to bold
 		};
+		
     const rows = props.gameData.map((game, index) => {
         return (
 					<div key={index}>
@@ -36,10 +37,10 @@ function GamePreviewBody(props) {
 									<span style={nameStyles}>{game.title}</span>
 								</div>
 								<div style={{ marginBottom: '10px' }}>Sport: {game.sport}</div>
-								<div style={{ marginBottom: '10px' }}>Time: {game.time}</div>
+								<div style={{ marginBottom: '10px' }}>Time: {new Date(game.time).toLocaleString()}</div>
 								<div style={{ marginBottom: '10px' }}>id: {game._id}</div>
-								<div style={{ marginBottom: '10px' }}>Location: N/A</div>
-								<div style={{ marginBottom: '10px' }}>Numbers: #/10</div>
+								<div style={{ marginBottom: '10px' }}>Location: {game.location}</div>
+								<div style={{ marginBottom: '10px' }}>Numbers: #/{game.maxPlayers}</div>
 							</div>
 							<div style={buttonStyles}>
 								<button onClick={() => props.removeGame(index)}>Delete</button>
