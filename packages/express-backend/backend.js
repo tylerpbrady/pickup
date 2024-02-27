@@ -39,7 +39,7 @@ app.post("/games", async (req, res) => {
   }
 });
 
-app.get("/games", async (req, res) => {
+app.get("/games", auth.authenticateUser, async (req, res) => {
   const games = await gameServices.getGames()
   console.log(games)
   res.status(200).send({"games_list": games})
