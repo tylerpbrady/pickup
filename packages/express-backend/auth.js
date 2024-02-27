@@ -93,4 +93,4 @@ export function loginUser(req, res) {
     }
   }
 
-export default {registerUser}
+export default {registerUser, authenticateUser, loginUser};
