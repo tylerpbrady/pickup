@@ -12,15 +12,6 @@ const UserSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-
-    // password will definitely need to be changed
-    // just putting it here now as placeholder
-
-    password: {
-      type: String,
-      required: true,
-      trim: false,
-    },
     games: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Game",
