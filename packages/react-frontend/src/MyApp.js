@@ -3,6 +3,7 @@ import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
 import CreateAccountPage from "./CreateAccountPage";
+import Login from "./Login";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom';
 
 
@@ -106,7 +107,7 @@ function WelcomePage() {
       <div className="box">
         <h1>Welcome to Pickup!</h1>
         <div className="button-container">
-          <Link to="/home">
+          <Link to="/login">
             <button>Login</button>
           </Link>
           <Link to="/create-account">
@@ -118,12 +119,41 @@ function WelcomePage() {
   );
 }
 
+
+function loginUser(creds) {
+  const promise = fetch(`${API_PREFIX}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(creds)
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        response
+          .json()
+          .then((payload) => setToken(payload.token));
+        setMessage(`Login successful; auth token saved`);
+      } else {
+        setMessage(
+          `Login Error ${response.status}: ${response.data}`
+        );
+      }
+    })
+    .catch((error) => {
+      setMessage(`Login Error: ${error}`);
+    });
+
+  return promise;
+}
+
 return (
   <Router>
     <div className="container">
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<WelcomePage />} />
+        <Route path="/" element={<Navigate to="/welcome" />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+        {<Route path="/login" element={<Login handleSubmit={loginUser} />}/> }
         <Route path="/create-account" element={<CreateAccountPage />} />
         <Route
           path="/home"

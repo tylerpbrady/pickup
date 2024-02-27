@@ -57,7 +57,7 @@ function CreateAccountPage() {
           </div>
           <div className="button-container">
             <button type="submit">Create Account</button>
-            <Link to="/login">
+            <Link to="/welcome">
               <button>Back to Login</button>
             </Link>
           </div>
