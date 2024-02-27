@@ -5,8 +5,10 @@ import Header from "./Header";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //import CreateGamePage from './CreateGameWindow.js';
 
+// const characters = [];
+
 function MyApp() {
-  const [games, setGames, characters, setCharacters] = useState([]);
+  const [games, setGames] = useState([]);
 
   function removeOneGame(index) {
     deleteGame(games[index])
@@ -103,22 +105,22 @@ function MyApp() {
     return promise;
   }
 
-  useEffect(() => {
-    fetchGames()
-      .then((res) => res.json())
-      .then((json) => setGames(json["games_list"]))
-      .catch((error) => { console.log(error); });
-  }, [] );
+  // useEffect(() => {
+  //   fetchGames()
+  //     .then((res) => res.json())
+  //     .then((json) => setGames(json["games_list"]))
+  //     .catch((error) => { console.log(error); });
+  // }, [] );
 
   useEffect(() => {
-    fetchUsers()
+    fetchGames()
       .then((res) => 
         res.status === 200 ? res.json() : undefined)
       .then((json) => {
         if (json) {
-          setCharacters(json["users_list"]);
+          setGames(json["games_list"]);
         } else {
-          setCharacters(null);
+          setGames(null);
         }
       })
       .catch((error) => { console.log(error); });
@@ -152,11 +154,6 @@ return (
         <Route path="/" element={<Home games={games}/>} />
         <Route path="/create-game" element={<CreateGame path="/create-game" updateList={updateList}/>} />
       </Routes>
-      <Table 
-            characterData = {characters}
-            // removeCharacter = {removeOneCharacter}
-            // characterId = {characters._id}
-        />
     </div>
   </Router>
 );
