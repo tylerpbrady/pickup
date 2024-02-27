@@ -6,9 +6,14 @@ import CreateAccountPage from "./CreateAccountPage";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom';
 
 
+
 // const characters = [];
 
 function MyApp() {
+
+  const INVALID_TOKEN = "INVALID_TOKEN";
+  const [token, setToken] = useState(INVALID_TOKEN);
+  const [message, setMessage] = useState("");
   const [games, setGames] = useState([]);
 
   function removeOneGame(index) {
@@ -71,8 +76,21 @@ function MyApp() {
       })
   }
 
+  function addAuthHeader(otherHeaders = {}) {
+    if (token === INVALID_TOKEN) {
+      return otherHeaders;
+    } else {
+      return {
+        ...otherHeaders,
+        Authorization: `Bearer ${token}`
+      };
+    }
+  }
+  
   function fetchGames() {
-    const promise = fetch("http://localhost:8000/games");
+    const promise = fetch("http://localhost:8000/games", {
+      headers: addAuthHeader()
+    });
     return promise;
   }
 
@@ -165,6 +183,8 @@ function WelcomePage() {
     </div>
   );
 }
+
+
 
 return (
   <Router>

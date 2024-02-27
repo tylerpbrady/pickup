@@ -27,7 +27,6 @@ app.get("/users", auth.authenticateUser, (req, res) => {
 });
 
 
-
 app.post("/games", async (req, res) => {
   try {
     const newGame = req.body;
@@ -71,7 +70,8 @@ app.post("/users", auth.authenticateUser, (req, res) => {
   );
 });
 
-app.post("/login", auth.registerUser);
+app.post("/login", auth.loginUser);
+app.post("/signup", auth.registerUser);
 
 
 
