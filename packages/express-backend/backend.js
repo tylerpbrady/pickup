@@ -2,8 +2,9 @@
 import express from "express";
 import cors from "cors";
 
-
+import userServices from "./models/user-services.js";
 import gameServices from "./models/game-services.js";
+import auth from "./auth.js";
 
 const app = express();
 const port = 8000;
@@ -14,6 +15,18 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+app.get("/users", auth.authenticateUser, (req, res) => {
+  const name = req.query.name;
+  // const job = req.query.job;
+
+  userServices.getUsers(name)
+    .then((result) => 
+      res.status(201).send(result)
+    );
+});
+
+
 
 app.post("/games", async (req, res) => {
   try {
@@ -48,6 +61,21 @@ app.delete("/games/:id", async (req, res) => {
     res.status(500).send({ error: "Internal server error" });
   }
 });
+
+app.post("/signup", auth.registerUser);
+
+app.post("/users", auth.authenticateUser, (req, res) => {
+  const userToAdd = req.body;
+  userServices.addUser(userToAdd).then((result) =>
+    res.status(201).send(result)
+  );
+});
+
+app.post("/login", auth.registerUser);
+
+
+
+
 
 app.listen(port, () => {
   console.log(
