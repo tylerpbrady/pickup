@@ -81,15 +81,15 @@ function GameDetailElement(props) {
 
 	return (
         <div>
-            <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translateX(-50%)', fontSize: '2.0em', fontWeight: 'bold', textAlign: 'center' }}>
+            <div style={{ position: 'fixed', top: '15%', left: '50%', transform: 'translateX(-50%)', fontSize: '2.0em', fontWeight: 'bold', textAlign: 'center' }}>
                 {game.title}
             </div>
-            <div style={{ position: 'fixed', top: '30%', left: '25%', transform: 'translateX(-50%)' }}>
+            <div style={{ position: 'fixed', top: '25%', left: '25%', transform: 'translateX(-50%)' }}>
                 <GameDetailBody
                     game={game}
                 />
             </div>
-            <div style={{ position: 'fixed', top: '30%', left: '75%', transform: 'translateX(-50%)' }}>
+            <div style={{ position: 'fixed', top: '25%', left: '75%', transform: 'translateX(-50%)' }}>
                 <GamePlayersDisplay
                     game={game}
                 />
