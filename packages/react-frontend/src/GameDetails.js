@@ -6,8 +6,8 @@ const rectangleStyles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '500px',
-    height: '400px',
-    //backgroundColor: '#D3EBF0',
+    height: '500px',
+    //backgroundColor: '#D3EBF0', do we want background color or just transparent?
     borderRadius: '15px',
     padding: '20px',
     border: '2px solid #000',
@@ -20,6 +20,15 @@ function GameDetailBody(props) {
     if (!game) {
       return <div>Game not found</div>;
     }
+
+    function DetailItem({ label, value }) {
+        return (
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+            <div style={{ textAlign: 'left', fontWeight: 600 }}>{label}:</div>
+            <div style={{ textAlign: 'right' }}>{value}</div>
+          </div>
+        );
+      }
   
     // Rest of component logic using the 'game' variable
     return (
@@ -28,13 +37,14 @@ function GameDetailBody(props) {
                 Details
             </div>
             <div style={{ marginBottom: '10px', flex: '1' }}>
-                <div style={{ marginBottom: '10px' }}>Sport: {game.sport}</div>
-                <div style={{ marginBottom: '10px' }}>Time: {new Date(game.time).toLocaleString()}</div>
-                <div style={{ marginBottom: '10px' }}>Location: {game.location}</div>
-                <div style={{ marginBottom: '10px' }}>Numbers: 0/{game.maxPlayers}</div>
-                <div style={{ marginBottom: '10px' }}>Skill Level: {game.skill}/10</div>
-                <div style={{ marginBottom: '10px' }}>Equipment Needed: {game.equipment}</div>                
-                <div style={{ marginBottom: '10px' }}>Description: {game.description}</div>
+                <DetailItem label="Sport" value={game.sport} />
+                <DetailItem label="Time" value={new Date(game.time).toLocaleString()} />
+                <DetailItem label="Location" value={game.location} />
+                <DetailItem label="Numbers" value={`0/${game.maxPlayers}`} />
+                <DetailItem label="Skill Level" value={`${game.skill}/10`} />
+                <DetailItem label="Equipment Needed" value={game.equipment} />             
+                <div style={{ fontWeight: 600 }}>Description:</div>
+                <div style={{ marginLeft: '20px' }}>{game.description}</div>
             </div>
         </div>
     );
