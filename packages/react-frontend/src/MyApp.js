@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
+import GameDetailElement from "./GameDetails";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //import CreateGamePage from './CreateGameWindow.js';
 
@@ -79,36 +80,37 @@ function MyApp() {
   }, [] );
 
 
-function CreateGame({ updateList }) {
-  return (
-    <div>
-      <Form handleSubmit={updateList}/>
-    </div>
-  );
-}
+  function CreateGame({ updateList }) {
+    return (
+      <div>
+        <Form handleSubmit={updateList}/>
+      </div>
+    );
+  }
 
-function Home({ games }) {
-  return (
-    <div>
-      <Table 
-      gameData={games}
-      removeGame={removeOneGame}
-      />
-    </div>
-  );
-}
+  function Home({ games }) {
+    return (
+      <div>
+        <Table 
+        gameData={games}
+        removeGame={removeOneGame}
+        />
+      </div>
+    );
+  }
 
-return (
-  <Router>
-    <div className="container">
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home games={games}/>} />
-        <Route path="/create-game" element={<CreateGame path="/create-game" updateList={updateList}/>} />
-      </Routes>
-    </div>
-  </Router>
-);
+  return (
+    <Router>
+      <div className="container">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home games={games}/>} />
+          <Route path="/create-game" element={<CreateGame path="/create-game" updateList={updateList}/>} />
+          <Route path="/game/:id" element={< GameDetailElement games={games} />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default MyApp;
