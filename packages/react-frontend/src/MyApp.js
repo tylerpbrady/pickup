@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
+import Settings from "./settings";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //import CreateGamePage from './CreateGameWindow.js';
 
@@ -40,6 +41,7 @@ function MyApp() {
         console.log(error);
       })
   }
+
 
   function fetchGames() {
     const promise = fetch("http://localhost:8000/games");
@@ -87,6 +89,14 @@ function CreateGame({ updateList }) {
   );
 }
 
+function Set() {
+  return (
+    <div>
+      <Settings Settings/>
+    </div>
+  );
+}
+
 function Home({ games }) {
   return (
     <div>
@@ -104,11 +114,12 @@ return (
       <Header />
       <Routes>
         <Route path="/" element={<Home games={games}/>} />
+        <Route path="/settings" element={<Set path="/settings" />} />
         <Route path="/create-game" element={<CreateGame path="/create-game" updateList={updateList}/>} />
       </Routes>
     </div>
   </Router>
 );
 }
-
+// <Route path="/settings" element={<Settings path="/settings" updateSettings={settings}/>} />
 export default MyApp;
