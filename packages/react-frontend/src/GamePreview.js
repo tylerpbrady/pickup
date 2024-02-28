@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function GamePreviewBody(props) {  
     // Define styles as an object
@@ -11,7 +12,6 @@ function GamePreviewBody(props) {
       backgroundColor: '#D9D9D9',
       borderRadius: '15px',
       padding: '20px',
-      //boxShadow: '2px 2px 5px #888888',
     };
 
 		const buttonStyles = {
@@ -41,6 +41,7 @@ function GamePreviewBody(props) {
 								<div style={{ marginBottom: '10px' }}>id: {game._id}</div>
 								<div style={{ marginBottom: '10px' }}>Location: {game.location}</div>
 								<div style={{ marginBottom: '10px' }}>Numbers: #/{game.maxPlayers}</div>
+								<Link to={`/game/${game._id}`}>Details</Link>
 							</div>
 							<div style={buttonStyles}>
 								<button onClick={() => props.removeGame(index)}>Delete</button>
@@ -52,21 +53,20 @@ function GamePreviewBody(props) {
       });
 
     return (
-        
-        <tbody>{rows}</tbody>
+        rows
     );
-  }
+}
 
-  function GamePreviewElement(props) {
-    return (
-      <table>
-        <GamePreviewBody
-          gameData={props.gameData}
-          removeGame={props.removeGame}
-        />
-      </table>
-    );
-  }
+function GamePreviewElement(props) {
+	return (
+		<div>
+			<GamePreviewBody
+				gameData={props.gameData}
+				removeGame={props.removeGame}
+			/>
+		</div>
+	);
+}
   
   
-  export default GamePreviewElement;
+export default GamePreviewElement;
