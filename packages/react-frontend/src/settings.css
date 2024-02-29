@@ -15,6 +15,7 @@
   
   .log-out-button,
   .edit-profile-button{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 50px;
     text-align: center;
     display: inline-block;
@@ -22,7 +23,7 @@
     background-color: #cfcfcf;
     width: 1000px;
     height: 100px;
-    color: white;
+    color: rgb(0, 0, 0);
     text-decoration: none;
     border: none;
     
