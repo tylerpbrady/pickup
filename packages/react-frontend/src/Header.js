@@ -6,7 +6,6 @@ const Header = () => {
   return (
     <div className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <h1 className="large-title">
-        <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>pickup</Link>
         <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>Pickup</Link>
       </h1>
       <div className="header-right">
