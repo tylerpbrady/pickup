@@ -142,6 +142,7 @@ return (
               <Header />
               <Set path="/settings" />
             </React.Fragment>} />
+        <Route path="/settings" element={<Set path="/settings" />} />
         <Route 
           path="/game/:id" 
           element={ 

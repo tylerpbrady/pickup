@@ -19,43 +19,37 @@ const GameSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        //temporary time attribute to be switched to dateTime later
-        time: {
+        description: {
             type: String,
-            required: false,
-            trim: true
+            required: true,
+            trim: true,
         },
-        // description: {
-        //     type: String,
-        //     required: true,
-        //     trim: true,
-        // },
-        // location: {
-        //     type: String,
-        //     required: true,
-        //     trim: true,
-        // },
-        // maxPlayers: {
-        //     type: Number,
-        //     required: false,
-        // },
+        location: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        maxPlayers: {
+            type: Number,
+            required: false,
+        },
         // players: [{
         //     type: mongoose.Schema.Types.ObjectId,
         //     ref: "User",
         // }],
-        // dateTime: {
-        //     type: Date,
-        //     required: true,
-        // },
-        // equipment: {
-        //     type: String,
-        //     required: true,
-        //     trim: true,
-        // },
-        // skillLevel: {
-        //     type: String,
-        //     required: true,
-        // }
+        time: {
+            type: Date,
+            required: true,
+        },
+        equipment: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        skill: {
+            type: Number,
+            required: true,
+        }
     },
     {
         timestamps: true,
