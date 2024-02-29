@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
+import Login from "./Login";
 import CreateAccountPage from "./CreateAccountPage";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom';
 
@@ -124,6 +125,62 @@ function MyApp() {
     return promise;
   }
 
+  function loginUser(creds) {
+    const promise = fetch(`http://localhost:8000/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(creds)
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          response
+            .json()
+            .then((payload) => setToken(payload.token));
+          setMessage(`Login successful; auth token saved`);
+        } else {
+          setMessage(
+            `Login Error ${response.status}: ${response.data}`
+          );
+        }
+      })
+      .catch((error) => {
+        setMessage(`Login Error: ${error}`);
+      });
+  
+    return promise;
+  }
+  function signupUser(creds) {
+    const promise = fetch(`http://localhost:8000/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(creds)
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          response
+            .json()
+            .then((payload) => setToken(payload.token));
+          setMessage(
+            `Signup successful for user: ${creds.username}; auth token saved`
+          );
+        } else {
+          console.log(response)
+          setMessage(
+            `Signup Error ${response.status}: ${response.data}`
+          );
+        }
+      })
+      .catch((error) => {
+        setMessage(`Signup Error: ${error}`);
+      });
+  
+    return promise;
+  }
+
   // useEffect(() => {
   //   fetchGames()
   //     .then((res) => res.json())
@@ -165,14 +222,13 @@ function Home({ games }) {
   );
 }
 
-
 function WelcomePage() {
   return (
     <div className="cont">
       <div className="box">
         <h1>Welcome to Pickup!</h1>
         <div className="button-container">
-          <Link to="/home">
+          <Link to="/login">
             <button>Login</button>
           </Link>
           <Link to="/create-account">
@@ -190,9 +246,13 @@ return (
   <Router>
     <div className="container">
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<WelcomePage />} />
-        <Route path="/create-account" element={<CreateAccountPage />} />
+        <Route path="/" element={<Navigate to="/welcome" />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+        <Route
+          path="/login"
+          element={<Login handleSubmit={loginUser} />}
+        />
+        <Route path="/create-account" element={<CreateAccountPage handleSubmit={signupUser}/>} />
         <Route
           path="/home"
           element={
