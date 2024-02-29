@@ -61,8 +61,6 @@ app.delete("/games/:id", async (req, res) => {
   }
 });
 
-app.post("/signup", auth.registerUser);
-
 app.post("/users", auth.authenticateUser, (req, res) => {
   const userToAdd = req.body;
   userServices.addUser(userToAdd).then((result) =>

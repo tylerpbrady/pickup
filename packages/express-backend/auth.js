@@ -21,16 +21,16 @@ function generateAccessToken(username) {
   }
 
 export function registerUser(req, res) {
-    const { username, pwd } = req.body; // from form
-  
-    if (!username || !pwd) {
+    const { username, password } = req.body; // from form
+    console.log(username, password)
+    if (!username || !password) {
       res.status(400).send("Bad request: Invalid input data.");
     } else if (creds.find((c) => c.username === username)) {
       res.status(409).send("Username already taken");
     } else {
       bcrypt
         .genSalt(10)
-        .then((salt) => bcrypt.hash(pwd, salt))
+        .then((salt) => bcrypt.hash(password, salt))
         .then((hashedPassword) => {
           generateAccessToken(username).then((token) => {
             console.log("Token:", token);
@@ -70,7 +70,8 @@ export function loginUser(req, res) {
     const retrievedUser = creds.find(
       (c) => c.username === username
     );
-  
+    console.log(req.body)
+    console.log(creds)
     if (!retrievedUser) {
       // invalid username
       res.status(401).send("Unauthorized");
