@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <div className="header">
       <h1 className="large-title">
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Pickup</Link>
+        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>pickup</Link>
       </h1>
       <div className="header-right">
         <Link to="/create-game" className="create-game-button">Create Game</Link>
