@@ -22,7 +22,6 @@ function generateAccessToken(username) {
 
 export function registerUser(req, res) {
     const { username, password } = req.body; // from form
-    console.log(username, password)
     if (!username || !password) {
       res.status(400).send("Bad request: Invalid input data.");
     } else if (creds.find((c) => c.username === username)) {
@@ -70,8 +69,6 @@ export function loginUser(req, res) {
     const retrievedUser = creds.find(
       (c) => c.username === username
     );
-    console.log(req.body)
-    console.log(creds)
     if (!retrievedUser) {
       // invalid username
       res.status(401).send("Unauthorized");
@@ -80,6 +77,7 @@ export function loginUser(req, res) {
         .compare(pwd, retrievedUser.hashedPassword)
         .then((matched) => {
           if (matched) {
+            console.log("Sending access token")
             generateAccessToken(username).then((token) => {
               res.status(200).send({ token: token });
             });

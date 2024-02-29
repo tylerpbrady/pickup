@@ -139,6 +139,7 @@ function MyApp() {
             .json()
             .then((payload) => setToken(payload.token));
           setMessage(`Login successful; auth token saved`);
+          console.log(message)
         } else {
           setMessage(
             `Login Error ${response.status}: ${response.data}`
@@ -240,8 +241,6 @@ function WelcomePage() {
   );
 }
 
-
-
 return (
   <Router>
     <div className="container">
@@ -250,7 +249,7 @@ return (
         <Route path="/welcome" element={<WelcomePage />} />
         <Route
           path="/login"
-          element={<Login handleSubmit={loginUser} />}
+          element={<Login handleSubmit={loginUser}/>}
         />
         <Route path="/create-account" element={<CreateAccountPage handleSubmit={signupUser}/>} />
         <Route

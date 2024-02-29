@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom';
 
 function Login(props) {
   const [creds, setCreds] = useState({
     username: "",
     pwd: ""
   });
+
+  const navigate = useNavigate();
 
   return (
     <form>
@@ -45,8 +48,9 @@ function Login(props) {
   }
 
   function submitForm() {
-    props.handleSubmit(creds);
-    setCreds({ username: "", pwd: "" });
+    props.handleSubmit(creds).then(() => {
+      navigate("/home");
+    })
   }
 }
 export default Login;
