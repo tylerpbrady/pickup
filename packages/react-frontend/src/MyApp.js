@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
+
 import GameDetailElement from "./GameDetails";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CreateAccountPage from "./CreateAccountPage";
 //import CreateGamePage from './CreateGameWindow.js';
 
 function MyApp() {
@@ -98,19 +100,54 @@ function MyApp() {
       </div>
     );
   }
-
+function WelcomePage() {
   return (
-    <Router>
-      <div className="container">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home games={games}/>} />
-          <Route path="/create-game" element={<CreateGame path="/create-game" updateList={updateList}/>} />
-          <Route path="/game/:id" element={< GameDetailElement games={games} />} />
-        </Routes>
+    <div className="cont">
+      <div className="box">
+        <h1>Welcome to Pickup!</h1>
+        <div className="button-container">
+          <Link to="/home">
+            <button>Login</button>
+          </Link>
+          <Link to="/create-account">
+            <button>Create Account</button>
+          </Link>
+        </div>
       </div>
-    </Router>
+    </div>
   );
+}
+
+return (
+  <Router>
+    <div className="container">
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<WelcomePage />} />
+        <Route path="/create-account" element={<CreateAccountPage />} />
+        <Route path="/game/:id" element={< GameDetailElement games={games} />} />
+        <Route
+          path="/home"
+          element={
+            <React.Fragment>
+              <Header />
+              <Home games={games} />
+            </React.Fragment>
+          }
+        />
+        <Route
+          path="/create-game"
+          element={
+            <React.Fragment>
+              <Header />
+              <CreateGame path="/create-game" updateList={updateList} />
+            </React.Fragment>
+          }
+        />
+      </Routes>
+    </div>
+  </Router>
+);
 }
 
 export default MyApp;
