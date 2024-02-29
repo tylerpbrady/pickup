@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
-
 import GameDetailElement from "./GameDetails";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Link, Routes, Route } from 'react-router-dom';
 import CreateAccountPage from "./CreateAccountPage";
 //import CreateGamePage from './CreateGameWindow.js';
 
