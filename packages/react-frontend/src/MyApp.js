@@ -124,7 +124,14 @@ return (
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<WelcomePage />} />
         <Route path="/create-account" element={<CreateAccountPage />} />
-        <Route path="/game/:id" element={< GameDetailElement games={games} />} />
+        <Route 
+          path="/game/:id" 
+          element={ 
+            <React.Fragment>
+              <Header />
+              <GameDetailElement games={games} /> 
+            </React.Fragment>
+          } />
         <Route
           path="/home"
           element={
