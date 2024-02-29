@@ -8,6 +8,11 @@ function Form(props) {
     time: ""
   });
 
+  // const [set, setSetting] = useState({
+  //   edit_profile: "",
+  //   logout: ""
+  // });
+
   // handle change and submit form has hacky fixes inplace
   // Will change when expanded
   function handleChange(event) {
@@ -19,6 +24,15 @@ function Form(props) {
     else if (name === "time")
       setGame({ sport : game["sport"], title: game["title"], time: value });
   }
+
+  // function handleSettings(event) {
+  //   const { name, value } = event.target;
+  //   if (name === "edit profile")
+
+  //     //setSetting({ sport : value, title: game["title"], time: game["time"] });    
+  //   else if (name === "log out")
+  //     //setSetting({ sport : game["sport"], title: value, time: game["time"] });    
+  // }
 
   function submitForm() {
     props.handleSubmit(game);
