@@ -4,7 +4,7 @@ import './Header.css';
 
 const Header = () => {
   return (
-    <div className="header">
+    <div className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <h1 className="large-title">
         <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Pickup</Link>
       </h1>

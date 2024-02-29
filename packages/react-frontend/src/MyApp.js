@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
+import GameDetailElement from "./GameDetails";
+import { BrowserRouter as Router, Navigate, Link, Routes, Route } from 'react-router-dom';
 import CreateAccountPage from "./CreateAccountPage";
-import { BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom';
-
+//import CreateGamePage from './CreateGameWindow.js';
 
 function MyApp() {
   const [games, setGames] = useState([]);
@@ -80,26 +81,24 @@ function MyApp() {
   }, [] );
 
 
-function CreateGame({ updateList }) {
-  return (
-    <div>
-      <Form handleSubmit={updateList}/>
-    </div>
-  );
-}
+  function CreateGame({ updateList }) {
+    return (
+      <div>
+        <Form handleSubmit={updateList}/>
+      </div>
+    );
+  }
 
-function Home({ games }) {
-  return (
-    <div>
-      <Table 
-      gameData={games}
-      removeGame={removeOneGame}
-      />
-    </div>
-  );
-}
-
-
+  function Home({ games }) {
+    return (
+      <div>
+        <Table 
+        gameData={games}
+        removeGame={removeOneGame}
+        />
+      </div>
+    );
+  }
 function WelcomePage() {
   return (
     <div className="cont">
@@ -125,6 +124,14 @@ return (
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<WelcomePage />} />
         <Route path="/create-account" element={<CreateAccountPage />} />
+        <Route 
+          path="/game/:id" 
+          element={ 
+            <React.Fragment>
+              <Header />
+              <GameDetailElement games={games} /> 
+            </React.Fragment>
+          } />
         <Route
           path="/home"
           element={
