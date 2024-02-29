@@ -41,10 +41,8 @@ function GamePreviewBody(props) {
 								<div style={{ marginBottom: '10px' }}>Sport: {game.sport}</div>
 								<div style={{ marginBottom: '10px' }}>Time: {new Date(game.time).toLocaleString()}</div>
 								<div style={{ marginBottom: '10px' }}>id: {game._id}</div>
-								<div style={{ marginBottom: '10px' }}>Location: {game.location}</div>
-								<div style={{ marginBottom: '10px' }}>Numbers: #/{game.maxPlayers}</div>
-								{/* This allows user to click "Details" if they can't figure out how to get to details page */}
-								<Link to={`/game/${game._id}`}>Details</Link>
+								<div style={{ marginBottom: '10px' }}>Location: N/A</div>
+								<div style={{ marginBottom: '10px' }}>Numbers: #/10</div>
 							</div>
 							<div style={buttonStyles}>
 								<button onClick={() => props.removeGame(index)}>Delete</button>
@@ -73,4 +71,4 @@ function GamePreviewElement(props) {
 }
   
   
-export default GamePreviewElement;
+  export default GamePreviewElement;
