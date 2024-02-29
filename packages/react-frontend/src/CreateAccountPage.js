@@ -14,7 +14,6 @@ function CreateAccountPage(props) {
   };
 
   function submitForm() {
-    console.log(formData)
     props.handleSubmit(formData);
     setFormData({ username: "", password: "" });
   }
@@ -45,7 +44,7 @@ function CreateAccountPage(props) {
             />
           </div>
           <div className="button-container">
-          <input type="button" value={props.buttonLabel || "Create an Account!"} onClick={submitForm}/>
+            <input type="button" value={props.buttonLabel || "Create an Account!"} onClick={submitForm}/>
             <Link to="/login">
               <button>Back to Login</button>
             </Link>
