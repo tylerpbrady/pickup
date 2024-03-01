@@ -6,10 +6,6 @@ import Login from "./Login";
 import CreateAccountPage from "./CreateAccountPage";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom';
 
-
-
-// const characters = [];
-
 function MyApp() {
 
   const INVALID_TOKEN = "INVALID_TOKEN";
@@ -32,33 +28,6 @@ function MyApp() {
     })
   }
 
-//   function removeOneCharacter(index) {
-//     // const updated = characters.filter((character, i) => {
-//     //     return i !== index;
-//     // });
-//     // setCharacters(updated);
-
-//     const charId = characters[index]._id;
-//     fetch(`Http://localhost:8000/users/${charId}`, {
-//         method: "DELETE"
-//     })
-//     .then((response) => {
-//         if (response.status === 204) {
-//             const updated = characters.filter((character, i) => {
-//                 return i !== index;
-
-//             });
-//             setCharacters(updated);
-//         } else {
-//             console.error("Failed to delete");
-//         }
-//     })
-//     .catch((error) => {
-//         console.log(error);
-//     });
-// }
-
-
   function updateList(game) { 
     postGame(game)
       .then(response => {
@@ -78,6 +47,8 @@ function MyApp() {
   }
 
   function addAuthHeader(otherHeaders = {}) {
+    console.log("in auth header")
+    console.log(token)
     if (token === INVALID_TOKEN) {
       return otherHeaders;
     } else {
@@ -139,7 +110,7 @@ function MyApp() {
             .json()
             .then((payload) => setToken(payload.token));
           setMessage(`Login successful; auth token saved`);
-          console.log(message)
+          console.log(token)
         } else {
           setMessage(
             `Login Error ${response.status}: ${response.data}`
@@ -212,7 +183,8 @@ function CreateGame({ updateList }) {
   );
 }
 
-function Home({ games }) {
+function Home({ fetchGames }) {
+  fetchGames().then((res) => res.json()).then((json) => setGames(json["games_list"]))
   return (
     <div>
       <Table 
@@ -257,7 +229,7 @@ return (
           element={
             <React.Fragment>
               <Header />
-              <Home games={games} />
+              <Home fetchGames={fetchGames} />
             </React.Fragment>
           }
         />
