@@ -5,6 +5,7 @@ import Header from "./Header";
 import Login from "./Login";
 import CreateAccountPage from "./CreateAccountPage";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom';
+import GameDetailElement from "./GameDetails";
 
 function MyApp() {
 
@@ -153,13 +154,6 @@ function MyApp() {
     return promise;
   }
 
-  // useEffect(() => {
-  //   fetchGames()
-  //     .then((res) => res.json())
-  //     .then((json) => setGames(json["games_list"]))
-  //     .catch((error) => { console.log(error); });
-  // }, [] );
-
   useEffect(() => {
     fetchGames()
       .then((res) => 
@@ -175,13 +169,13 @@ function MyApp() {
   }, [] );
 
 
-function CreateGame({ updateList }) {
-  return (
-    <div>
-      <Form handleSubmit={updateList}/>
-    </div>
-  );
-}
+  function CreateGame({ updateList }) {
+    return (
+      <div>
+        <Form handleSubmit={updateList}/>
+      </div>
+    );
+  }
 
 function Home({ fetchGames }) {
   fetchGames().then((res) => res.json()).then((json) => setGames(json["games_list"]))
@@ -210,8 +204,8 @@ function WelcomePage() {
         </div>
       </div>
     </div>
-  );
-}
+    );
+  }
 
 return (
   <Router>
@@ -224,6 +218,14 @@ return (
           element={<Login handleSubmit={loginUser}/>}
         />
         <Route path="/create-account" element={<CreateAccountPage handleSubmit={signupUser}/>} />
+        <Route 
+            path="/game/:id" 
+            element={ 
+              <React.Fragment>
+                <Header />
+                <GameDetailElement games={games} /> 
+              </React.Fragment>
+            } />
         <Route
           path="/home"
           element={
