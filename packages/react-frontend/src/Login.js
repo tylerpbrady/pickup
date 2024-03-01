@@ -48,7 +48,8 @@ function Login(props) {
   }
 
   function submitForm() {
-    props.handleSubmit(creds).then(() => {
+    props.handleSubmit(creds).then((res) => {
+      setCreds({username: "", pwd: ""})
       navigate("/home");
     })
   }
