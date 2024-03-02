@@ -33,21 +33,18 @@ app.post("/games", async (req, res) => {
     const createdGame = await gameServices.createGame(newGame);
     res.status(201).json(createdGame); // Send the created game as part of the response
   } catch (error) {
-    console.error(error);
     res.status(500).send({ error: "Internal server error" });
   }
 });
 
 app.get("/games", auth.authenticateUser, async (req, res) => {
   const games = await gameServices.getGames()
-  console.log(games)
   res.status(200).send({"games_list": games})
 });
 
 app.delete("/games/:id", async (req, res) => {
   try {
     const deletedGame = await gameServices.deleteGame(req.params.id);
-    console.log(deletedGame);
 
     // Check if the deletion was successful before sending a response
     if (deletedGame) {
@@ -56,7 +53,6 @@ app.delete("/games/:id", async (req, res) => {
       res.status(404).send({ error: "Game not found" });
     }
   } catch (error) {
-    console.error(error);
     res.status(500).send({ error: "Internal server error" });
   }
 });
