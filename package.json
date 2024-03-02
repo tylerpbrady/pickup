@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "npm -w react-frontend start",
-    "dev": "cd ./packages/express-backend && npx nodemon backend.js"
+    "dev": "cd ./packages/express-backend && npx nodemon backend.js",
+    "lint": "npx eslint ./packages/express-backend/* && npx eslint ./packages/react-frontend/src/*.js"
   },
   "repository": {
     "type": "git",
