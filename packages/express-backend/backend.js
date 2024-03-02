@@ -2,7 +2,6 @@
 import express from "express";
 import cors from "cors";
 
-
 import gameServices from "./models/game-services.js";
 
 const app = express();
@@ -27,9 +26,9 @@ app.post("/games", async (req, res) => {
 });
 
 app.get("/games", async (req, res) => {
-  const games = await gameServices.getGames()
-  console.log(games)
-  res.status(200).send({"games_list": games})
+  const games = await gameServices.getGames();
+  console.log(games);
+  res.status(200).send({ games_list: games });
 });
 
 app.delete("/games/:id", async (req, res) => {
@@ -50,7 +49,5 @@ app.delete("/games/:id", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(
-    `Example app listening at http://localhost:${port}`
-  );
+  console.log(`Example app listening at http://localhost:${port}`);
 });

@@ -7,7 +7,8 @@
   "scripts": {
     "start": "npm -w react-frontend start",
     "dev": "cd ./packages/express-backend && npx nodemon backend.js",
-    "lint": "npx eslint ./packages/express-backend/* && npx eslint ./packages/react-frontend/src/*.js"
+    "lint": "npx eslint ./packages/express-backend/* && npx eslint ./packages/react-frontend/src/*.js",
+    "prettier": "npx prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,8 @@
     "mongoose": "^8.1.2",
     "react-router-dom": "^6.22.1",
     "react-scripts": "^5.0.1"
+  },
+  "devDependencies": {
+    "prettier": "3.2.5"
   }
 }
