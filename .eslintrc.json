@@ -9,5 +9,8 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
-  "rules": {}
+  "rules": {
+    "semi": ["warn"],
+    "quotes": ["warn"]
+  }
 }

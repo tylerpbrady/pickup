@@ -2,7 +2,7 @@ name: CI Testing
 
 on:
   push:
-    branches: [main]
+    branches: [cd]
 
 jobs:
   build:
@@ -14,4 +14,5 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run lint
+      - run: npm run prettier
       - run: npm run -w react-frontend build
