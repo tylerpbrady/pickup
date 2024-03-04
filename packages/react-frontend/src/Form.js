@@ -43,6 +43,15 @@ function Form(props) {
       setGame({ ...game, time: new Date(`${selectedDate}T${value}`)}) }
   }
 
+  // function handleSettings(event) {
+  //   const { name, value } = event.target;
+  //   if (name === "edit profile")
+
+  //     //setSetting({ sport : value, title: game["title"], time: game["time"] });    
+  //   else if (name === "log out")
+  //     //setSetting({ sport : game["sport"], title: value, time: game["time"] });    
+  // }
+
   function submitForm() {
     props.handleSubmit(game);
     setGame({ sport: "", title: "", description: "", location: "", maxPlayers: 0, equipment: "", skill: 0, time: new Date() });
