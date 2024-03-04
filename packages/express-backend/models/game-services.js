@@ -1,14 +1,12 @@
 import mongoose from "mongoose";
 import gameModel from "./game.js";
+import { MongoClient, ServerApiVersion } from 'mongodb';
+import connectToDatabase from './atlas.js';
+
 
 mongoose.set("debug", true);
 
-mongoose
-  .connect("mongodb://localhost:27017/games", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .catch((error) => console.log(error));
+connectToDatabase("PickupDatabase");
 
 function findGameById(id) {
     return gameModel.findById(id);
@@ -27,7 +25,8 @@ function getPlayersInGame(gameId) {
 }
 
 function createGame(game) {
-    return new gameModel(game).save()
+    console.log('Trying to create game...');
+    return collection.insertOne(game);
 }
 
 function deleteGame(id) {

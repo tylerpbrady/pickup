@@ -1,8 +1,6 @@
 // backend.js
 import express from "express";
 import cors from "cors";
-
-
 import gameServices from "./models/game-services.js";
 
 const app = express();
@@ -19,6 +17,7 @@ app.post("/games", async (req, res) => {
   try {
     const newGame = req.body;
     const createdGame = await gameServices.createGame(newGame);
+    console.log("Game Created")
     res.status(201).json(createdGame); // Send the created game as part of the response
   } catch (error) {
     console.error(error);
