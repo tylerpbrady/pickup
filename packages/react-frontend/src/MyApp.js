@@ -49,13 +49,13 @@ function MyApp() {
   }
 
   function fetchGames() {
-    const promise = fetch("http://localhost:8000/games");
+    const promise = fetch("http://pickupapp.azurewebsites.net");
     return promise;
   }
 
   function postGame(game) {
     console.log(game);
-    const promise = fetch("http://localhost:8000/games", {
+    const promise = fetch("http://pickupapp.azurewebsites.net", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,7 +68,7 @@ function MyApp() {
 
   function deleteGame(game) {
     console.log(game._id);
-    const promise = fetch("http://localhost:8000/games/" + game._id, {
+    const promise = fetch("http://pickupapp.azurewebsites.net/games/" + game._id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
