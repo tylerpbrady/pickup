@@ -2,7 +2,7 @@ name: CI Testing
 
 on:
   push:
-    branches: [tyler/cicd]
+    branches: [main]
 
 jobs:
   build:
