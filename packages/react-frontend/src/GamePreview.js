@@ -58,16 +58,19 @@ function GamePreviewBody(props) {
     );
 }
 
-function GamePreviewElement(props) {
-	return (
-		<div>
-			<GamePreviewBody
-				gameData={props.gameData}
-				removeGame={props.removeGame}
-			/>
-		</div>
-	);
-}
+  function GamePreviewElement(props) {
+	if (props.gameData === null) {
+		return <caption>Data Unavailable</caption>;
+	}
+    return (
+      <table>
+        <GamePreviewBody
+          gameData={props.gameData}
+          removeGame={props.removeGame}
+        />
+      </table>
+    );
+  }
   
   
 export default GamePreviewElement;
