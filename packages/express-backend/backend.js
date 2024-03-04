@@ -1,10 +1,12 @@
 // backend.js
 import express from "express";
 import cors from "cors";
-
 import userServices from "./models/user-services.js";
 import gameServices from "./models/game-services.js";
 import auth from "./auth.js";
+import connectToDatabase from './atlas.js';
+
+connectToDatabase("PickupDatabase");
 
 const app = express();
 const port = 8000;
@@ -31,6 +33,7 @@ app.post("/games", async (req, res) => {
   try {
     const newGame = req.body;
     const createdGame = await gameServices.createGame(newGame);
+    console.log("Game Created")
     res.status(201).json(createdGame); // Send the created game as part of the response
   } catch (error) {
     res.status(500).send({ error: "Internal server error" });
@@ -66,9 +69,6 @@ app.post("/users", auth.authenticateUser, (req, res) => {
 
 app.post("/login", auth.loginUser);
 app.post("/signup", auth.registerUser);
-
-
-
 
 
 app.listen(port, () => {

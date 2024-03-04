@@ -7,9 +7,6 @@ import Settings from "./settings";
 import { BrowserRouter as Router, Navigate, Link, Routes, Route } from 'react-router-dom';
 import Login from "./Login";
 import CreateAccountPage from "./CreateAccountPage";
-import { BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom';
-import GameDetailElement from "./GameDetails";
-import GamePreviewElement from "./GamePreview";
 
 function MyApp() {
 
@@ -72,7 +69,7 @@ function MyApp() {
   function fetchUsers() {
     const promise = fetch("http://localhost:8000/users");
     return promise;
-}
+  }
 
   function postGame(game) {
     const promise = fetch("http://localhost:8000/games", {
