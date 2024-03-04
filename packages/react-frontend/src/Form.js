@@ -10,37 +10,30 @@ function Form(props) {
     maxPlayers: 0,
     equipment: "",
     skill: 0,
-    time: new Date()
+    time: new Date(),
   });
 
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedTime, setSelectedTime] = useState('');
-  
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
 
   // handle change and submit form has hacky fixes inplace
   // Will change when expanded
   function handleChange(event) {
     const { name, value } = event.target;
-    if (name === "sport")
-      setGame({ ...game, sport: value });
-    else if (name === "title")
-      setGame({ ...game, title: value });
-    else if (name === "description")
-      setGame({ ...game, description: value })
-    else if (name === "location")
-      setGame({ ...game, location: value })
-    else if (name === "maxPlayers")
-      setGame({ ...game, maxPlayers: value })
-    else if (name === "equipment")
-      setGame({ ...game, equipment: value })
-    else if (name === "skill")
-      setGame({ ...game, skill: value })
+    if (name === "sport") setGame({ ...game, sport: value });
+    else if (name === "title") setGame({ ...game, title: value });
+    else if (name === "description") setGame({ ...game, description: value });
+    else if (name === "location") setGame({ ...game, location: value });
+    else if (name === "maxPlayers") setGame({ ...game, maxPlayers: value });
+    else if (name === "equipment") setGame({ ...game, equipment: value });
+    else if (name === "skill") setGame({ ...game, skill: value });
     else if (name === "dateDate") {
-      setSelectedDate(value)
-      setGame({ ...game, time: new Date(`${value}T${selectedTime}`)}) }
-    else if (name === "dateTime") {
-      setSelectedTime(value)
-      setGame({ ...game, time: new Date(`${selectedDate}T${value}`)}) }
+      setSelectedDate(value);
+      setGame({ ...game, time: new Date(`${value}T${selectedTime}`) });
+    } else if (name === "dateTime") {
+      setSelectedTime(value);
+      setGame({ ...game, time: new Date(`${selectedDate}T${value}`) });
+    }
   }
 
   // function handleSettings(event) {
@@ -54,7 +47,16 @@ function Form(props) {
 
   function submitForm() {
     props.handleSubmit(game);
-    setGame({ sport: "", title: "", description: "", location: "", maxPlayers: 0, equipment: "", skill: 0, time: new Date() });
+    setGame({
+      sport: "",
+      title: "",
+      description: "",
+      location: "",
+      maxPlayers: 0,
+      equipment: "",
+      skill: 0,
+      time: new Date(),
+    });
   }
 
   return (
@@ -83,7 +85,7 @@ function Form(props) {
         value={game.description}
         onChange={handleChange}
         rows="2"
-        style={{ resize: 'none' }}
+        style={{ resize: "none" }}
       />
       <label htmlFor="location">Location</label>
       <input
@@ -137,7 +139,7 @@ function Form(props) {
       </label>
       <input type="button" value="Submit" onClick={submitForm} />
     </form>
-  )
+  );
 }
 
 export default Form;

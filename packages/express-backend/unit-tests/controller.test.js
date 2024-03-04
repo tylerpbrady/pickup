@@ -1,7 +1,7 @@
 import gameServices from "../models/game-services.js";
 
 test("setting up test harness", async () => {
-    console.log(await gameServices.getGames())
+  console.log(await gameServices.getGames());
 });
 
 // example game

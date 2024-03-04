@@ -1,6 +1,13 @@
 import mongoose from "mongoose";
 
 const GameSchema = new mongoose.Schema(
+<<<<<<< HEAD
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+=======
     {
         title: {
             type: String,
@@ -49,10 +56,54 @@ const GameSchema = new mongoose.Schema(
             type: Number,
             required: true,
         }
+>>>>>>> main
     },
-    {
-        timestamps: true,
-    }
+    // commenting out for simplicity
+    // hostId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: "User",
+    // },
+    sport: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    location: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    maxPlayers: {
+      type: Number,
+      required: false,
+    },
+    // players: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    // }],
+    time: {
+      type: Date,
+      required: true,
+    },
+    equipment: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    skill: {
+      type: Number,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  },
 );
 
 const Game = mongoose.model("Game", GameSchema);

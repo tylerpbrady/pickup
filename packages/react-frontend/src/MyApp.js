@@ -3,9 +3,18 @@ import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
 import GameDetailElement from "./GameDetails";
+
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Link,
+  Routes,
+  Route,
+} from "react-router-dom";
+
 import Settings from "./settings";
-import { BrowserRouter as Router, Navigate, Link, Routes, Route } from 'react-router-dom';
 import Login from "./Login";
+
 import CreateAccountPage from "./CreateAccountPage";
 
 function MyApp() {
@@ -16,30 +25,30 @@ function MyApp() {
   const [games, setGames] = useState([]);
 
   function removeOneGame(index) {
-    deleteGame(games[index])
-    .then(deleted => {
+    deleteGame(games[index]).then((deleted) => {
+      console.log(deleted.status);
       if (deleted.status === 204) {
         const updated = games.filter((game, i) => {
           return i !== index;
         });
         setGames(updated);
       } else {
-        console.log("Failed to delete game")
+        console.log("Failed to delete game");
       }
-    })
+    });
   }
 
-  function updateList(game) { 
+  function updateList(game) {
     postGame(game)
-      .then(response => {
+      .then((response) => {
         if (response.status === 201) {
           return response.json();
         } else {
-          console.log('Failed to update list. Invalid HTTP Code (not 201).');
+          console.log("Failed to update list. Invalid HTTP Code (not 201).");
         }
       })
-      .then(updatedGame => {
-        console.log(updatedGame.game)
+      .then((updatedGame) => {
+        console.log(updatedGame.game);
         setGames([...games, updatedGame]);
       })
       .catch((error) => {
@@ -60,7 +69,7 @@ function MyApp() {
   }
   
   function fetchGames() {
-    const promise = fetch("http://localhost:8000/games", {
+    const promise = fetch("http://pickupapp.azurewebsites.net/games", {
       headers: addAuthHeader()
     });
     return promise;
@@ -72,7 +81,8 @@ function MyApp() {
   }
 
   function postGame(game) {
-    const promise = fetch("http://localhost:8000/games", {
+    console.log(game);
+    const promise = fetch("http://pickupapp.azurewebsites.net", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,8 +94,8 @@ function MyApp() {
   }
 
   function deleteGame(game) {
-    console.log(game._id)
-    const promise = fetch(("http://localhost:8000/games/" + game._id), {
+    console.log(game._id);
+    const promise = fetch("http://pickupapp.azurewebsites.net/games/" + game._id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -169,7 +179,7 @@ function MyApp() {
   function CreateGame({ updateList }) {
     return (
       <div>
-        <Form handleSubmit={updateList}/>
+        <Form handleSubmit={updateList} />
       </div>
     );
   }
@@ -185,10 +195,7 @@ function MyApp() {
   function Home({ games }) {
     return (
       <div>
-        <Table 
-        gameData={games}
-        removeGame={removeOneGame}
-        />
+        <Table gameData={games} removeGame={removeOneGame} />
       </div>
     );
   }
