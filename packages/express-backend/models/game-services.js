@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import gameModel from "./game.js";
+import { MongoClient, ServerApiVersion } from 'mongodb';
+import connectToDatabase from './atlas.js';
+
 
 mongoose.set("debug", true);
 
