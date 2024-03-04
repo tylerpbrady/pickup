@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 import gameModel from "./game.js";
-import { MongoClient, ServerApiVersion } from 'mongodb';
 import connectToDatabase from './atlas.js';
-
 
 mongoose.set("debug", true);
 
@@ -25,8 +23,7 @@ function getPlayersInGame(gameId) {
 }
 
 function createGame(game) {
-    console.log('Trying to create game...');
-    return collection.insertOne(game);
+    return new gameModel(game).save()
 }
 
 function deleteGame(id) {
