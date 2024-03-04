@@ -3,12 +3,12 @@ import userModel from "./user.js";
 
 mongoose.set("debug", true);
 
-mongoose
+/* mongoose
   .connect("mongodb://localhost:27017/users", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .catch((error) => console.log(error));
+  .catch((error) => console.log(error)); */
 
 function getUsers(name) {
   let promise;
