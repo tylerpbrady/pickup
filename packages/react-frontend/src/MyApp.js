@@ -5,16 +5,22 @@ import Header from "./Header";
 import GameDetailElement from "./GameDetails";
 import Settings from "./settings";
 import { BrowserRouter as Router, Navigate, Link, Routes, Route } from 'react-router-dom';
+import Login from "./Login";
 import CreateAccountPage from "./CreateAccountPage";
-//import CreateGamePage from './CreateGameWindow.js';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom';
+import GameDetailElement from "./GameDetails";
+import GamePreviewElement from "./GamePreview";
 
 function MyApp() {
+
+  const INVALID_TOKEN = "INVALID_TOKEN";
+  const [token, setToken] = useState(INVALID_TOKEN);
+  const [message, setMessage] = useState("");
   const [games, setGames] = useState([]);
 
   function removeOneGame(index) {
     deleteGame(games[index])
     .then(deleted => {
-      console.log(deleted.status)
       if (deleted.status === 204) {
         const updated = games.filter((game, i) => {
           return i !== index;
@@ -42,16 +48,33 @@ function MyApp() {
       .catch((error) => {
         console.log(error);
       })
+   }
+
+  function addAuthHeader(otherHeaders = {}) {
+
+    if (token === INVALID_TOKEN) {
+      return otherHeaders;
+    } else {
+      return {
+        ...otherHeaders,
+        Authorization: `Bearer ${token}`
+      };
+    }
   }
-
-
+  
   function fetchGames() {
-    const promise = fetch("http://localhost:8000/games");
+    const promise = fetch("http://localhost:8000/games", {
+      headers: addAuthHeader()
+    });
     return promise;
   }
 
+  function fetchUsers() {
+    const promise = fetch("http://localhost:8000/users");
+    return promise;
+}
+
   function postGame(game) {
-    console.log(game)
     const promise = fetch("http://localhost:8000/games", {
       method: "POST",
       headers: {
@@ -75,13 +98,76 @@ function MyApp() {
     return promise;
   }
 
+  function loginUser(creds) {
+    const promise = fetch(`http://localhost:8000/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(creds)
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          response
+            .json()
+            .then((payload) => setToken(payload.token));
+          setMessage(`Login successful; auth token saved`);
+        } else {
+          setMessage(
+            `Login Error ${response.status}: ${response.data}`
+          );
+        }
+      })
+      .catch((error) => {
+        setMessage(`Login Error: ${error}`);
+      });
+  
+    return promise;
+  }
+  function signupUser(creds) {
+    const promise = fetch(`http://localhost:8000/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(creds)
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          response
+            .json()
+            .then((payload) => setToken(payload.token));
+          setMessage(
+            `Signup successful for user: ${creds.username}; auth token saved`
+          );
+        } else {
+          console.log(response)
+          setMessage(
+            `Signup Error ${response.status}: ${response.data}`
+          );
+        }
+      })
+      .catch((error) => {
+        setMessage(`Signup Error: ${error}`);
+      });
+  
+    return promise;
+  }
+
   useEffect(() => {
     fetchGames()
-      .then((res) => res.json())
-      .then((json) => setGames(json["games_list"]))
+      .then((res) => 
+        res.status === 200 ? res.json() : undefined)
+      .then((json) => {
+        console.log("dummy")
+        if (json) {
+          setGames(json["games_list"]);
+        } else {
+          setGames(null);
+        }
+      })
       .catch((error) => { console.log(error); });
-  }, [] );
-
+  }, [token] );
 
   function CreateGame({ updateList }) {
     return (
@@ -109,14 +195,14 @@ function MyApp() {
       </div>
     );
   }
-  
+
   function WelcomePage() {
     return (
       <div className="cont">
         <div className="box">
           <h1>Welcome to Pickup!</h1>
           <div className="button-container">
-            <Link to="/home">
+            <Link to="/login">
               <button>Login</button>
             </Link>
             <Link to="/create-account">
@@ -125,53 +211,57 @@ function MyApp() {
           </div>
         </div>
       </div>
-    );
-  }
+      );
+    }
 
-return (
-  <Router>
-    <div className="container">
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<WelcomePage />} />
-        <Route path="/create-account" element={<CreateAccountPage />} />
-        <Route 
-          path="/settings" 
+  return (
+    <Router>
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Navigate to="/welcome" />} />
+          <Route path="/welcome" element={<WelcomePage />} />
+          <Route
+            path="/login"
+            element={<Login handleSubmit={loginUser}/>}
+          />
+          <Route path="/create-account" element={<CreateAccountPage handleSubmit={signupUser}/>} />
+          <Route 
+            path="/settings" 
+              element={
+              <React.Fragment>
+                <Header />
+                <Set path="/settings" />
+              </React.Fragment>} />
+          <Route 
+              path="/game/:id" 
+              element={ 
+                <React.Fragment>
+                  <Header />
+                  <GameDetailElement games={games} /> 
+                </React.Fragment>
+              } />
+          <Route
+            path="/home"
             element={
               <React.Fragment>
-              <Header />
-              <Set path="/settings" />
-            </React.Fragment>} />
-        <Route 
-          path="/game/:id" 
-          element={ 
-            <React.Fragment>
-              <Header />
-              <GameDetailElement games={games} /> 
-            </React.Fragment>
-          } />
-        <Route
-          path="/home"
-          element={
-            <React.Fragment>
-              <Header />
-              <Home games={games} />
-            </React.Fragment>
-          }
-        />
-        <Route
-          path="/create-game"
-          element={
-            <React.Fragment>
-              <Header />
-              <CreateGame path="/create-game" updateList={updateList} />
-            </React.Fragment>
-          }
-        />
-      </Routes>
-    </div>
-  </Router>
-);
+                <Header />
+                <Home games={games} />
+              </React.Fragment>
+            }
+          />
+          <Route
+            path="/create-game"
+            element={
+              <React.Fragment>
+                <Header />
+                <CreateGame path="/create-game" updateList={updateList} />
+              </React.Fragment>
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default MyApp;
