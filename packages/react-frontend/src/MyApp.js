@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
+import GameDetailElement from "./GameDetails";
+import Settings from "./settings";
+import { BrowserRouter as Router, Navigate, Link, Routes, Route } from 'react-router-dom';
 import Login from "./Login";
 import CreateAccountPage from "./CreateAccountPage";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom';
@@ -45,7 +48,7 @@ function MyApp() {
       .catch((error) => {
         console.log(error);
       })
-  }
+   }
 
   function addAuthHeader(otherHeaders = {}) {
 
@@ -174,76 +177,91 @@ function MyApp() {
     );
   }
 
-function Home({ games }) {
-  return (
-    <div>
-      <Table 
-      gameData={games}
-      removeGame={removeOneGame}
-      />
-    </div>
-  );
-}
-
-function WelcomePage() {
-  return (
-    <div className="cont">
-      <div className="box">
-        <h1>Welcome to Pickup!</h1>
-        <div className="button-container">
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-          <Link to="/create-account">
-            <button>Create Account</button>
-          </Link>
-        </div>
+  function Set() {
+    return (
+      <div>
+        <Settings Settings/>
       </div>
-    </div>
     );
   }
 
-return (
-  <Router>
-    <div className="container">
-      <Routes>
-        <Route path="/" element={<Navigate to="/welcome" />} />
-        <Route path="/welcome" element={<WelcomePage />} />
-        <Route
-          path="/login"
-          element={<Login handleSubmit={loginUser}/>}
+  function Home({ games }) {
+    return (
+      <div>
+        <Table 
+        gameData={games}
+        removeGame={removeOneGame}
         />
-        <Route path="/create-account" element={<CreateAccountPage handleSubmit={signupUser}/>} />
-        <Route 
-            path="/game/:id" 
-            element={ 
+      </div>
+    );
+  }
+
+  function WelcomePage() {
+    return (
+      <div className="cont">
+        <div className="box">
+          <h1>Welcome to Pickup!</h1>
+          <div className="button-container">
+            <Link to="/login">
+              <button>Login</button>
+            </Link>
+            <Link to="/create-account">
+              <button>Create Account</button>
+            </Link>
+          </div>
+        </div>
+      </div>
+      );
+    }
+
+  return (
+    <Router>
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Navigate to="/welcome" />} />
+          <Route path="/welcome" element={<WelcomePage />} />
+          <Route
+            path="/login"
+            element={<Login handleSubmit={loginUser}/>}
+          />
+          <Route path="/create-account" element={<CreateAccountPage handleSubmit={signupUser}/>} />
+          <Route 
+            path="/settings" 
+              element={
               <React.Fragment>
                 <Header />
-                <GameDetailElement games={games} /> 
+                <Set path="/settings" />
+              </React.Fragment>} />
+          <Route 
+              path="/game/:id" 
+              element={ 
+                <React.Fragment>
+                  <Header />
+                  <GameDetailElement games={games} /> 
+                </React.Fragment>
+              } />
+          <Route
+            path="/home"
+            element={
+              <React.Fragment>
+                <Header />
+                <Home games={games} />
               </React.Fragment>
-            } />
-        <Route
-          path="/home"
-          element={
-            <React.Fragment>
-              <Header />
-              <Home games={games} />
-            </React.Fragment>
-          }
-        />
-        <Route
-          path="/create-game"
-          element={
-            <React.Fragment>
-              <Header />
-              <CreateGame path="/create-game" updateList={updateList} />
-            </React.Fragment>
-          }
-        />
-      </Routes>
-    </div>
-  </Router>
-);
+            }
+          />
+          <Route
+            path="/create-game"
+            element={
+              <React.Fragment>
+                <Header />
+                <CreateGame path="/create-game" updateList={updateList} />
+              </React.Fragment>
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
 export default MyApp;
