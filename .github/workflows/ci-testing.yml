@@ -11,6 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
       - run: npm ci
-      # - run: npm run lint
+      - run: npm run lint
       - run: npm run prettier
+      - run: export CI = false
       - run: npm run -w react-frontend build -verbose

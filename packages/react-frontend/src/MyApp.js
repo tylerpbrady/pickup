@@ -73,10 +73,10 @@ function MyApp() {
     return promise;
   }
 
-  function fetchUsers() {
-    const promise = fetch("http://localhost:8000/users");
-    return promise;
-  }
+  // function fetchUsers() {
+  //   const promise = fetch("http://localhost:8000/users");
+  //   return promise;
+  // }
 
   function postGame(game) {
     console.log(game);
@@ -211,6 +211,7 @@ function MyApp() {
       </div>
     );
   }
+  console.log(message)
 
   return (
     <Router>
