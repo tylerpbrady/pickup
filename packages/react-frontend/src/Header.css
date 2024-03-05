@@ -1,0 +1,29 @@
+.header {
+  margin-bottom: "30px";
+  margin-top: "30px";
+}
+
+.large-title {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.create-game-button,
+.profile-button,
+.settings-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.create-game-button:hover,
+.profile-button:hover,
+.settings-button:hover {
+  background-color: #0164cd;
+}

@@ -1,0 +1,40 @@
+.header {
+  margin-top: 30px;
+}
+
+.large-title {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.header-right {
+  float: right;
+  margin-bottom: 100px;
+}
+
+.log-out-button,
+.edit-profile-button {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 50px;
+  text-align: center;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #cfcfcf;
+  width: 1000px;
+  height: 100px;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  border: none;
+
+  border-radius: 15px;
+  cursor: pointer;
+  margin-right: 10px;
+  display: flex;
+  margin-top: 70px;
+}
+
+.log-out-button:hover,
+.edit-profile-button:hover {
+  background-color: #0164cd;
+}
