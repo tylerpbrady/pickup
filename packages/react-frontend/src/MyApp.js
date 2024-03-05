@@ -67,7 +67,7 @@ function MyApp() {
   }
 
   function fetchGames() {
-    const promise = fetch("http://pickupapp.azurewebsites.net/games", {
+    const promise = fetch("http://localhost:8000/games", {
       headers: addAuthHeader(),
     });
     return promise;
@@ -80,7 +80,7 @@ function MyApp() {
 
   function postGame(game) {
     console.log(game);
-    const promise = fetch("http://pickupapp.azurewebsites.net", {
+    const promise = fetch("http://localhost:8000/games", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -94,7 +94,7 @@ function MyApp() {
   function deleteGame(game) {
     console.log(game._id);
     const promise = fetch(
-      "http://pickupapp.azurewebsites.net/games/" + game._id,
+      "http://localhost:8000/games/" + game._id,
       {
         method: "DELETE",
         headers: {
