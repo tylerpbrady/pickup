@@ -4,7 +4,7 @@ import cors from "cors";
 import userServices from "./models/user-services.js";
 import gameServices from "./models/game-services.js";
 import auth from "./auth.js";
-import connectToDatabase from './atlas.js';
+import connectToDatabase from "./atlas.js";
 
 connectToDatabase("PickupDatabase");
 
@@ -22,18 +22,14 @@ app.get("/users", auth.authenticateUser, (req, res) => {
   const name = req.query.name;
   // const job = req.query.job;
 
-  userServices.getUsers(name)
-    .then((result) => 
-      res.status(201).send(result)
-    );
+  userServices.getUsers(name).then((result) => res.status(201).send(result));
 });
-
 
 app.post("/games", async (req, res) => {
   try {
     const newGame = req.body;
     const createdGame = await gameServices.createGame(newGame);
-    console.log("Game Created")
+    console.log("Game Created");
     res.status(201).json(createdGame); // Send the created game as part of the response
   } catch (error) {
     res.status(500).send({ error: "Internal server error" });
@@ -41,8 +37,8 @@ app.post("/games", async (req, res) => {
 });
 
 app.get("/games", auth.authenticateUser, async (req, res) => {
-  const games = await gameServices.getGames()
-  res.status(200).send({"games_list": games})
+  const games = await gameServices.getGames();
+  res.status(200).send({ games_list: games });
 });
 
 app.delete("/games/:id", async (req, res) => {
@@ -62,14 +58,13 @@ app.delete("/games/:id", async (req, res) => {
 
 app.post("/users", auth.authenticateUser, (req, res) => {
   const userToAdd = req.body;
-  userServices.addUser(userToAdd).then((result) =>
-    res.status(201).send(result)
-  );
+  userServices
+    .addUser(userToAdd)
+    .then((result) => res.status(201).send(result));
 });
 
 app.post("/login", auth.loginUser);
 app.post("/signup", auth.registerUser);
-
 
 app.listen(process.env.PORT || port, () => {
   console.log("REST API is listening.");

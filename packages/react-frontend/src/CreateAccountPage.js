@@ -9,7 +9,7 @@ function CreateAccountPage(props) {
   });
 
   const handleChange = (e) => {
-    const { name, value} = e.target;
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
@@ -44,7 +44,11 @@ function CreateAccountPage(props) {
             />
           </div>
           <div className="button-container">
-            <input type="button" value={props.buttonLabel || "Create an Account!"} onClick={submitForm}/>
+            <input
+              type="button"
+              value={props.buttonLabel || "Create an Account!"}
+              onClick={submitForm}
+            />
             <Link to="/login">
               <button>Back to Login</button>
             </Link>

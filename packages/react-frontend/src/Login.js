@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
 function Login(props) {
   const [creds, setCreds] = useState({
     username: "",
-    pwd: ""
+    pwd: "",
   });
 
   const navigate = useNavigate();
@@ -49,9 +49,9 @@ function Login(props) {
 
   function submitForm() {
     props.handleSubmit(creds).then((res) => {
-      setCreds({username: "", pwd: ""})
+      setCreds({ username: "", pwd: "" });
       navigate("/home");
-    })
+    });
   }
 }
 export default Login;

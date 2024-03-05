@@ -40,9 +40,9 @@ function Form(props) {
   //   const { name, value } = event.target;
   //   if (name === "edit profile")
 
-  //     //setSetting({ sport : value, title: game["title"], time: game["time"] });    
+  //     //setSetting({ sport : value, title: game["title"], time: game["time"] });
   //   else if (name === "log out")
-  //     //setSetting({ sport : game["sport"], title: value, time: game["time"] });    
+  //     //setSetting({ sport : game["sport"], title: value, time: game["time"] });
   // }
 
   function submitForm() {

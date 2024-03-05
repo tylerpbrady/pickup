@@ -18,7 +18,6 @@ import Login from "./Login";
 import CreateAccountPage from "./CreateAccountPage";
 
 function MyApp() {
-
   const INVALID_TOKEN = "INVALID_TOKEN";
   const [token, setToken] = useState(INVALID_TOKEN);
   const [message, setMessage] = useState("");
@@ -53,24 +52,23 @@ function MyApp() {
       })
       .catch((error) => {
         console.log(error);
-      })
-   }
+      });
+  }
 
   function addAuthHeader(otherHeaders = {}) {
-
     if (token === INVALID_TOKEN) {
       return otherHeaders;
     } else {
       return {
         ...otherHeaders,
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       };
     }
   }
-  
+
   function fetchGames() {
     const promise = fetch("http://pickupapp.azurewebsites.net/games", {
-      headers: addAuthHeader()
+      headers: addAuthHeader(),
     });
     return promise;
   }
@@ -95,12 +93,15 @@ function MyApp() {
 
   function deleteGame(game) {
     console.log(game._id);
-    const promise = fetch("http://pickupapp.azurewebsites.net/games/" + game._id, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
+    const promise = fetch(
+      "http://pickupapp.azurewebsites.net/games/" + game._id,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
 
     return promise;
   }
@@ -109,72 +110,65 @@ function MyApp() {
     const promise = fetch(`http://localhost:8000/login`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(creds)
+      body: JSON.stringify(creds),
     })
       .then((response) => {
         if (response.status === 200) {
-          response
-            .json()
-            .then((payload) => setToken(payload.token));
+          response.json().then((payload) => setToken(payload.token));
           setMessage(`Login successful; auth token saved`);
         } else {
-          setMessage(
-            `Login Error ${response.status}: ${response.data}`
-          );
+          setMessage(`Login Error ${response.status}: ${response.data}`);
         }
       })
       .catch((error) => {
         setMessage(`Login Error: ${error}`);
       });
-  
+
     return promise;
   }
   function signupUser(creds) {
     const promise = fetch(`http://localhost:8000/signup`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(creds)
+      body: JSON.stringify(creds),
     })
       .then((response) => {
         if (response.status === 201) {
-          response
-            .json()
-            .then((payload) => setToken(payload.token));
+          response.json().then((payload) => setToken(payload.token));
           setMessage(
-            `Signup successful for user: ${creds.username}; auth token saved`
+            `Signup successful for user: ${creds.username}; auth token saved`,
           );
         } else {
-          console.log(response)
-          setMessage(
-            `Signup Error ${response.status}: ${response.data}`
-          );
+          console.log(response);
+          setMessage(`Signup Error ${response.status}: ${response.data}`);
         }
       })
       .catch((error) => {
         setMessage(`Signup Error: ${error}`);
       });
-  
+
     return promise;
   }
 
   useEffect(() => {
     fetchGames()
-      .then((res) => 
-        res.status === 200 ? res.json() : undefined)
+      .then((res) => (res.status === 200 ? res.json() : undefined))
       .then((json) => {
-        console.log("dummy")
+        console.log("dummy");
         if (json) {
           setGames(json["games_list"]);
         } else {
           setGames(null);
         }
       })
-      .catch((error) => { console.log(error); });
-  }, [token] );
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [token]);
 
   function CreateGame({ updateList }) {
     return (
@@ -187,7 +181,7 @@ function MyApp() {
   function Set() {
     return (
       <div>
-        <Settings Settings/>
+        <Settings Settings />
       </div>
     );
   }
@@ -215,8 +209,8 @@ function MyApp() {
           </div>
         </div>
       </div>
-      );
-    }
+    );
+  }
 
   return (
     <Router>
@@ -224,26 +218,29 @@ function MyApp() {
         <Routes>
           <Route path="/" element={<Navigate to="/welcome" />} />
           <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/login" element={<Login handleSubmit={loginUser} />} />
           <Route
-            path="/login"
-            element={<Login handleSubmit={loginUser}/>}
+            path="/create-account"
+            element={<CreateAccountPage handleSubmit={signupUser} />}
           />
-          <Route path="/create-account" element={<CreateAccountPage handleSubmit={signupUser}/>} />
-          <Route 
-            path="/settings" 
-              element={
+          <Route
+            path="/settings"
+            element={
               <React.Fragment>
                 <Header />
                 <Set path="/settings" />
-              </React.Fragment>} />
-          <Route 
-              path="/game/:id" 
-              element={ 
-                <React.Fragment>
-                  <Header />
-                  <GameDetailElement games={games} /> 
-                </React.Fragment>
-              } />
+              </React.Fragment>
+            }
+          />
+          <Route
+            path="/game/:id"
+            element={
+              <React.Fragment>
+                <Header />
+                <GameDetailElement games={games} />
+              </React.Fragment>
+            }
+          />
           <Route
             path="/home"
             element={

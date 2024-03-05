@@ -17,7 +17,6 @@ function TableHeader() {
   );
 }
 
-
 function Table(props) {
   return (
     <table>
