@@ -44,6 +44,8 @@ function Login(props) {
       case "password":
         setCreds({ ...creds, pwd: value });
         break;
+      default:
+        break;
     }
   }
 
