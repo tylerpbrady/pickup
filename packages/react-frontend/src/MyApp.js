@@ -113,6 +113,7 @@ function MyApp() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify(creds),
     })
@@ -135,6 +136,7 @@ function MyApp() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify(creds),
     })
