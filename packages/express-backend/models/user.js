@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema(
       },
     ],
   },
-  { collection: "users_list" },
+  { collection: "users_list" }
 );
 
 // validate(value) {

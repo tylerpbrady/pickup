@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm -w react-frontend start",
     "dev": "cd ./packages/express-backend && npx nodemon backend.js",
-    "lint": "npx eslint ./packages/express-backend/* && npx eslint ./packages/react-frontend/src/*.js",
+    "lint": "npx eslint ./packages/express-backend/*.js --fix && npx eslint ./packages/react-frontend/src/*.js",
     "prettier": "npx prettier --write ."
   },
   "repository": {
@@ -33,6 +33,8 @@
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0",
     "prettier": "3.2.5"
   }
 }
