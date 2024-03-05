@@ -27,19 +27,19 @@ jobs:
           npm run -w express-backend build --if-present
           npm run -w express-backend test --if-present
         working-directory: packages/express-backend
-      - name: pwd
-        run: pwd && ls
       - name: Zip artifact for deployment
         run: |
           pwd && ls
           zip release.zip ./* -r
           pwd && ls
         working-directory: packages/express-backend
+      - name: pwd
+        run: pwd && ls
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: packages/release.zip
+          path: packages/express-backend/release.zip
 
   deploy:
     runs-on: ubuntu-latest
