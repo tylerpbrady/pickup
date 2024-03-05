@@ -4,14 +4,14 @@ import cors from "cors";
 import userServices from "./models/user-services.js";
 import gameServices from "./models/game-services.js";
 import auth from "./auth.js";
-import connectToDatabase from "./atlas.js";
+import connectToDatabase from "./models/atlas.js";
 
 connectToDatabase("PickupDatabase");
 
 const app = express();
 const port = 8000;
 
-app.use(cors());
+app.use(cors("*"));
 app.use(express.json());
 
 app.get("/", (req, res) => {

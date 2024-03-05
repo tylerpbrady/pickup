@@ -7,7 +7,7 @@ function generateAccessToken(username) {
 	return new Promise((resolve, reject) => {
 		jwt.sign(
 			{ username: username },
-			process.env.TOKEN_SECRET,
+			"test",
 			{ expiresIn: "1d" },
 			(error, token) => {
 				if (error) {

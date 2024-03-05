@@ -68,7 +68,8 @@ function MyApp() {
 
   function fetchGames() {
     const promise = fetch("https://pickupapp.azurewebsites.net/games", {
-      headers: addAuthHeader(),
+      headers: addAuthHeader({
+        "Access-Control-Allow-Origin": "*"}),
     });
     return promise;
   }
@@ -84,6 +85,7 @@ function MyApp() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify(game),
     });
@@ -111,6 +113,7 @@ function MyApp() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify(creds),
     })
@@ -133,6 +136,7 @@ function MyApp() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify(creds),
     })
