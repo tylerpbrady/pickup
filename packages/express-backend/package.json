@@ -14,7 +14,7 @@
     "nodemon": "^3.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "test": "echo \"no tests currently\"",
     "dev": "npx nodemon backend.js"
   },
   "author": "",

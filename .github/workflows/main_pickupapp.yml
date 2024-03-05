@@ -73,4 +73,9 @@ jobs:
           app-name: 'PickUpApp'
           slot-name: 'Production'
           package: .
+
+      - name: start dev
+        run: |
+          npm run dev
+          ls && pwd
           

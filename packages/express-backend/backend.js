@@ -4,7 +4,7 @@ import cors from "cors";
 import userServices from "./models/user-services.js";
 import gameServices from "./models/game-services.js";
 import auth from "./auth.js";
-import connectToDatabase from "./models/atlas.js";
+// import connectToDatabase from "./models/atlas.js";
 
 // connectToDatabase("PickupDatabase");
 
