@@ -10,6 +10,7 @@ const Header = () => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        paddingBottom: '40px'
       }}
     >
       <h1 className="large-title">
@@ -17,7 +18,7 @@ const Header = () => {
           Pickup
         </Link>
       </h1>
-      <div className="header-right">
+      <div>
         <Link to="/create-game" className="create-game-button">
           Create Game
         </Link>
