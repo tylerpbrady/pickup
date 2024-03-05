@@ -25,7 +25,7 @@ app.get("/users", auth.authenticateUser, (req, res) => {
 	userServices.getUsers(name).then((result) => res.status(201).send(result));
 });
 
-app.post("/games", async (req, res) => {
+app.post("/games", auth.authenticateUser, async (req, res) => {
 	try {
 		const newGame = req.body;
 		const createdGame = await gameServices.createGame(newGame);
