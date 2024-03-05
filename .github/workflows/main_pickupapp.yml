@@ -76,6 +76,8 @@ jobs:
 
       - name: start dev
         run: |
-          npm run dev
           ls && pwd
+          npm ci
+          npm run dev
+          
           
