@@ -64,6 +64,7 @@ function GamePreviewBody(props) {
 }
 
 function GamePreviewElement(props) {
+  console.log(props.gameData)
   return (
     <div>
       <GamePreviewBody
