@@ -15,5 +15,4 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run prettier
-      - run: export CI=
       - run: npm run -w react-frontend build -verbose
