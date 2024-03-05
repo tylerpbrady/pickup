@@ -100,7 +100,7 @@ function MyApp() {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     return promise;
@@ -140,7 +140,7 @@ function MyApp() {
         if (response.status === 201) {
           response.json().then((payload) => setToken(payload.token));
           setMessage(
-            `Signup successful for user: ${creds.username}; auth token saved`
+            `Signup successful for user: ${creds.username}; auth token saved`,
           );
         } else {
           console.log(response);
