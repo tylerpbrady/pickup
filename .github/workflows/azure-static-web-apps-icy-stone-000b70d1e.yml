@@ -19,6 +19,15 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - name: npm install, build, and test
+        run: |
+          npm install --workspaces=false
+          npm run -w express-backend build --if-present
+          npm run -w express-backend test --if-present
+        working-directory: packages/express-backend
+	    - name: Zip artifact for deployment
+	      run: zip release.zip ./* -r
+        working-directory: packages/express-backend
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
