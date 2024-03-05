@@ -80,7 +80,7 @@ function MyApp() {
 
   function postGame(game) {
     console.log(game);
-    const promise = fetch("http://pickupapp.azurewebsites.net", {
+    const promise = fetch("http://pickupapp.azurewebsites.net/games", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +107,7 @@ function MyApp() {
   }
 
   function loginUser(creds) {
-    const promise = fetch(`http://localhost:8000/login`, {
+    const promise = fetch(`http://pickupapp.azurewebsites.net/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -129,7 +129,7 @@ function MyApp() {
     return promise;
   }
   function signupUser(creds) {
-    const promise = fetch(`http://localhost:8000/signup`, {
+    const promise = fetch(`http://pickupapp.azurewebsites.net/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
