@@ -33,6 +33,7 @@ jobs:
         run: |
           pwd && ls
           zip release.zip ./* -r
+          pwd && ls
         working-directory: packages/express-backend
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
