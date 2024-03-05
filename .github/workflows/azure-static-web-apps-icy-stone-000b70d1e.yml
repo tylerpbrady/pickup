@@ -19,9 +19,13 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
       - name: npm install, build, and test
         run: |
-          npm install --workspaces=false
+          npm ci
+          npm install --workspaces=true
           npm run -w express-backend build --if-present
           npm run -w express-backend test --if-present
         working-directory: packages/express-backend
