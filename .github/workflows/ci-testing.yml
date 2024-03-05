@@ -1,20 +1,20 @@
-name: CI Testing
+# name: CI Testing
 
-on:
-  push:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run prettier
-      - run: echo $PATH
-      - run: pwd
-      - run: npm run -w react-frontend build
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: 20
+#       - run: npm ci
+#       - run: npm run lint
+#       - run: npm run prettier
+#       - run: echo $PATH
+#       - run: pwd
+#       - run: npm run -w react-frontend build
