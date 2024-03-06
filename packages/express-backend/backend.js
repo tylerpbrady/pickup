@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send(process.env.TOKEN_SECRET);
+  res.send(`This is the env var: ${process.env.TOKEN_SECRET}`);
 });
 
 app.get("/users", auth.authenticateUser, (req, res) => {
@@ -37,8 +37,10 @@ app.post("/games", auth.authenticateUser, async (req, res) => {
 });
 
 app.get("/games", auth.authenticateUser, async (req, res) => {
-  const games = await gameServices.getGames();
-  res.status(200).send({ games_list: games });
+  // commenting out since our database is not up
+  // const games = await gameServices.getGames();
+  // res.status(200).send({ games_list: games });
+  res.status(200).send({});
 });
 
 app.delete("/games/:id", async (req, res) => {
