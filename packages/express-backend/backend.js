@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send(`This is the env var: ${process.env.TOKEN_SECRET}`);
+  res.send("hi");
 });
 
 app.get("/users", auth.authenticateUser, (req, res) => {
