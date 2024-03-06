@@ -73,11 +73,5 @@ jobs:
           app-name: 'PickUpApp'
           slot-name: 'Production'
           package: .
-
-      - name: start dev
-        run: |
-          ls && pwd
-          echo $PORT
-          echo $TOKEN_SECRET
           
           

@@ -74,7 +74,7 @@ function GamePlayersDisplay(props) {
   const game = props.game;
   const numbers = Array.from(
     { length: game.maxPlayers },
-    (_, index) => index + 1,
+    (_, index) => index + 1
   );
 
   return (

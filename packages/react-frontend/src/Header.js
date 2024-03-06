@@ -10,7 +10,7 @@ const Header = () => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingBottom: '40px'
+        paddingBottom: "40px",
       }}
     >
       <h1 className="large-title">
