@@ -47,7 +47,6 @@ function MyApp() {
         }
       })
       .then((updatedGame) => {
-        console.log(updatedGame.game);
         setGames([...games, updatedGame]);
       })
       .catch((error) => {
@@ -84,10 +83,10 @@ function MyApp() {
     console.log(game);
     const promise = fetch("https://pickupapp.azurewebsites.net/games", {
       method: "POST",
-      headers: {
+      headers: addAuthHeader({
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-      },
+      }),
       body: JSON.stringify(game),
     });
 
@@ -100,9 +99,9 @@ function MyApp() {
       "https://pickupapp.azurewebsites.net/games/" + game._id,
       {
         method: "DELETE",
-        headers: {
+        headers: addAuthHeader({
           "Content-Type": "application/json",
-        },
+        }),
       },
     );
 
