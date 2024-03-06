@@ -8,10 +8,10 @@ function Settings() {
     //<div className="settings">
     //<div className='rounded-rectangle' style={rectangleStyles}>
     <div>
-      <Link to="/log out" className="log-out-button">
+      <Link to="/login" className="log-out-button">
         Logout
       </Link>
-      <Link to="/edit profile" className="edit-profile-button">
+      <Link to="/edit-profile" className="edit-profile-button">
         Profile
       </Link>
     </div>
