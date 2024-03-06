@@ -161,7 +161,6 @@ function MyApp() {
     fetchGames()
       .then((res) => (res.status === 200 ? res.json() : undefined))
       .then((json) => {
-        console.log("dummy");
         if (json) {
           setGames(json["games_list"]);
         } else {

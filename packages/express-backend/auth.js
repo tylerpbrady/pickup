@@ -49,7 +49,7 @@ export function authenticateUser(req, res, next) {
 		console.log("No token received");
 		res.status(401).end();
 	} else {
-		jwt.verify(token, process.env.TOKEN_SECRET, (error, decoded) => {
+		jwt.verify(token, "test", (error, decoded) => {
 			if (decoded) {
 				next();
 			} else {
