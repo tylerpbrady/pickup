@@ -51,6 +51,7 @@ function Login(props) {
 
   function submitForm() {
     props.handleSubmit(creds).then((res) => {
+      console.log("Submitted token")
       setCreds({ username: "", pwd: "" });
       navigate("/home");
     });

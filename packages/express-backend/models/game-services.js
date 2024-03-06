@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import gameModel from "./game.js";
-import connectToDatabase from "./atlas.js";
 
 mongoose.set("debug", true);
 

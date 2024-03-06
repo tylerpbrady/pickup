@@ -128,7 +128,6 @@ function MyApp() {
       .catch((error) => {
         setMessage(`Login Error: ${error}`);
       });
-    console.log("login successful!")
     return promise;
   }
   function signupUser(creds) {
