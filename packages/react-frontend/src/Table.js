@@ -18,6 +18,9 @@ function TableHeader() {
 }
 
 function Table(props) {
+  if (props.gameData === null) {
+    return <caption>Data Unavailable</caption>;
+  }
   return (
     <table>
       <TableHeader />

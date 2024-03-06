@@ -1,22 +1,23 @@
-import { ServerApiVersion } from "mongodb";
-import mongoose from "mongoose";
-
-const connectToDatabase = async (databaseName) => {
-	const credentials = "./X509-cert-1627384780018471820.pem";
-
-	const options = {
-		tlsCertificateKeyFile: credentials,
-		serverApi: { version: ServerApiVersion.v1 },
-	};
-
-	const atlasUri = `mongodb+srv://cluster0.ovyhplb.mongodb.net/${databaseName}?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority&appName=Cluster0`;
-
-	try {
-		await mongoose.connect(atlasUri, options);
-		console.log("Connected to MongoDB Atlas");
-	} catch (err) {
-		console.error("Error connecting to MongoDB Atlas:", err);
-	}
-};
-
-export default connectToDatabase;
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = process.env.MONGODB_URI;
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
