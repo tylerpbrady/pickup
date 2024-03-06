@@ -7,7 +7,7 @@ function generateAccessToken(username) {
   return new Promise((resolve, reject) => {
     jwt.sign(
       { username: username },
-      "test",
+      process.env.TOKEN_SECRET,
       { expiresIn: "1d" },
       (error, token) => {
         if (error) {
@@ -49,7 +49,7 @@ export function authenticateUser(req, res, next) {
     console.log("No token received");
     res.status(401).end();
   } else {
-    jwt.verify(token, "test", (error, decoded) => {
+    jwt.verify(token, process.env.TOKEN_SECRET, (error, decoded) => {
       if (decoded) {
         next();
       } else {
