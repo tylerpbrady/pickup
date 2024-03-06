@@ -64,6 +64,9 @@ function GamePreviewBody(props) {
 }
 
 function GamePreviewElement(props) {
+  if (props.gameData === null) {
+    return <caption>Data Unavailable</caption>;
+  }
   return (
     <div>
       <GamePreviewBody

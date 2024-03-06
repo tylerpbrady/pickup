@@ -1,4 +1,3 @@
-import { ServerApiVersion } from "mongodb";
 import mongoose from "mongoose";
 
 const connectToDatabase = async (databaseName) => {
