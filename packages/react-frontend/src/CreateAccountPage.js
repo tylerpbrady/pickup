@@ -15,6 +15,7 @@ function CreateAccountPage(props) {
 
   function submitForm() {
     props.handleSubmit(formData);
+    window.alert("Account created successfully!")
     setFormData({ username: "", password: "" });
   }
 
