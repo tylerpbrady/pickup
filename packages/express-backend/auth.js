@@ -70,13 +70,12 @@ export function authenticateUser(req, res, next) {
 export async function loginUser(req, res) {
   const { username, pwd } = req.body; // from form
   const retrievedUser = await userServices.getUser(username)
-  console.log(retrievedUser)
   if (!retrievedUser) {
     // invalid username
     res.status(401).send("Unauthorized");
   } else {
     bcrypt
-      .compare(pwd, retrievedUser[0].hashedPassword)
+      .compare(pwd, retrievedUser[0].password)
       .then((matched) => {
         if (matched) {
           console.log("Sending access token");
