@@ -19,15 +19,15 @@ function CreateAccountPage(props) {
     setFormData({ username: "", password: "" });
   }
 
-  // function alertBox({ message, onClose }) {
-  //   return (
-  //     <div className="alert-box">
-  //       <p>{message}</p>
-  //       <button onClick={onClose}>Close</button>
-  //     </div>
-  //   );
-  // }
-  
+  function alertBox({ message, onClose }) {
+    return (
+      <div className="alert-box">
+        <p>{message}</p>
+        <button onClick={onClose}>Close</button>
+      </div>
+    );
+  }
+
   return (
     <div className="container">
       <div className="box">
