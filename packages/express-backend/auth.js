@@ -1,9 +1,12 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import userServices from "./models/user-services.js";
+import dotenv from "dotenv"
 
 const creds = [];
 
 function generateAccessToken(username) {
+  dotenv.config()
   return new Promise((resolve, reject) => {
     jwt.sign(
       { username: username },
@@ -33,7 +36,8 @@ export function registerUser(req, res) {
       .then((hashedPassword) => {
         generateAccessToken(username).then((token) => {
           console.log("Token:", token);
-          res.status(201).send({ token: token });
+          userServices.addUser({"username": username, "password": hashedPassword})
+            .then(() => res.status(201).send({ token: token }));
           creds.push({ username, hashedPassword });
         });
       });
@@ -41,6 +45,7 @@ export function registerUser(req, res) {
 }
 
 export function authenticateUser(req, res, next) {
+  dotenv.config()
   const authHeader = req.headers["authorization"];
   //Getting the 2nd part of the auth header (the token)
   const token = authHeader && authHeader.split(" ")[1];
