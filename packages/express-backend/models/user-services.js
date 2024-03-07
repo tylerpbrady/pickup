@@ -39,7 +39,7 @@ function addUser(user) {
 // }
 
 function getUser(name) {
-  return userModel.find({ name: name });
+  return userModel.find({ username: name });
 }
 
 // function findUserByJob(job) {

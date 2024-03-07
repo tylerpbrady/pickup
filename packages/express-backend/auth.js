@@ -37,8 +37,10 @@ export function registerUser(req, res) {
         generateAccessToken(username).then((token) => {
           console.log("Token:", token);
           userServices.addUser({"username": username, "password": hashedPassword})
-            .then(() => res.status(201).send({ token: token }));
-          creds.push({ username, hashedPassword });
+            .then((result) => {
+              console.log(result)
+              res.status(201).send({ token: token })
+            });
         });
       });
   }
@@ -65,15 +67,16 @@ export function authenticateUser(req, res, next) {
   }
 }
 
-export function loginUser(req, res) {
+export async function loginUser(req, res) {
   const { username, pwd } = req.body; // from form
-  const retrievedUser = creds.find((c) => c.username === username);
+  const retrievedUser = await userServices.getUser(username)
+  console.log(retrievedUser)
   if (!retrievedUser) {
     // invalid username
     res.status(401).send("Unauthorized");
   } else {
     bcrypt
-      .compare(pwd, retrievedUser.hashedPassword)
+      .compare(pwd, retrievedUser[0].hashedPassword)
       .then((matched) => {
         if (matched) {
           console.log("Sending access token");
