@@ -2,14 +2,14 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
-    userName: {
+    username: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
     email: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
 
@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema(
 
     password: {
       type: String,
-      required: true,
+      required: false,
       trim: false,
     },
     games: [
