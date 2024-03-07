@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { addUser } from "./models/game-services";
 
 const creds = [];
 
@@ -38,8 +37,6 @@ export function registerUser(req, res) {
           creds.push({ username, hashedPassword });
         });
       });
-    const user = req.body;
-    addUser(user);
   }
 }
 
