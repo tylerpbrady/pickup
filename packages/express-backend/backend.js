@@ -6,7 +6,7 @@ import gameServices from "./models/game-services.js";
 import auth from "./auth.js";
 import connectToDatabase from "./models/atlas.js";
 
-connectToDatabase("PickupDatabase");
+connectToDatabase();
 
 const app = express();
 const port = 8000;
