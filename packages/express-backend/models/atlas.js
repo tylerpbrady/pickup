@@ -1,8 +1,9 @@
-import mongoose, { version } from "mongoose";
+/* eslint-disable indent */
+import mongoose from "mongoose";
 // import dotenv from "dotenv"
 import { ServerApiVersion } from "mongodb";
 
-const connectToDatabase = async (databaseName) => {
+const connectToDatabase = async () => {
   const atlasUri = process.env.MONGODB_URI;
   const options = {
     serverApi: { version: ServerApiVersion.v1 },
