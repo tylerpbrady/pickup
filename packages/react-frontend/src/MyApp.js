@@ -130,6 +130,7 @@ function MyApp() {
       });
     return promise;
   }
+  
   function signupUser(creds) {
     const promise = fetch(`https://pickupapp.azurewebsites.net/signup`, {
       method: "POST",
