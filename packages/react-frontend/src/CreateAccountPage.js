@@ -15,7 +15,17 @@ function CreateAccountPage(props) {
 
   function submitForm() {
     props.handleSubmit(formData);
+    window.alert("Account created successfully!")
     setFormData({ username: "", password: "" });
+  }
+
+  function alertBox({ message, onClose }) {
+    return (
+      <div className="alert-box">
+        <p>{message}</p>
+        <button onClick={onClose}>Close</button>
+      </div>
+    );
   }
 
   return (

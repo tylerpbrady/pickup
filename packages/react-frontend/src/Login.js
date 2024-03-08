@@ -54,6 +54,7 @@ function Login(props) {
       console.log("Submitted token");
       setCreds({ username: "", pwd: "" });
       navigate("/home");
+      window.alert("Login successful!");
     });
   }
 }

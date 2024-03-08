@@ -46,6 +46,7 @@ function Form(props) {
   // }
 
   function submitForm() {
+    window.alert("Game created successfully!")
     props.handleSubmit(game);
     setGame({
       sport: "",

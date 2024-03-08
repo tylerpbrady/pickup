@@ -11,7 +11,7 @@ function Settings() {
       <Link to="/welcome" className="log-out-button">
         Logout
       </Link>
-      <Link to="/edit profile" className="edit-profile-button">
+      <Link to="/edit-profile" className="edit-profile-button">
         Profile
       </Link>
     </div>
