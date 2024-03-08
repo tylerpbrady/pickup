@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
-// import dotenv from "dotenv"
+import dotenv from "dotenv"
 import { ServerApiVersion } from "mongodb";
 
 const connectToDatabase = async () => {
+  dotenv.config()
   const atlasUri = process.env.MONGODB_URI;
   const options = {
     serverApi: { version: ServerApiVersion.v1 },
