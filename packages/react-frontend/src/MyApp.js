@@ -149,17 +149,23 @@ function MyApp() {
     })
       .then((response) => {
         if (response.status === 201) {
-          response.json().then((payload) => setToken(payload.token));
+          response.json().then((payload) => {
+            setToken(payload.token);
+            localStorage.setItem("token", payload.token);
+          });
           setMessage(
             `Signup successful for user: ${creds.username}; auth token saved`,
           );
+          return true
         } else {
           console.log(response);
           setMessage(`Signup Error ${response.status}: ${response.data}`);
+          return false
         }
       })
       .catch((error) => {
         setMessage(`Signup Error: ${error}`);
+        return false
       });
 
     return promise;

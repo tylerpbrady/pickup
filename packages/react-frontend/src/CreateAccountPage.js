@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 function CreateAccountPage(props) {
@@ -7,6 +8,7 @@ function CreateAccountPage(props) {
     username: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,9 +16,15 @@ function CreateAccountPage(props) {
   };
 
   function submitForm() {
-    props.handleSubmit(formData);
-    window.alert("Account created successfully!")
-    setFormData({ username: "", password: "" });
+    props.handleSubmit(formData).then((res) => {
+      if (res) {
+        setFormData({ username: "", password: "" });
+        navigate("/home");
+      }
+      else {
+        window.alert("Account Creation Failed")
+      }
+    })
   }
 
   function alertBox({ message, onClose }) {
