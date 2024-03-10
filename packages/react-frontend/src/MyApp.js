@@ -18,8 +18,8 @@ import Login from "./Login";
 import CreateAccountPage from "./CreateAccountPage";
 
 function MyApp() {
-  const INVALID_TOKEN = "INVALID_TOKEN";
-  const [token, setToken] = useState(INVALID_TOKEN);
+  const saved_token = localStorage.getItem("token") || "INVALID_TOKEN";
+  const [token, setToken] = useState(saved_token);
   const [message, setMessage] = useState("");
   const [games, setGames] = useState([]);
   const API_URL = process.env.API_URL || "http://localhost:8000"
@@ -56,7 +56,7 @@ function MyApp() {
   }
 
   function addAuthHeader(otherHeaders = {}) {
-    if (token === INVALID_TOKEN) {
+    if (token === "INVALID_TOKEN") {
       return otherHeaders;
     } else {
       return {
@@ -120,7 +120,10 @@ function MyApp() {
     })
       .then((response) => {
         if (response.status === 200) {
-          response.json().then((payload) => setToken(payload.token));
+          response.json().then((payload) => {
+            setToken(payload.token);
+            localStorage.setItem("token", payload.token);
+          });
           setMessage(`Login successful; auth token saved`);
           return true
         } else {
@@ -218,7 +221,6 @@ function MyApp() {
       </div>
     );
   }
-  console.log(message);
 
   return (
     <Router>
