@@ -70,7 +70,7 @@ export function authenticateUser(req, res, next) {
 export async function loginUser(req, res) {
   const { username, pwd } = req.body; // from form
   const retrievedUser = await userServices.getUser(username)
-  if (!retrievedUser) {
+  if (!retrievedUser[0]) {
     // invalid username
     res.status(401).send("Unauthorized");
   } else {

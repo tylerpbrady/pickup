@@ -51,10 +51,14 @@ function Login(props) {
 
   function submitForm() {
     props.handleSubmit(creds).then((res) => {
-      console.log("Submitted token");
-      setCreds({ username: "", pwd: "" });
-      navigate("/home");
-      window.alert("Login successful!");
+      if (res) {
+        setCreds({ username: "", pwd: "" });
+        navigate("/home");
+      }
+      else {
+        window.alert("Login Failed.");
+      }
+
     });
   }
 }

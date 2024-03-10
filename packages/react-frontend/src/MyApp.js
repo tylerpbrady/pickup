@@ -18,10 +18,11 @@ import Login from "./Login";
 import CreateAccountPage from "./CreateAccountPage";
 
 function MyApp() {
-  const INVALID_TOKEN = "INVALID_TOKEN";
-  const [token, setToken] = useState(INVALID_TOKEN);
+  const saved_token = localStorage.getItem("token") || "INVALID_TOKEN";
+  const [token, setToken] = useState(saved_token);
   const [message, setMessage] = useState("");
   const [games, setGames] = useState([]);
+  const API_URL = process.env.API_URL || "http://localhost:8000"
 
   function removeOneGame(index) {
     deleteGame(games[index]).then((deleted) => {
@@ -55,7 +56,7 @@ function MyApp() {
   }
 
   function addAuthHeader(otherHeaders = {}) {
-    if (token === INVALID_TOKEN) {
+    if (token === "INVALID_TOKEN") {
       return otherHeaders;
     } else {
       return {
@@ -66,7 +67,7 @@ function MyApp() {
   }
 
   function fetchGames() {
-    const promise = fetch("https://pickupapp.azurewebsites.net/games", {
+    const promise = fetch(`${API_URL}/games`, {
       headers: addAuthHeader({
         "Access-Control-Allow-Origin": "*",
       }),
@@ -81,7 +82,7 @@ function MyApp() {
 
   function postGame(game) {
     console.log(game);
-    const promise = fetch("https://pickupapp.azurewebsites.net/games", {
+    const promise = fetch(`${API_URL}/games`, {
       method: "POST",
       headers: addAuthHeader({
         "Content-Type": "application/json",
@@ -96,7 +97,7 @@ function MyApp() {
   function deleteGame(game) {
     console.log(game._id);
     const promise = fetch(
-      "https://pickupapp.azurewebsites.net/games/" + game._id,
+      `${API_URL}/games` + game._id,
       {
         method: "DELETE",
         headers: addAuthHeader({
@@ -109,7 +110,7 @@ function MyApp() {
   }
 
   function loginUser(creds) {
-    const promise = fetch(`https://pickupapp.azurewebsites.net/login`, {
+    const promise = fetch(`${API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -119,20 +120,26 @@ function MyApp() {
     })
       .then((response) => {
         if (response.status === 200) {
-          response.json().then((payload) => setToken(payload.token));
+          response.json().then((payload) => {
+            setToken(payload.token);
+            localStorage.setItem("token", payload.token);
+          });
           setMessage(`Login successful; auth token saved`);
+          return true
         } else {
           setMessage(`Login Error ${response.status}: ${response.data}`);
+          return false
         }
       })
       .catch((error) => {
         setMessage(`Login Error: ${error}`);
+        return false
       });
     return promise;
   }
   
   function signupUser(creds) {
-    const promise = fetch(`https://pickupapp.azurewebsites.net/signup`, {
+    const promise = fetch(`${API_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -142,17 +149,23 @@ function MyApp() {
     })
       .then((response) => {
         if (response.status === 201) {
-          response.json().then((payload) => setToken(payload.token));
+          response.json().then((payload) => {
+            setToken(payload.token);
+            localStorage.setItem("token", payload.token);
+          });
           setMessage(
             `Signup successful for user: ${creds.username}; auth token saved`,
           );
+          return true
         } else {
           console.log(response);
           setMessage(`Signup Error ${response.status}: ${response.data}`);
+          return false
         }
       })
       .catch((error) => {
         setMessage(`Signup Error: ${error}`);
+        return false
       });
 
     return promise;
@@ -214,7 +227,6 @@ function MyApp() {
       </div>
     );
   }
-  console.log(message);
 
   return (
     <Router>
