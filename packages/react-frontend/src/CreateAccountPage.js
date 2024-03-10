@@ -19,6 +19,7 @@ function CreateAccountPage(props) {
     props.handleSubmit(formData).then((res) => {
       if (res) {
         setFormData({ username: "", password: "" });
+        localStorage.setItem("name", creds.username);
         navigate("/home");
       }
       else {
