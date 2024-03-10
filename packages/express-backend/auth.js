@@ -23,11 +23,12 @@ function generateAccessToken(username) {
   });
 }
 
-export function registerUser(req, res) {
+export async function registerUser(req, res) {
   const { username, password } = req.body; // from form
+  const retrievedUser = await userServices.getUser(username)
   if (!username || !password) {
     res.status(400).send("Bad request: Invalid input data.");
-  } else if (creds.find((c) => c.username === username)) {
+  } else if (retrievedUser[0]) {
     res.status(409).send("Username already taken");
   } else {
     bcrypt
