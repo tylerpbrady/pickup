@@ -97,7 +97,7 @@ function MyApp() {
   function deleteGame(game) {
     console.log(game._id);
     const promise = fetch(
-      `${API_URL}/games` + game._id,
+      `${API_URL}/games/` + game._id,
       {
         method: "DELETE",
         headers: addAuthHeader({

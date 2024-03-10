@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("hi");
+  res.send(process.env.API_URL);
 });
 
 app.get("/users", auth.authenticateUser, (req, res) => {
