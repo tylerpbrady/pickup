@@ -65,6 +65,14 @@ app.post("/users", auth.authenticateUser, (req, res) => {
 		.then((result) => res.status(201).send(result));
 });
 
+app.post("/games/:id/join", auth.authenticateUser, async, (req, res) => {
+	const userJoining = req.body;
+	const gameToJoin = await gameServices.findGameById(req.params.id);
+	if (gameToJoin.players.length < gameToJoin.maxPlayers) {
+		gameToJoin.players.push(req.params.id);
+	}
+})
+
 app.post("/login", auth.loginUser);
 app.post("/signup", auth.registerUser);
 

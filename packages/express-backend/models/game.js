@@ -32,10 +32,10 @@ const GameSchema = new mongoose.Schema(
       type: Number,
       required: false,
     },
-    // players: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "User",
-    // }],
+    players: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    }],
     time: {
       type: Date,
       required: true,
