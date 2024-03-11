@@ -202,6 +202,24 @@ function MyApp() {
     );
   }
 
+  const profileData = {
+    Name: 'John Doe',
+    'Sports of Interest': 'Basketball, Tennis',
+    City: 'New York'
+  };
+ 
+
+
+  function Edit_profile() {
+    return(
+      <div>
+       
+        <Profile_form edit_profile = {updateProfileList}/>
+      </div>
+    )
+  }
+
+
   function Home({ games }) {
     return (
       <div>
@@ -248,6 +266,24 @@ function MyApp() {
               </React.Fragment>
             }
           />
+          <Route
+          path="/profile"
+          element={
+            <React.Fragment>
+              <Header />
+              <ProfilePreview profileData={profileData} />
+            </React.Fragment>
+          } />
+         
+          <Route
+                path = "/edit-profile"
+                element ={
+                  <React.Fragment>
+                  <Header />
+                  <Edit_profile path = "/profile" updateProfileList = {updateProfileList}/>
+                  </React.Fragment>}
+                Route/>
+
           <Route
             path="/game/:id"
             element={
