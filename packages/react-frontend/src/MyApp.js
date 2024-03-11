@@ -22,7 +22,7 @@ function MyApp() {
   const [token, setToken] = useState(saved_token);
   const [message, setMessage] = useState("");
   const [games, setGames] = useState([]);
-  const API_URL = process.env.API_URL //|| "http://localhost:8000"
+  const API_URL = process.env.API_URL || "http://localhost:8000"
 
   function removeOneGame(index) {
     deleteGame(games[index]).then((deleted) => {
