@@ -6,13 +6,14 @@ import GameDetailElement from "./GameDetails";
 import Settings from "./settings";
 import { BrowserRouter as Router, Navigate, Link, Routes, Route } from 'react-router-dom';
 import CreateAccountPage from "./CreateAccountPage";
-import Profile_form from "./profile";
-import updateProfileList from "./profile"
+import ProfileForm from "./profile";
+import UpdateProfileList from "./profile"
 import ProfilePreview from "./profilePreview";
 //import CreateGamePage from './CreateGameWindow.js';
 
 function MyApp() {
   const [games, setGames] = useState([]);
+  const [profiles, setProfiles] = useState([]);
 
   function removeOneGame(index) {
     deleteGame(games[index])
@@ -85,6 +86,37 @@ function MyApp() {
       .catch((error) => { console.log(error); });
   }, [] );
 
+  
+  function postProfile(profile) {
+    console.log(profile)
+    const promise = fetch("http://localhost:8000/profile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(profile),
+    });
+
+    return promise;
+  }
+
+  function UpdateProfileList(profile) { 
+    postProfile(profile)
+      .then(response => {
+        if (response.status === 201) {
+          return response.json();
+        } else {
+          console.log('Failed to update list. Invalid HTTP Code (not 201).');
+        }
+      })
+      .then(updatedProfile => {
+        console.log(updatedProfile.profile)
+        setProfiles([...profile, updatedProfile]);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
 
   function CreateGame({ updateList }) {
     return (
@@ -110,11 +142,11 @@ function MyApp() {
  
 
 
-  function Edit_profile() {
+  function EditProfile() {
     return(
       <div>
        
-        <Profile_form edit_profile = {updateProfileList}/>
+        <ProfileForm handleSubmit ={UpdateProfileList}/>
       </div>
     )
   }
@@ -163,7 +195,6 @@ return (
               <Header />
               <Set path="/settings" />
             </React.Fragment>} />
-        <Route path="/settings" element={<Set path="/settings" />} />
         <Route 
           path="/game/:id" 
           element={ 
@@ -173,7 +204,7 @@ return (
             </React.Fragment>
           } />
 
-<Route
+        <Route
           path="/profile"
           element={
             <React.Fragment>
@@ -182,14 +213,15 @@ return (
             </React.Fragment>
           } />
          
-          <Route
-                path = "/edit-profile"
-                element ={
-                  <React.Fragment>
-                  <Header />
-                  <Edit_profile path = "/profile" updateProfileList = {updateProfileList}/>
-                  </React.Fragment>}
-                Route/>
+        <Route
+          path="/edit-profile"
+          element={
+          <React.Fragment>
+          <Header />
+          <EditProfile path="/edit-profile" UpdateProfileList={UpdateProfileList}/>
+          </React.Fragment>
+  }
+/>
 
         <Route
           path="/home"
