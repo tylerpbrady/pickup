@@ -22,6 +22,7 @@ function MyApp() {
   const [token, setToken] = useState(saved_token);
   const [message, setMessage] = useState("");
   const [games, setGames] = useState([]);
+  const [profiles, setProfiles] = useState([]);
   const API_URL = "https://pickupapp.azurewebsites.net"
   // const API_URL = "localhost:8000"
 
@@ -108,6 +109,37 @@ function MyApp() {
     );
 
     return promise;
+  }
+
+  function postProfile(profile) {
+    console.log(profile)
+    const promise = fetch("http://localhost:8000/profile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(profile),
+    });
+
+    return promise;
+  }
+
+  function UpdateProfileList(profile) { 
+    postProfile(profile)
+      .then(response => {
+        if (response.status === 201) {
+          return response.json();
+        } else {
+          console.log('Failed to update list. Invalid HTTP Code (not 201).');
+        }
+      })
+      .then(updatedProfile => {
+        console.log(updatedProfile.profile)
+        setProfiles([...profile, updatedProfile]);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   function loginUser(creds) {
@@ -210,12 +242,11 @@ function MyApp() {
   };
  
 
-
-  function Edit_profile() {
+  function EditProfile() {
     return(
       <div>
        
-        <Profile_form edit_profile = {updateProfileList}/>
+        <ProfileForm handleSubmit ={UpdateProfileList}/>
       </div>
     )
   }
@@ -267,7 +298,7 @@ function MyApp() {
               </React.Fragment>
             }
           />
-          <Route
+         <Route
           path="/profile"
           element={
             <React.Fragment>
@@ -276,14 +307,14 @@ function MyApp() {
             </React.Fragment>
           } />
          
-          <Route
-                path = "/edit-profile"
-                element ={
-                  <React.Fragment>
-                  <Header />
-                  <Edit_profile path = "/profile" updateProfileList = {updateProfileList}/>
-                  </React.Fragment>}
-                Route/>
+        <Route
+          path="/edit-profile"
+          element={
+          <React.Fragment>
+          <Header />
+          <EditProfile path="/edit-profile" UpdateProfileList={UpdateProfileList}/>
+          </React.Fragment>
+          }/>
 
           <Route
             path="/game/:id"
