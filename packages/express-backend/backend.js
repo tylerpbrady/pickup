@@ -37,7 +37,6 @@ app.post("/games", auth.authenticateUser, async (req, res) => {
 });
 
 app.get("/games", auth.authenticateUser, async (req, res) => {
-	// commenting out since our database is not up
 	const games = await gameServices.getGames();
 	res.status(200).send({ games_list: games });
 	// res.status(200).send({});

@@ -24,11 +24,10 @@ function MyApp() {
   const [message, setMessage] = useState("");
   const [games, setGames] = useState([]);
   const API_URL = "https://pickupapp.azurewebsites.net"
-  // const API_URL = "localhost:8000"
+  // const API_URL = "http://localhost:8000"
 
   function removeOneGame(index) {
     deleteGame(games[index]).then((deleted) => {
-      console.log(deleted.status);
       if (deleted.status === 204) {
         const updated = games.filter((game, i) => {
           return i !== index;
@@ -83,7 +82,6 @@ function MyApp() {
   // }
 
   function postGame(game) {
-    console.log(game);
     const promise = fetch(`${API_URL}/games`, {
       method: "POST",
       headers: addAuthHeader({
@@ -97,7 +95,6 @@ function MyApp() {
   }
 
   function deleteGame(game) {
-    console.log(game._id);
     const promise = fetch(
       `${API_URL}/games/` + game._id,
       {
