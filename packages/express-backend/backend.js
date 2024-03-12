@@ -21,7 +21,6 @@ app.get("/", (req, res) => {
 
 app.get("/users", auth.authenticateUser, (req, res) => {
 	const name = req.query.name;
-	// const job = req.query.job;
 
 	userServices.getUsers(name).then((result) => res.status(201).send(result));
 });
@@ -63,6 +62,14 @@ app.post("/users", auth.authenticateUser, (req, res) => {
 	userServices
 		.addUser(userToAdd)
 		.then((result) => res.status(201).send(result));
+});
+
+app.post("/users/:name", auth.authenticateUser, (req, res) => {
+	const name = req.query.name;
+	const profile = req.body;
+	userServices
+		.updateUser(name, profile)
+		.then((result) => res.status(200).send(result));
 });
 
 app.post("/login", auth.loginUser);

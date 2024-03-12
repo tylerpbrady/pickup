@@ -16,6 +16,21 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: false,
       trim: false,
+    },
+    name: {
+      type: String,
+      required: false,
+      trim: false,
+    },
+    sports_of_interest: {
+      type: String,
+      required: false,
+      trim: false,
+    },
+    city: {
+      type: String,
+      required: false,
+      trim: false,
     }
   },
   { collection: "users_list" },
