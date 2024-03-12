@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
-
-function Profile_form(props) {
+function ProfileForm(props) {
   const [profile, setProfile] = useState({
     name: "",
     sports_of_interest: "",
     city: ""
   });
 
-
+  
   function EditProfile(event) {
     const { name, value } = event.target;
     if (name === "sports of interest")
@@ -19,12 +18,10 @@ function Profile_form(props) {
       setProfile({ ...profile, city: value })
   }
 
-
   function submitProfile() {
     props.handleSubmit(profile);
     setProfile({ name: "", sports_of_interest: "", city: ""});
   }
-
 
   return (
     <form>
@@ -52,7 +49,6 @@ function Profile_form(props) {
         value={profile.city}
         onChange={EditProfile}
 
-
         style={{ resize: 'none' }}
       />
       <input type="button" value="Submit" onClick={submitProfile} />
@@ -60,5 +56,4 @@ function Profile_form(props) {
   )
 }
 
-
-export default Profile_form;
+export default ProfileForm;

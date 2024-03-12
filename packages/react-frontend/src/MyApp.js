@@ -3,6 +3,8 @@ import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
 import GameDetailElement from "./GameDetails";
+import ProfileForm from "./profile";
+import ProfilePreview from "./profilePreview";
 
 import {
   BrowserRouter as Router,
@@ -111,6 +113,35 @@ function MyApp() {
     return promise;
   }
 
+  function loginUser(creds) {
+    const promise = fetch(`${API_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(creds),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((payload) => {
+            setToken(payload.token);
+            localStorage.setItem("token", payload.token);
+          });
+          setMessage(`Login successful; auth token saved`);
+          return true
+        } else {
+          setMessage(`Login Error ${response.status}: ${response.data}`);
+          return false
+        }
+      })
+      .catch((error) => {
+        setMessage(`Login Error: ${error}`);
+        return false
+      });
+    return promise;
+  }
+  
   function postProfile(profile) {
     console.log(profile)
     const promise = fetch("http://localhost:8000/profile", {
@@ -140,35 +171,6 @@ function MyApp() {
       .catch((error) => {
         console.log(error);
       })
-  }
-
-  function loginUser(creds) {
-    const promise = fetch(`${API_URL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify(creds),
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          response.json().then((payload) => {
-            setToken(payload.token);
-            localStorage.setItem("token", payload.token);
-          });
-          setMessage(`Login successful; auth token saved`);
-          return true
-        } else {
-          setMessage(`Login Error ${response.status}: ${response.data}`);
-          return false
-        }
-      })
-      .catch((error) => {
-        setMessage(`Login Error: ${error}`);
-        return false
-      });
-    return promise;
   }
   
   function signupUser(creds) {
@@ -219,6 +221,38 @@ function MyApp() {
       });
   }, [token]);
 
+
+  function postProfile(profile) {
+    console.log(profile)
+    const promise = fetch("http://localhost:8000/profile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(profile),
+    });
+
+    return promise;
+  }
+
+  function UpdateProfileList(profile) { 
+    postProfile(profile)
+      .then(response => {
+        if (response.status === 201) {
+          return response.json();
+        } else {
+          console.log('Failed to update list. Invalid HTTP Code (not 201).');
+        }
+      })
+      .then(updatedProfile => {
+        console.log(updatedProfile.profile)
+        setProfiles([...profile, updatedProfile]);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
   function CreateGame({ updateList }) {
     return (
       <div>
@@ -241,6 +275,7 @@ function MyApp() {
     City: 'New York'
   };
  
+
 
   function EditProfile() {
     return(
@@ -298,7 +333,7 @@ function MyApp() {
               </React.Fragment>
             }
           />
-         <Route
+          <Route
           path="/profile"
           element={
             <React.Fragment>
@@ -314,7 +349,7 @@ function MyApp() {
           <Header />
           <EditProfile path="/edit-profile" UpdateProfileList={UpdateProfileList}/>
           </React.Fragment>
-          }/>
+  }/>
 
           <Route
             path="/game/:id"
