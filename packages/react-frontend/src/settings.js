@@ -6,16 +6,8 @@ import './settings.css';
 
 
 function Settings() {
-    // function Prof(){
-    //     return (
-    //         <div>
-    //           <Profile_form Profile_form/>
-    //         </div>
-    //       );
-    // }
     return (
-        //<div className="settings">
-        //<div className='rounded-rectangle' style={rectangleStyles}>
+  
         <div>
           <Link to="/welcome" className="log-out-button">
             Logout
@@ -27,5 +19,3 @@ function Settings() {
       );
     }
 export default Settings;
-
-//<Edit_profile path = "/edit-profile" updateProfileList = {updateProfileList}/>
