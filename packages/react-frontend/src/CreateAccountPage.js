@@ -23,9 +23,9 @@ function CreateAccountPage(props) {
   function submitForm() {
     props.handleSubmit(formData).then((res) => {
       if (res) {
+        localStorage.setItem("name", formData.username);
         setFormData({ username: "", password: "" });
         validCreateAcc();
-        localStorage.setItem("name", creds.username);
         navigate("/home");
       }
       else {
