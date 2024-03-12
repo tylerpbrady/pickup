@@ -11,7 +11,11 @@ connectToDatabase();
 const app = express();
 const port = 8000;
 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://icy-stone-000b70d1e.4.azurestaticapps.net'
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req, res) => {
