@@ -25,6 +25,7 @@ function CreateAccountPage(props) {
       if (res) {
         setFormData({ username: "", password: "" });
         validCreateAcc();
+        localStorage.setItem("name", creds.username);
         navigate("/home");
       }
       else {
