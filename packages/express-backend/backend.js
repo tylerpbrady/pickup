@@ -11,7 +11,11 @@ connectToDatabase();
 const app = express();
 const port = 8000;
 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://icy-stone-000b70d1e.4.azurestaticapps.net'
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -37,7 +41,6 @@ app.post("/games", auth.authenticateUser, async (req, res) => {
 });
 
 app.get("/games", auth.authenticateUser, async (req, res) => {
-	// commenting out since our database is not up
 	const games = await gameServices.getGames();
 	res.status(200).send({ games_list: games });
 	// res.status(200).send({});
