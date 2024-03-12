@@ -53,6 +53,7 @@ function Login(props) {
     props.handleSubmit(creds).then((res) => {
       if (res) {
         setCreds({ username: "", pwd: "" });
+        localStorage.setItem("name", creds.username);
         navigate("/home");
       }
       else {

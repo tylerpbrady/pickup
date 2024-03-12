@@ -19,6 +19,7 @@ import CreateAccountPage from "./CreateAccountPage";
 
 function MyApp() {
   const saved_token = localStorage.getItem("token") || "INVALID_TOKEN";
+  const saved_name = localStorage.getItem("name") || "INVALID_USER";
   const [token, setToken] = useState(saved_token);
   const [message, setMessage] = useState("");
   const [games, setGames] = useState([]);
