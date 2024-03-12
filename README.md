@@ -14,4 +14,4 @@ Dev Environment:
     - To lint, run **npm run lint** for eslint, and run **npm run prettier** for prettier.  
 
 UML Diagrams
-![UML Diagram of our User and Game Databases in MongoDB](/pickup/UMLClassDiagram.drawio.png)
+![UML Diagram of our User and Game Databases in MongoDB](./UMLClassDiagram.drawio.png)
