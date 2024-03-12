@@ -35,7 +35,7 @@ function Login(props) {
       <input
         type="button"
         value={props.buttonLabel || "Log In"}
-        onClick={failedLogin}
+        onClick={submitForm}
       />
       <ToastContainer
         position="top-center"
