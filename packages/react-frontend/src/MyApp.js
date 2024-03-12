@@ -142,37 +142,6 @@ function MyApp() {
     return promise;
   }
   
-  function postProfile(profile) {
-    console.log(profile)
-    const promise = fetch("http://localhost:8000/profile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(profile),
-    });
-
-    return promise;
-  }
-
-  function UpdateProfileList(profile) { 
-    postProfile(profile)
-      .then(response => {
-        if (response.status === 201) {
-          return response.json();
-        } else {
-          console.log('Failed to update list. Invalid HTTP Code (not 201).');
-        }
-      })
-      .then(updatedProfile => {
-        console.log(updatedProfile.profile)
-        setProfiles([...profile, updatedProfile]);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
-  
   function signupUser(creds) {
     const promise = fetch(`${API_URL}/signup`, {
       method: "POST",
