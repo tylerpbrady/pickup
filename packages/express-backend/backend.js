@@ -65,11 +65,11 @@ app.post("/users", auth.authenticateUser, (req, res) => {
 });
 
 app.post("/users/:name", auth.authenticateUser, (req, res) => {
-	const name = req.query.name;
+	const name = req.params.name;
 	const profile = req.body;
 	userServices
 		.updateUser(name, profile)
-		.then((result) => res.status(200).send(result));
+		.then(() => res.status(201).send(profile));
 });
 
 app.post("/login", auth.loginUser);

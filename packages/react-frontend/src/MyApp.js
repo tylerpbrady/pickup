@@ -190,12 +190,11 @@ function MyApp() {
 
 
   function postProfile(profile) {
-    console.log(profile)
-    const promise = fetch("http://localhost:8000/profile", {
+    const promise = fetch(`${API_URL}/users/` + saved_name, {
       method: "POST",
-      headers: {
+      headers: addAuthHeader({
         "Content-Type": "application/json",
-      },
+      }),
       body: JSON.stringify(profile),
     });
 
@@ -212,8 +211,8 @@ function MyApp() {
         }
       })
       .then(updatedProfile => {
-        console.log(updatedProfile.profile)
-        setProfiles([...profile, updatedProfile]);
+        console.log(updatedProfile)
+        setProfiles(updatedProfile);
       })
       .catch((error) => {
         console.log(error);
@@ -235,14 +234,6 @@ function MyApp() {
       </div>
     );
   }
-
-  const profileData = {
-    Name: 'John Doe',
-    'Sports of Interest': 'Basketball, Tennis',
-    City: 'New York'
-  };
- 
-
 
   function EditProfile() {
     return(
@@ -305,7 +296,7 @@ function MyApp() {
           element={
             <React.Fragment>
               <Header />
-              <ProfilePreview profileData={profileData} />
+              <ProfilePreview profileData={profiles} />
             </React.Fragment>
           } />
          
