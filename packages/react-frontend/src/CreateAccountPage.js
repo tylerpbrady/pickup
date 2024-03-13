@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CreateAccountPage(props) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+
   const navigate = useNavigate();
+  const validCreateAcc = () => toast.success("Account Creation Successful");
+  const failedCreateAcc = () => toast.error("Error: Account Creation Failed");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,22 +23,17 @@ function CreateAccountPage(props) {
   function submitForm() {
     props.handleSubmit(formData).then((res) => {
       if (res) {
+        localStorage.setItem("name", formData.username);
         setFormData({ username: "", password: "" });
-        navigate("/home");
+        validCreateAcc();
+        setTimeout(() => {
+          navigate("/home"); 
+        }, 1000);
       }
       else {
-        window.alert("Account Creation Failed")
+        failedCreateAcc();
       }
     })
-  }
-
-  function alertBox({ message, onClose }) {
-    return (
-      <div className="alert-box">
-        <p>{message}</p>
-        <button onClick={onClose}>Close</button>
-      </div>
-    );
   }
 
   return (
@@ -66,6 +66,9 @@ function CreateAccountPage(props) {
               type="button"
               value={props.buttonLabel || "Create an Account!"}
               onClick={submitForm}
+            />
+            <ToastContainer
+               position="top-center"
             />
             <Link to="/login">
               <button>Back to Login</button>

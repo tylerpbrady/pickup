@@ -118,7 +118,7 @@ function GamePlayersDisplay(props) {
 function GameDetailElement(props) {
   const { id } = useParams();
   const gameId = id;
-  const game = props.games && props.games.find((game) => game._id === gameId);
+  const game = props.games && props.games.length && props.games.find((game) => game._id === gameId);
   //const players = game.players;
 
   return (

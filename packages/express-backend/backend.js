@@ -12,17 +12,17 @@ const app = express();
 const port = 8000;
 
 app.use(cors());
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
 	res.send(process.env.API_URL);
 });
 
-app.get("/users", auth.authenticateUser, (req, res) => {
-	const name = req.query.name;
-	// const job = req.query.job;
+app.get("/users/:name", auth.authenticateUser, (req, res) => {
+	const name = req.params.name;
 
-	userServices.getUsers(name).then((result) => res.status(201).send(result));
+	userServices.getUser(name).then((result) => res.status(200).send(result));
 });
 
 app.post("/games", auth.authenticateUser, async (req, res) => {
@@ -37,10 +37,8 @@ app.post("/games", auth.authenticateUser, async (req, res) => {
 });
 
 app.get("/games", auth.authenticateUser, async (req, res) => {
-	// commenting out since our database is not up
 	const games = await gameServices.getGames();
 	res.status(200).send({ games_list: games });
-	// res.status(200).send({});
 });
 
 app.delete("/games/:id", async (req, res) => {
@@ -65,6 +63,7 @@ app.post("/users", auth.authenticateUser, (req, res) => {
 		.then((result) => res.status(201).send(result));
 });
 
+
 app.post("/games/:id/join", auth.authenticateUser, async (req, res) => {
 	const gameToJoin = await gameServices.findGameById(req.params.id);
 	if (gameToJoin.players.length < gameToJoin.maxPlayers) {
@@ -76,6 +75,14 @@ app.post("/games/:id/join", auth.authenticateUser, async (req, res) => {
 		console.log("backend did not work");
 		res.status(500).send();
 	}
+
+app.post("/users/:name", auth.authenticateUser, (req, res) => {
+	const name = req.params.name;
+	const profile = req.body;
+	userServices
+		.updateUser(name, profile)
+		.then(() => res.status(201).send(profile));
+
 });
 
 app.post("/login", auth.loginUser);
