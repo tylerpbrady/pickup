@@ -78,11 +78,15 @@ function MyApp() {
     });
     return promise;
   }
-
-  // function fetchUsers() {
-  //   const promise = fetch("http://localhost:8000/users");
-  //   return promise;
-  // }
+  
+  function fetchUsers() {
+    const promise = fetch(`${API_URL}/users`, {
+      headers: addAuthHeader({
+        "Access-Control-Allow-Origin": "*",
+      }),
+    });
+    return promise;
+  }
 
   function postGame(game) {
     console.log(game);
@@ -191,16 +195,30 @@ function MyApp() {
   }, [token]);
 
 
-  function postProfile(profile) {
-    console.log(profile)
-    const promise = fetch("http://localhost:8000/profile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(profile),
-    });
+  //OLD POST PROFILE
+  // function postProfile(profile) {
+  //   console.log(profile)
+  //   const promise = fetch("http://localhost:8000/profile", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(profile),
+  //   });
 
+  //   return promise;
+  // }
+
+  function postProfile(profile) {
+    console.log(profile);
+  const promise = fetch(`${API_URL}/profiles`, {
+    method: "POST",
+    headers: addAuthHeader({
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    }),
+    body: JSON.stringify(profile),
+  });
     return promise;
   }
 
@@ -238,14 +256,37 @@ function MyApp() {
     );
   }
 
-  const profileData = {
-    Name: 'John Doe',
-    'Sports of Interest': 'Basketball, Tennis',
-    City: 'New York'
-  };
- 
+  // const profileData = {
+  //   Name: 'John Doe',
+  //   'Sports of Interest': 'Basketball, Tennis',
+  //   City: 'New York'
+  // };
 
+  //Create profile data 
+  const userInfo = fetchUsers()
+    .then(response => {
+      // Check if the response is successful (status code 200)
+      if (response.ok) {
+        // Parse the response body as JSON
+        return response.json();
+      } else {
+        throw new Error('Failed to fetch users');
+      }
+    })
+    .then(users => {
+      const profileData = {
+        userInfo: users, // Assign the resolved users data directly
+        'Sports of Interest': '',
+        City: ''
+      };
+      console.log('Profile Data:', profileData);
+      return profileData; 
+    })
+    .catch(error => {
+      console.error('Error fetching users:', error);
+    });
 
+    
   function EditProfile() {
     return(
       <div>
@@ -307,9 +348,9 @@ function MyApp() {
           element={
             <React.Fragment>
               <Header />
-              <ProfilePreview profileData={profileData} />
+              <ProfilePreview userInfo={userInfo} />
             </React.Fragment>
-          } />
+          }/>
          
         <Route
           path="/edit-profile"
@@ -318,7 +359,7 @@ function MyApp() {
           <Header />
           <EditProfile path="/edit-profile" UpdateProfileList={UpdateProfileList}/>
           </React.Fragment>
-  }/>
+          }/>
 
           <Route
             path="/game/:id"
