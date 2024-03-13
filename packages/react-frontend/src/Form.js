@@ -17,7 +17,7 @@ function Form(props) {
 
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
-  const validCreateGame = toast.success("Create Game Successful!");
+  const validCreateGame = () => toast.success("Creat Game Successful!");
 
   // handle change and submit form has hacky fixes inplace
   // Will change when expanded

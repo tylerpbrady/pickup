@@ -12,7 +12,7 @@ function CreateAccountPage(props) {
   });
 
   const navigate = useNavigate();
-  const validCreateAcc = () => toast.success("Account creation Successful");
+  const validCreateAcc = () => toast.success("Account Creation Successful");
   const failedCreateAcc = () => toast.error("Error: Account Creation Failed");
 
   const handleChange = (e) => {
@@ -25,8 +25,8 @@ function CreateAccountPage(props) {
       if (res) {
         localStorage.setItem("name", formData.username);
         setFormData({ username: "", password: "" });
-        validCreateAcc();
         navigate("/home");
+        validCreateAcc();
       }
       else {
         failedCreateAcc();
