@@ -27,6 +27,9 @@ function MyApp() {
   const [games, setGames] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const API_URL = "https://pickupapp.azurewebsites.net"
+  const validDeleteGame = () => toast.success("Game Deleted Successfully");
+  const failedDeleteGame= () => toast.error("Error: Failed to Delete Game");
+
   // const API_URL = "http://localhost:8000"
 
   function removeOneGame(index) {
@@ -36,7 +39,9 @@ function MyApp() {
           return i !== index;
         });
         setGames(updated);
+        validDeleteGame();
       } else {
+        failedDeleteGame();
         console.log("Failed to delete game");
       }
     });
