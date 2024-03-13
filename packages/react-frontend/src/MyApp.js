@@ -6,6 +6,9 @@ import GameDetailElement from "./GameDetails";
 import ProfileForm from "./profile";
 import ProfilePreview from "./profilePreview";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   BrowserRouter as Router,
   Navigate,
@@ -269,7 +272,11 @@ function MyApp() {
     return (
       <div>
         <Table gameData={games} removeGame={removeOneGame} />
+        <ToastContainer
+        position="top-center"
+        />
       </div>
+      
     );
   }
 
