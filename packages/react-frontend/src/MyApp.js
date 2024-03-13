@@ -79,10 +79,12 @@ function MyApp() {
     return promise;
   }
 
-  // function fetchUsers() {
-  //   const promise = fetch("http://localhost:8000/users");
-  //   return promise;
-  // }
+  function fetchUser() {
+    const promise = fetch(`${API_URL}/users/` + saved_name, {
+      headers: addAuthHeader()
+    });
+    return promise;
+  }
 
   function postGame(game) {
     const promise = fetch(`${API_URL}/games`, {
@@ -186,8 +188,21 @@ function MyApp() {
       .catch((error) => {
         console.log(error);
       });
-  }, [token]);
 
+    fetchUser()
+      .then((res) => (res.status === 200 ? res.json() : undefined))
+      .then((json) => {
+        if (json) {
+          console.log(json[0])
+          setProfiles({city: json[0].city, name: json[0].name, sports_of_interest: json[0].sports_of_interest});
+        } else {
+          setProfiles([]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [token]);
 
   function postProfile(profile) {
     const promise = fetch(`${API_URL}/users/` + saved_name, {

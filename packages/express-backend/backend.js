@@ -19,10 +19,10 @@ app.get("/", (req, res) => {
 	res.send(process.env.API_URL);
 });
 
-app.get("/users", auth.authenticateUser, (req, res) => {
-	const name = req.query.name;
+app.get("/users/:name", auth.authenticateUser, (req, res) => {
+	const name = req.params.name;
 
-	userServices.getUsers(name).then((result) => res.status(201).send(result));
+	userServices.getUser(name).then((result) => res.status(200).send(result));
 });
 
 app.post("/games", auth.authenticateUser, async (req, res) => {
@@ -39,7 +39,6 @@ app.post("/games", auth.authenticateUser, async (req, res) => {
 app.get("/games", auth.authenticateUser, async (req, res) => {
 	const games = await gameServices.getGames();
 	res.status(200).send({ games_list: games });
-	// res.status(200).send({});
 });
 
 app.delete("/games/:id", async (req, res) => {

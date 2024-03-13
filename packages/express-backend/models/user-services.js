@@ -3,12 +3,6 @@ import userModel from "./user.js";
 
 mongoose.set("debug", true);
 
-function getUsers(name) {
-  let promise;
-  promise = userModel.find();
-  return promise;
-}
-
 function addUser(user) {
   const userToAdd = new userModel(user);
   const promise = userToAdd.save();
@@ -27,7 +21,6 @@ function updateUser(name, profile) {
 
 export default {
   addUser,
-  getUsers,
   updateUser,
   getUser
 };
