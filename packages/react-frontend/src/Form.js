@@ -49,7 +49,6 @@ function Form(props) {
   // }
 
   function submitForm() {
-    validCreateGame();
     props.handleSubmit(game);
     setGame({
       sport: "",
@@ -61,6 +60,7 @@ function Form(props) {
       skill: 0,
       time: new Date(),
     });
+    validCreateGame();
   }
 
   return (

@@ -25,8 +25,10 @@ function CreateAccountPage(props) {
       if (res) {
         localStorage.setItem("name", formData.username);
         setFormData({ username: "", password: "" });
-        navigate("/home");
         validCreateAcc();
+        setTimeout(() => {
+          navigate("/home"); 
+        }, 1000);
       }
       else {
         failedCreateAcc();

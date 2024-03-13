@@ -62,8 +62,10 @@ function Login(props) {
       if (res) {
         setCreds({ username: "", pwd: "" });
         localStorage.setItem("name", creds.username);
-        navigate("/home");
         validLogin();
+        setTimeout(() => {
+          navigate("/home"); 
+        }, 1000);
       }
       else {
         failedLogin();
