@@ -3,6 +3,8 @@ import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
 import GameDetailElement from "./GameDetails";
+import ProfileForm from "./profile";
+import ProfilePreview from "./profilePreview";
 
 import {
   BrowserRouter as Router,
@@ -23,6 +25,7 @@ function MyApp() {
   const [token, setToken] = useState(saved_token);
   const [message, setMessage] = useState("");
   const [games, setGames] = useState([]);
+  const [profiles, setProfiles] = useState([]);
   const API_URL = "https://pickupapp.azurewebsites.net"
   // const API_URL = "http://localhost:8000"
 
@@ -76,10 +79,12 @@ function MyApp() {
     return promise;
   }
 
-  // function fetchUsers() {
-  //   const promise = fetch("http://localhost:8000/users");
-  //   return promise;
-  // }
+  function fetchUser() {
+    const promise = fetch(`${API_URL}/users/` + saved_name, {
+      headers: addAuthHeader()
+    });
+    return promise;
+  }
 
   function postGame(game) {
     const promise = fetch(`${API_URL}/games`, {
@@ -183,7 +188,51 @@ function MyApp() {
       .catch((error) => {
         console.log(error);
       });
+
+    fetchUser()
+      .then((res) => (res.status === 200 ? res.json() : undefined))
+      .then((json) => {
+        if (json) {
+          console.log(json[0])
+          setProfiles({city: json[0].city, name: json[0].name, sports_of_interest: json[0].sports_of_interest});
+        } else {
+          setProfiles([]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [token]);
+
+  function postProfile(profile) {
+    const promise = fetch(`${API_URL}/users/` + saved_name, {
+      method: "POST",
+      headers: addAuthHeader({
+        "Content-Type": "application/json",
+      }),
+      body: JSON.stringify(profile),
+    });
+
+    return promise;
+  }
+
+  function UpdateProfileList(profile) { 
+    postProfile(profile)
+      .then(response => {
+        if (response.status === 201) {
+          return response.json();
+        } else {
+          console.log('Failed to update list. Invalid HTTP Code (not 201).');
+        }
+      })
+      .then(updatedProfile => {
+        console.log(updatedProfile)
+        setProfiles(updatedProfile);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
 
   function CreateGame({ updateList }) {
     return (
@@ -200,6 +249,16 @@ function MyApp() {
       </div>
     );
   }
+
+  function EditProfile() {
+    return(
+      <div>
+       
+        <ProfileForm handleSubmit ={UpdateProfileList}/>
+      </div>
+    )
+  }
+
 
   function Home({ games }) {
     return (
@@ -247,6 +306,24 @@ function MyApp() {
               </React.Fragment>
             }
           />
+          <Route
+          path="/profile"
+          element={
+            <React.Fragment>
+              <Header />
+              <ProfilePreview profileData={profiles} />
+            </React.Fragment>
+          } />
+         
+        <Route
+          path="/edit-profile"
+          element={
+          <React.Fragment>
+          <Header />
+          <EditProfile path="/edit-profile" UpdateProfileList={UpdateProfileList}/>
+          </React.Fragment>
+  }/>
+
           <Route
             path="/game/:id"
             element={
