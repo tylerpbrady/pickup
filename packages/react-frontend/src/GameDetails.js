@@ -76,7 +76,7 @@ function GamePlayersDisplay(props) {
     { length: game.maxPlayers },
     (_, index) => index + 1,
   );
-
+  console.log(game.players);
   return (
     <div
       className="rounded rectangle"
@@ -98,12 +98,18 @@ function GamePlayersDisplay(props) {
         Players
       </div>
       <div style={{ display: "flex", flexDirection: "column", flex: "1" }}>
-        {numbers.map((number, index) => (
-          <div key={index}>{number}.</div>
+        {game.players.map((player, index) => (
+          <div key={index}>{index + 1}. {player}</div> // Assuming player is a string like a player name
         ))}
+        {Array.from(
+          { length: game.maxPlayers - game.players.length },
+          (_, index) => (
+            <div key={`empty-${index}`}>{game.players.length + index + 1}. [Empty Slot]</div>
+          )
+        )}
       </div>
       <div style={{ marginTop: "20px", textAlign: "center" }}>
-        <button>Join Game</button>
+        <button onClick={() => props.joinGame(game)}>Join Game</button>
       </div>
     </div>
   );
@@ -148,7 +154,7 @@ function GameDetailElement(props) {
           transform: "translateX(-50%)",
         }}
       >
-        <GamePlayersDisplay game={game} />
+        <GamePlayersDisplay game={game} joinGame={props.joinGame}/>
       </div>
     </div>
   );

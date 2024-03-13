@@ -7,6 +7,10 @@ function findGameById(id) {
   return gameModel.findById(id);
 }
 
+function findGameByIdAndUpdate(id, update) {
+  return gameModel.findByIdAndUpdate(id, update);
+}
+
 function findGameByTitle(title) {
   return gameModel.find({ title: title });
 }
@@ -29,6 +33,7 @@ function deleteGame(id) {
 
 export default {
   getGames,
+  findGameByIdAndUpdate,
   findGameById,
   getPlayersInGame,
   createGame,

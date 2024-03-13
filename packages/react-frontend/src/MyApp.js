@@ -228,6 +228,26 @@ function MyApp() {
     );
   }
 
+  function joinGame(game) {
+    const token = localStorage.getItem("token");
+
+    const promise = fetch(`${API_URL}/games/` + game._id + `/join`, {
+      method: "POST",
+      headers: addAuthHeader({
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      }),
+      body: JSON.stringify(game),
+    })
+      .then((response) => {
+          if (response.status === 200) {
+            console.log("front end success")
+          } else {
+            console.log("front end failed")
+          }
+      });
+  }
+
   return (
     <Router>
       <div className="container">
@@ -253,7 +273,7 @@ function MyApp() {
             element={
               <React.Fragment>
                 <Header />
-                <GameDetailElement games={games} />
+                <GameDetailElement games={games} joinGame={joinGame} />
               </React.Fragment>
             }
           />
