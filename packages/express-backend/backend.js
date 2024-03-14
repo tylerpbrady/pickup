@@ -72,9 +72,11 @@ app.post("/users/:name", auth.authenticateUser, (req, res) => {
 		.then(() => res.status(201).send(profile));
 });
 
+// end points for account creation and login
 app.post("/login", auth.loginUser);
 app.post("/signup", auth.registerUser);
 
+// allows Azure to assign port number
 app.listen(process.env.PORT || port, () => {
 	console.log("REST API is listening.");
 });

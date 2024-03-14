@@ -22,6 +22,7 @@ function generateAccessToken(username) {
 	});
 }
 
+// account creation
 export async function registerUser(req, res) {
 	const { username, password } = req.body; // from form
 	const retrievedUser = await userServices.getUser(username);
@@ -44,6 +45,7 @@ export async function registerUser(req, res) {
 	}
 }
 
+// authenticates the user
 export function authenticateUser(req, res, next) {
 	dotenv.config();
 	const authHeader = req.headers["authorization"];
@@ -65,6 +67,7 @@ export function authenticateUser(req, res, next) {
 	}
 }
 
+// log in for the user
 export async function loginUser(req, res) {
 	const { username, pwd } = req.body; // from form
 	const retrievedUser = await userServices.getUser(username);
