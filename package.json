@@ -8,7 +8,8 @@
     "start": "npm -w react-frontend start",
     "dev": "cd ./packages/express-backend && npx nodemon backend.js",
     "lint": "npx eslint ./packages/express-backend/*.js --fix && npx eslint ./packages/react-frontend/src/*.js",
-    "prettier": "npx prettier --write ."
+    "prettier": "npx prettier --write .",
+    "cy:open": "cypress open"
   },
   "repository": {
     "type": "git",
