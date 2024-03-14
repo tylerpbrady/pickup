@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// function to create the 
 function GamePreviewBody(props) {
-  // Define styles as an object
+  // Define styles as to be used in the frontend design
   const rectangleStyles = {
     display: "flex",
     flexDirection: "row",
@@ -28,6 +29,8 @@ function GamePreviewBody(props) {
     fontWeight: "bold", // Set font weight to bold
   };
 
+  // defining the singular game preview layout that will be applied to every game using map()
+  // mostly including important info the user might want to see
   const rows = props.gameData.map((game, index) => {
     return (
       <div key={index}>
@@ -50,12 +53,12 @@ function GamePreviewBody(props) {
             {/* This allows user to click "Details" to go to game details page */}
             <Link to={`/game/${game._id}`}>Details</Link>
           </div>
+          {/* delete button; future update: require authorization of game creator to delete */}
           <div style={buttonStyles}>
             <button onClick={() => props.removeGame(index)}>Delete</button>
           </div>
         </div>
         {index < props.gameData.length - 1 && <div style={spacerStyles} />}{" "}
-        {/* Add spacer between rows */}
       </div>
     );
   });
@@ -63,7 +66,9 @@ function GamePreviewBody(props) {
   return rows;
 }
 
+// function to pull the game previews together and give them the necessary data
 function GamePreviewElement(props) {
+  // make sure we recieve the game data we need to display
   if (props.gameData === null) {
     return <caption>Data Unavailable</caption>;
   }

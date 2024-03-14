@@ -3,8 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./settings.css";
 
-//Settings layout and button design
-//Made by Andrew Okerlund
+// Settings layout and button design
+// Made by Andrew Okerlund
 function Settings() {
   return (
     <div>

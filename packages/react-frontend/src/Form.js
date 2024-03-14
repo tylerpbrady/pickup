@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Form(props) {
+  // basic game attributes we want from the user
   const [game, setGame] = useState({
     sport: "",
     title: "",
@@ -15,14 +16,14 @@ function Form(props) {
     time: new Date(),
   });
 
+  // set up date and time
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
 
   // function used for alerts to the user
   const validCreateGame = () => toast.success("Creat Game Successful!");
 
-  // handle change and submit form has hacky fixes inplace
-  // Will change when expanded
+  // function to handle user inputs and update the stored game attributes we want to post
   function handleChange(event) {
     const { name, value } = event.target;
     if (name === "sport") setGame({ ...game, sport: value });
@@ -41,6 +42,7 @@ function Form(props) {
     }
   }
 
+  // submits the form through a prop and resets all data to default values
   function submitForm() {
     props.handleSubmit(game);
     setGame({
@@ -57,6 +59,7 @@ function Form(props) {
   }
 
   return (
+    // Create a form with all of the attributes that we require to make a game and allow user to enter data/info
     <form>
       <label htmlFor="title">Title</label>
       <input

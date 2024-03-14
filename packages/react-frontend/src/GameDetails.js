@@ -1,25 +1,28 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
+// defining the style we want to use to create a rounded rectangle for the two info holders
 const rectangleStyles = {
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
   width: "500px",
   height: "500px",
-  //backgroundColor: '#D3EBF0', do we want background color or just transparent?
   borderRadius: "15px",
   padding: "20px",
   border: "2px solid #000",
 };
 
+// function to define the game detail box
 function GameDetailBody(props) {
   const game = props.game;
 
+  // make sure we have a valid game
   if (!game) {
     return <div>Game not found</div>;
   }
 
+  // specifies how we want to display the given attribute in the game details box
   function DetailItem({ label, value }) {
     return (
       <div
@@ -35,7 +38,7 @@ function GameDetailBody(props) {
     );
   }
 
-  // Rest of component logic using the 'game' variable
+  // defining the layout we want to portray to the frontend for the detail rectangle box
   return (
     <div
       className="rounded-rectangle"
@@ -70,6 +73,8 @@ function GameDetailBody(props) {
   );
 }
 
+
+// function to define the game players box
 function GamePlayersDisplay(props) {
   const game = props.game;
   const numbers = Array.from(
@@ -77,6 +82,7 @@ function GamePlayersDisplay(props) {
     (_, index) => index + 1,
   );
 
+  // defining front end layout, quite similar to layout of game detail box
   return (
     <div
       className="rounded rectangle"
@@ -109,12 +115,13 @@ function GamePlayersDisplay(props) {
   );
 }
 
+// function to define the full game detail page element combining above two elements
 function GameDetailElement(props) {
   const { id } = useParams();
   const gameId = id;
   const game = props.games && props.games.length && props.games.find((game) => game._id === gameId);
-  //const players = game.players;
 
+  //frontend layout; main title along with the two boxes for game details and players
   return (
     <div>
       <div
@@ -128,7 +135,7 @@ function GameDetailElement(props) {
           textAlign: "center",
         }}
       >
-        {game.title}
+        {game.title} 
       </div>
       <div
         style={{

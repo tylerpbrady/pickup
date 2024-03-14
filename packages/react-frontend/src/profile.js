@@ -1,16 +1,16 @@
 
 import React, { useState } from "react";
-//Provides a form and structure for the profile fields
-//Handles the submission of a new profile which will be stored in fields and added to user data in the backend.
-//Made by Andrew Okerlund
+// Provides a form and structure for the profile fields
+// Handles the submission of a new profile which will be stored in fields and added to user data in the backend.
+// Made by Andrew Okerlund
 function ProfileForm(props) {
   const [profile, setProfile] = useState({
     name: "",
     sports_of_interest: "",
     city: ""
   });
-
   
+  // function to handle edits made for the profile
   function EditProfile(event) {
     const { name, value } = event.target;
     if (name === "sports of interest")
@@ -21,11 +21,13 @@ function ProfileForm(props) {
       setProfile({ ...profile, city: value })
   }
 
+  // function to handle submit and reset profile entries to default
   function submitProfile() {
     props.handleSubmit(profile);
     setProfile({ name: "", sports_of_interest: "", city: ""});
   }
 
+  // define the frontend layout with the required elements of the profile
   return (
     <form>
       <label htmlFor="name">Name:</label>

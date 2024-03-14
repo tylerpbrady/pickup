@@ -22,6 +22,7 @@ import Login from "./Login";
 
 import CreateAccountPage from "./CreateAccountPage";
 
+// main function that will control the web app
 function MyApp() {
   // state variables. Stores token and name into localstorage
   const saved_token = localStorage.getItem("token") || "INVALID_TOKEN";
@@ -36,14 +37,18 @@ function MyApp() {
   const validDeleteGame = () => toast.success("Game Deleted Successfully");
   const failedDeleteGame= () => toast.error("Error: Failed to Delete Game");
 
+  // used to convert to local testing vvv
   // const API_URL = "http://localhost:8000"
 
+  // function that will remove the game from the backend and from the current list
   function removeOneGame(index) {
+    // attempt to remove it from backend database
     deleteGame(games[index]).then((deleted) => {
       if (deleted.status === 204) {
         const updated = games.filter((game, i) => {
           return i !== index;
         });
+        // update current game data on frontend
         setGames(updated);
         validDeleteGame();
       } else {
@@ -53,7 +58,9 @@ function MyApp() {
     });
   }
 
+  // update the list of games with new game
   function updateList(game) {
+    // attempt to post the given game to the backend and make sure to check the results of the attmpt
     postGame(game)
       .then((response) => {
         if (response.status === 201) {
@@ -63,6 +70,7 @@ function MyApp() {
         }
       })
       .then((updatedGame) => {
+        // update game list if successful
         setGames([...games, updatedGame]);
       })
       .catch((error) => {
@@ -70,6 +78,7 @@ function MyApp() {
       });
   }
 
+  // register authentication
   function addAuthHeader(otherHeaders = {}) {
     if (token === "INVALID_TOKEN") {
       return otherHeaders;
@@ -81,6 +90,7 @@ function MyApp() {
     }
   }
 
+  // fetch games from the backend
   function fetchGames() {
     const promise = fetch(`${API_URL}/games`, {
       headers: addAuthHeader({
@@ -90,6 +100,7 @@ function MyApp() {
     return promise;
   }
 
+  // fetch the user from the backend
   function fetchUser() {
     const promise = fetch(`${API_URL}/users/` + saved_name, {
       headers: addAuthHeader()
@@ -97,6 +108,7 @@ function MyApp() {
     return promise;
   }
 
+  // post the given game to the backend and return the promise
   function postGame(game) {
     const promise = fetch(`${API_URL}/games`, {
       method: "POST",
@@ -110,6 +122,7 @@ function MyApp() {
     return promise;
   }
 
+  // delete the given game from the backend
   function deleteGame(game) {
     const promise = fetch(
       `${API_URL}/games/` + game._id,
@@ -123,6 +136,8 @@ function MyApp() {
 
     return promise;
   }
+
+  // login a user with the backend
   // returns true if login successfully, false otherwise. 
   function loginUser(creds) {
     const promise = fetch(`${API_URL}/login`, {
@@ -136,6 +151,7 @@ function MyApp() {
       .then((response) => {
         if (response.status === 200) {
           response.json().then((payload) => {
+            // make sure to register user with their token
             setToken(payload.token);
             localStorage.setItem("token", payload.token);
           });
@@ -152,6 +168,8 @@ function MyApp() {
       });
     return promise;
   }
+
+  // sign up a new user with the backend
   // returns true if sign up is successful, false otherwise. 
   function signupUser(creds) {
     const promise = fetch(`${API_URL}/signup`, {
@@ -165,6 +183,7 @@ function MyApp() {
       .then((response) => {
         if (response.status === 201) {
           response.json().then((payload) => {
+            // register user with their token
             setToken(payload.token);
             localStorage.setItem("token", payload.token);
           });
@@ -192,6 +211,7 @@ function MyApp() {
       .then((res) => (res.status === 200 ? res.json() : undefined))
       .then((json) => {
         if (json) {
+          // populate games
           setGames(json["games_list"]);
         } else {
           setGames(null);
@@ -228,7 +248,9 @@ function MyApp() {
     return promise;
   }
 
+  // updating the profile info
   function UpdateProfileList(profile) { 
+    // send profile info to backend
     postProfile(profile)
       .then(response => {
         if (response.status === 201) {
@@ -238,6 +260,7 @@ function MyApp() {
         }
       })
       .then(updatedProfile => {
+        // update local profile data
         setProfiles(updatedProfile);
       })
       .catch((error) => {
@@ -245,6 +268,7 @@ function MyApp() {
       })
   }
 
+  // define create game page
   function CreateGame({ updateList }) {
     return (
       <div>
@@ -253,6 +277,7 @@ function MyApp() {
     );
   }
 
+  // define settings page
   function Set() {
     return (
       <div>
@@ -261,16 +286,17 @@ function MyApp() {
     );
   }
 
+  // define edit profile page
   function EditProfile() {
     return(
-      <div>
-       
+      <div>  
         <ProfileForm handleSubmit ={UpdateProfileList}/>
       </div>
     )
   }
 
 
+  // define home page and pass necessary game data
   function Home({ games }) {
     return (
       <div>
@@ -283,6 +309,7 @@ function MyApp() {
     );
   }
 
+  // define the welcome page with login and create account buttons as well as greeting message
   function WelcomePage() {
     return (
       <div className="cont">
@@ -302,7 +329,10 @@ function MyApp() {
   }
 
   /* In the routing system we used react component to split up the header onto only certain pages
-     we also used react routes, link and route to navigate to the various pages*/
+   * we also used react routes, link and route to navigate to the various pages
+   */
+  // main return element to define the bulk of how our navigation through pages is coordinated
+  // houses most of the main sub-pages
   return (
     <Router>
       <div className="container">
@@ -324,23 +354,23 @@ function MyApp() {
             }
           />
           <Route
-          path="/profile"
-          element={
-            <React.Fragment>
-              <Header />
-              <ProfilePreview profileData={profiles} />
-            </React.Fragment>
-          } />
-         
-        <Route
-          path="/edit-profile"
-          element={
-          <React.Fragment>
-          <Header />
-          <EditProfile path="/edit-profile" UpdateProfileList={UpdateProfileList}/>
-          </React.Fragment>
-  }/>
-
+            path="/profile"
+            element={
+              <React.Fragment>
+                <Header />
+                <ProfilePreview profileData={profiles} />
+              </React.Fragment>
+            } 
+          />
+          <Route
+            path="/edit-profile"
+            element={
+              <React.Fragment>
+                <Header />
+                <EditProfile path="/edit-profile" UpdateProfileList={UpdateProfileList}/>
+              </React.Fragment>
+            }
+          />
           <Route
             path="/game/:id"
             element={
