@@ -7,12 +7,6 @@ const GameSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    // commenting out for simplicity
-    // hostId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: "User",
-    // },
     sport: {
       type: String,
       required: true,
@@ -32,10 +26,6 @@ const GameSchema = new mongoose.Schema(
       type: Number,
       required: false,
     },
-    // players: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "User",
-    // }],
     time: {
       type: Date,
       required: true,

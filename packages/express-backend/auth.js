@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import userServices from "./models/user-services.js";
 import dotenv from "dotenv";
 
+// generates jwt
 function generateAccessToken(username) {
 	dotenv.config();
 	return new Promise((resolve, reject) => {
@@ -34,10 +35,8 @@ export async function registerUser(req, res) {
 			.then((salt) => bcrypt.hash(password, salt))
 			.then((hashedPassword) => {
 				generateAccessToken(username).then((token) => {
-					console.log("Token:", token);
 					userServices.addUser({"username": username, "password": hashedPassword})
-						.then((result) => {
-							console.log(result);
+						.then(() => {
 							res.status(201).send({ token: token });
 						});
 				});

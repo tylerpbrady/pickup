@@ -22,6 +22,7 @@ function CreateAccountPage(props) {
 
   function submitForm() {
     props.handleSubmit(formData).then((res) => {
+      // if successful, will immediately send user into home
       if (res) {
         localStorage.setItem("name", formData.username);
         setFormData({ username: "", password: "" });
