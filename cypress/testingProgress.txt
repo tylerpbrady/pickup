@@ -1,0 +1,8 @@
+x   welcome page
+x  login page
+x   create account page
+x   main page
+x   settings page
+-   profile page
+-   game detail page
+-   create game page
