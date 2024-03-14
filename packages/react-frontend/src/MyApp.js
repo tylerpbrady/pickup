@@ -3,6 +3,11 @@ import Table from "./Table";
 import Form from "./Form";
 import Header from "./Header";
 import GameDetailElement from "./GameDetails";
+import ProfileForm from "./profile";
+import ProfilePreview from "./profilePreview";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
   BrowserRouter as Router,
@@ -18,20 +23,30 @@ import Login from "./Login";
 import CreateAccountPage from "./CreateAccountPage";
 
 function MyApp() {
-  const INVALID_TOKEN = "INVALID_TOKEN";
-  const [token, setToken] = useState(INVALID_TOKEN);
+  const saved_token = localStorage.getItem("token") || "INVALID_TOKEN";
+  const saved_name = localStorage.getItem("name") || "INVALID_USER";
+  const [token, setToken] = useState(saved_token);
   const [message, setMessage] = useState("");
   const [games, setGames] = useState([]);
+  const [profiles, setProfiles] = useState([]);
+  const API_URL = "https://pickupapp.azurewebsites.net"
+
+  // functions used for alerts to the user
+  const validDeleteGame = () => toast.success("Game Deleted Successfully");
+  const failedDeleteGame= () => toast.error("Error: Failed to Delete Game");
+
+  // const API_URL = "http://localhost:8000"
 
   function removeOneGame(index) {
     deleteGame(games[index]).then((deleted) => {
-      console.log(deleted.status);
       if (deleted.status === 204) {
         const updated = games.filter((game, i) => {
           return i !== index;
         });
         setGames(updated);
+        validDeleteGame();
       } else {
+        failedDeleteGame();
         console.log("Failed to delete game");
       }
     });
@@ -55,7 +70,7 @@ function MyApp() {
   }
 
   function addAuthHeader(otherHeaders = {}) {
-    if (token === INVALID_TOKEN) {
+    if (token === "INVALID_TOKEN") {
       return otherHeaders;
     } else {
       return {
@@ -66,7 +81,7 @@ function MyApp() {
   }
 
   function fetchGames() {
-    const promise = fetch("https://pickupapp.azurewebsites.net/games", {
+    const promise = fetch(`${API_URL}/games`, {
       headers: addAuthHeader({
         "Access-Control-Allow-Origin": "*",
       }),
@@ -74,14 +89,15 @@ function MyApp() {
     return promise;
   }
 
-  // function fetchUsers() {
-  //   const promise = fetch("http://localhost:8000/users");
-  //   return promise;
-  // }
+  function fetchUser() {
+    const promise = fetch(`${API_URL}/users/` + saved_name, {
+      headers: addAuthHeader()
+    });
+    return promise;
+  }
 
   function postGame(game) {
-    console.log(game);
-    const promise = fetch("https://pickupapp.azurewebsites.net/games", {
+    const promise = fetch(`${API_URL}/games`, {
       method: "POST",
       headers: addAuthHeader({
         "Content-Type": "application/json",
@@ -94,9 +110,8 @@ function MyApp() {
   }
 
   function deleteGame(game) {
-    console.log(game._id);
     const promise = fetch(
-      "https://pickupapp.azurewebsites.net/games/" + game._id,
+      `${API_URL}/games/` + game._id,
       {
         method: "DELETE",
         headers: addAuthHeader({
@@ -109,7 +124,7 @@ function MyApp() {
   }
 
   function loginUser(creds) {
-    const promise = fetch(`https://pickupapp.azurewebsites.net/login`, {
+    const promise = fetch(`${API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -119,20 +134,26 @@ function MyApp() {
     })
       .then((response) => {
         if (response.status === 200) {
-          response.json().then((payload) => setToken(payload.token));
+          response.json().then((payload) => {
+            setToken(payload.token);
+            localStorage.setItem("token", payload.token);
+          });
           setMessage(`Login successful; auth token saved`);
+          return true
         } else {
           setMessage(`Login Error ${response.status}: ${response.data}`);
+          return false
         }
       })
       .catch((error) => {
         setMessage(`Login Error: ${error}`);
+        return false
       });
     return promise;
   }
   
   function signupUser(creds) {
-    const promise = fetch(`https://pickupapp.azurewebsites.net/signup`, {
+    const promise = fetch(`${API_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -142,17 +163,23 @@ function MyApp() {
     })
       .then((response) => {
         if (response.status === 201) {
-          response.json().then((payload) => setToken(payload.token));
+          response.json().then((payload) => {
+            setToken(payload.token);
+            localStorage.setItem("token", payload.token);
+          });
           setMessage(
             `Signup successful for user: ${creds.username}; auth token saved`,
           );
+          return true
         } else {
           console.log(response);
           setMessage(`Signup Error ${response.status}: ${response.data}`);
+          return false
         }
       })
       .catch((error) => {
         setMessage(`Signup Error: ${error}`);
+        return false
       });
 
     return promise;
@@ -171,7 +198,51 @@ function MyApp() {
       .catch((error) => {
         console.log(error);
       });
+
+    fetchUser()
+      .then((res) => (res.status === 200 ? res.json() : undefined))
+      .then((json) => {
+        if (json) {
+          console.log(json[0])
+          setProfiles({city: json[0].city, name: json[0].name, sports_of_interest: json[0].sports_of_interest});
+        } else {
+          setProfiles([]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [token]);
+
+  function postProfile(profile) {
+    const promise = fetch(`${API_URL}/users/` + saved_name, {
+      method: "POST",
+      headers: addAuthHeader({
+        "Content-Type": "application/json",
+      }),
+      body: JSON.stringify(profile),
+    });
+
+    return promise;
+  }
+
+  function UpdateProfileList(profile) { 
+    postProfile(profile)
+      .then(response => {
+        if (response.status === 201) {
+          return response.json();
+        } else {
+          console.log('Failed to update list. Invalid HTTP Code (not 201).');
+        }
+      })
+      .then(updatedProfile => {
+        console.log(updatedProfile)
+        setProfiles(updatedProfile);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
 
   function CreateGame({ updateList }) {
     return (
@@ -189,11 +260,25 @@ function MyApp() {
     );
   }
 
+  function EditProfile() {
+    return(
+      <div>
+       
+        <ProfileForm handleSubmit ={UpdateProfileList}/>
+      </div>
+    )
+  }
+
+
   function Home({ games }) {
     return (
       <div>
         <Table gameData={games} removeGame={removeOneGame} />
+        <ToastContainer
+        position="top-center"
+        />
       </div>
+      
     );
   }
 
@@ -214,8 +299,9 @@ function MyApp() {
       </div>
     );
   }
-  console.log(message);
 
+  /* In the routing system we used react component to split up the header onto only certain pages
+     we also used react routes, link and route to navigate to the various pages*/
   return (
     <Router>
       <div className="container">
@@ -236,6 +322,24 @@ function MyApp() {
               </React.Fragment>
             }
           />
+          <Route
+          path="/profile"
+          element={
+            <React.Fragment>
+              <Header />
+              <ProfilePreview profileData={profiles} />
+            </React.Fragment>
+          } />
+         
+        <Route
+          path="/edit-profile"
+          element={
+          <React.Fragment>
+          <Header />
+          <EditProfile path="/edit-profile" UpdateProfileList={UpdateProfileList}/>
+          </React.Fragment>
+  }/>
+
           <Route
             path="/game/:id"
             element={

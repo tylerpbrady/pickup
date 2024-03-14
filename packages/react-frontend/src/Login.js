@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Login(props) {
   const [creds, setCreds] = useState({
@@ -8,6 +11,10 @@ function Login(props) {
   });
 
   const navigate = useNavigate();
+
+  // functions used for alerts to the user
+  const validLogin = () => toast.success("Login Successful");
+  const failedLogin = () => toast.error("Error: Login failed");
 
   return (
     <form>
@@ -32,6 +39,9 @@ function Login(props) {
         value={props.buttonLabel || "Log In"}
         onClick={submitForm}
       />
+      <ToastContainer  // allows the take form 
+        position="top-center"
+      />
     </form>
   );
 
@@ -51,9 +61,17 @@ function Login(props) {
 
   function submitForm() {
     props.handleSubmit(creds).then((res) => {
-      console.log("Submitted token");
-      setCreds({ username: "", pwd: "" });
-      navigate("/home");
+      if (res) {
+        setCreds({ username: "", pwd: "" });
+        localStorage.setItem("name", creds.username);
+        validLogin();
+        setTimeout(() => {
+          navigate("/home"); 
+        }, 1000);
+      }
+      else {
+        failedLogin();
+      }
     });
   }
 }

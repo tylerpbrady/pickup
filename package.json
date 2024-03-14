@@ -31,7 +31,9 @@
     "mongoose": "^8.1.2",
     "nopt": "^7.2.0",
     "react-router-dom": "^6.22.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "react-toastify": "^10.0.4",
+    "toast": "^0.5.4"
   },
   "devDependencies": {
     "eslint": "^8.57.0",

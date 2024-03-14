@@ -1,5 +1,7 @@
 // src/Form.js
 import React, { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Form(props) {
   const [game, setGame] = useState({
@@ -15,6 +17,9 @@ function Form(props) {
 
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+
+  // function used for alerts to the user
+  const validCreateGame = () => toast.success("Creat Game Successful!");
 
   // handle change and submit form has hacky fixes inplace
   // Will change when expanded
@@ -57,6 +62,7 @@ function Form(props) {
       skill: 0,
       time: new Date(),
     });
+    validCreateGame();
   }
 
   return (
@@ -138,6 +144,9 @@ function Form(props) {
         />
       </label>
       <input type="button" value="Submit" onClick={submitForm} />
+      <ToastContainer  // lets the alert take form
+        position="top-center"
+      />
     </form>
   );
 }

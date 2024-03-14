@@ -12,21 +12,26 @@ const UserSchema = new mongoose.Schema(
       required: false,
       trim: true,
     },
-
-    // password will definitely need to be changed
-    // just putting it here now as placeholder
-
     password: {
       type: String,
       required: false,
       trim: false,
     },
-    games: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Game",
-      },
-    ],
+    name: {
+      type: String,
+      required: false,
+      trim: false,
+    },
+    sports_of_interest: {
+      type: String,
+      required: false,
+      trim: false,
+    },
+    city: {
+      type: String,
+      required: false,
+      trim: false,
+    }
   },
   { collection: "users_list" },
 );

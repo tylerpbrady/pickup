@@ -1,0 +1,64 @@
+/*Made by Andrew Okerlund*/
+/*CSS Styling for profile page*/
+/* Header */
+.header {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  /* Large title */
+  .large-title {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+    color: #000000; /* White color for text */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+  }
+  
+  /* Header container */
+  .header-container {
+    background-color: #000000; /* Grey background color */
+    padding: 20px; /* Padding for the container */
+    border-radius: 20px; /* Rounded edges */
+    margin-bottom: 30px; /* Margin at the bottom */
+  }
+  
+  /* Profile fields */
+  .profile-field {
+    padding: 10px; /* Padding for each field */
+    margin-bottom: 20px; /* Margin between fields */
+    background-color: #f9f9f9; /* Light grey background color */
+    border: 2px solid #ccc; /* Border color and width */
+    border-radius: 10px; /* Rounded edges */
+  }
+  
+  /* Profile labels */
+  .profile-label {
+    font-weight: bold;
+  }
+  
+  /* 
+  .log-out-button,
+  .edit-profile-button {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px; 
+    text-align: center;
+    display: inline-block;
+    padding: 20px 40px; 
+    background-color: #00ff9c; 
+    width: 300px; 
+    height: 80px; 
+    color: #000; 
+    text-decoration: none;
+    border: none;
+    border-radius: 40px; 
+    cursor: pointer;
+    margin-right: 20px; /* Margin between buttons 
+    transition: background-color 0.3s ease; /* Transition on hover 
+  }
+  
+  /* Hover effect 
+  .log-out-button:hover,
+  .edit-profile-button:hover {
+    background-color: #00e69c; /* Lighter shade of green on hover 
+  }*/
