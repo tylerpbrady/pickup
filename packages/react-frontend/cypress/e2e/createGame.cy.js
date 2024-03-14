@@ -13,9 +13,10 @@ describe('create game test', () => {
     cy.get('form input[type=time]').should('exist');
     cy.get('form input[type=button]').should('exist');
   })
+  
   it('input data and submit to backend', () => {
     login();
-    cy.cy.get('.create-game-button').click();
+    cy.get('.create-game-button').click();
   
     cy.get('input[name=title]').type("3v3 Basketball");
     cy.get('input[name=sport]').type("Basketball");
@@ -29,16 +30,13 @@ describe('create game test', () => {
 
     //submit and go back to check if it was added
     cy.get('form input[type=button]').click();
-    cy.get('.header').click();
+    cy.wait(2000);
+    cy.get('.header .large-title').click();
     cy.contains('3v3 Basketball').should('exist');
+    cy.wait(2000); //see the new game has been added and wait for 2 seconds before deleting
+    cy.contains('.rounded-rectangle', '3v3 Basketball').within(() => {
+      // Within the rounded rectangle, find and click the delete button
+      cy.get('button').click();
+    });
   })
-  /*it('submit data', () => {
-    //cy.get('form input[type=button]').click();
-  })
-  it('check new game was uploaded', () => {
-    cy.visit('https://icy-stone-000b70d1e.4.azurestaticapps.net/home');
-
-    const thirdEntryTextSelector = 'table tbody tr:nth-child(3) div:nth-child(1)';
-    cy.get(thirdEntryTextSelector).should('contain.text', '3v3 Basketball');
-  })*/
 })

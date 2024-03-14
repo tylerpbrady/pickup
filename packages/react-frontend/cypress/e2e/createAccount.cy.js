@@ -10,6 +10,8 @@ describe('Test user creation with random username and pass', () => {
         cy.get('input[name=password]').type(newUser.password);
         cy.get('input[type=button]').click();
 
+        cy.wait(1000);
+
         cy.get('table').should('exist');
     })
 })

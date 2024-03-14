@@ -1,8 +1,8 @@
 describe('login', () => {
   it('go to login page', () => {
     const userLogin = {
-      username: "isaac333",
-      password: "isaac333"
+      username: "isaac",
+      password: "isaac"
     };
     const loginButton = '.box .button-container a[href="/login"] button';
     const createAccountButton = '.box .button-container a[href="/create-account"] button';
@@ -22,6 +22,7 @@ describe('login', () => {
     cy.get('input[name=username]').type(userLogin.username);
     cy.get('input[name=password]').type(userLogin.password);
     cy.get('input[type=button]').click(); //this should fail to make an account because the account is already created
+    cy.wait(2000);
 
     //now click back to login button and login
     cy.get('.box .button-container a[href="/login"] button').should('exist');
