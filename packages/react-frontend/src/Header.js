@@ -15,18 +15,22 @@ const Header = () => {
         paddingBottom: "40px",
       }}
     >
+      {/* "Pickup" in header that allows redirection to main landing page with all game postings */}
       <h1 className="large-title">
         <Link to="/home" style={{ textDecoration: "none", color: "inherit" }}>
           Pickup
         </Link>
       </h1>
       <div>
+      {/* button to redirect to allow user to create a game */}
         <Link to="/create-game" className="create-game-button">
           Create Game
         </Link>
+      {/* button to redirect the users profile page */}
         <Link to="/profile" className="profile-button">
           Profile
         </Link>
+      {/* button to redirect to the user to settings to logout or go to profile */}
         <Link to="/settings" className="settings-button">
           Settings
         </Link>

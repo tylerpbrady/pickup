@@ -7,6 +7,7 @@ const nameStyles = {
   fontWeight: "bold", // Set font weight to bold
 };
 
+// define the table header with the title
 function TableHeader() {
   return (
     <thead>
@@ -17,7 +18,9 @@ function TableHeader() {
   );
 }
 
+// define the full table with the title and the game previews populating the bulk of the table body
 function Table(props) {
+  // make sure game data exists
   if (props.gameData === null) {
     return <caption>Data Unavailable</caption>;
   }
