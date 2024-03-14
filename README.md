@@ -20,7 +20,7 @@ Follow the steps below to start the application after cloning the github reposit
 ![UML Diagram of our User and Game Databases in MongoDB](./UMLClassDiagram.drawio.png)
 
 ### Cypress Testing
-We implement Cypress end to end testing. To run the tests, navigate to the main directory and run "npx cypress open" in the terminal. This will pull up a cypress testing window in which you can click on E2E Testing and then "Start E2E Testing in Chrome". This will launch the testing environment. Here, there are 8 seperate testing files that can be run to test that the frontend has appropriate elements as it should and also submits data to the backend to make sure it communicates correctly back with the frontend after data is sent. To run any of the tests simply click on the file in the testing environment window!
+We implemented Cypress end to end testing. To run the tests, navigate to the main directory and run "npx cypress open" in the terminal. This will pull up a cypress testing window in which you can click on E2E Testing and then "Start E2E Testing in Chrome". This will launch the testing environment. Here, there are 8 seperate testing files that can be run to test that the frontend has appropriate elements as it should and also submits data to the backend to make sure it communicates correctly back with the frontend after data is sent. To run any of the tests simply click on the file in the testing environment window!
 
 Step by step:
 
