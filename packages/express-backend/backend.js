@@ -67,7 +67,7 @@ app.post("/users", auth.authenticateUser, (req, res) => {
 app.post("/games/:id/join", auth.authenticateUser, async (req, res) => {
 	const gameToJoin = await gameServices.findGameById(req.params.id);
 	if (gameToJoin.players.length < gameToJoin.maxPlayers) {
-		const updatedPlayers = [...gameToJoin.players, req.body.id];
+		const updatedPlayers = [...gameToJoin.players, req.body.saved_name];
 		const updatedGame = await gameServices.findGameByIdAndUpdate(req.params.id, { players:  updatedPlayers });
 		console.log("backend success");
 		res.status(200).json(updatedGame);
@@ -75,6 +75,7 @@ app.post("/games/:id/join", auth.authenticateUser, async (req, res) => {
 		console.log("backend did not work");
 		res.status(500).send();
 	}
+});
 
 app.post("/users/:name", auth.authenticateUser, (req, res) => {
 	const name = req.params.name;

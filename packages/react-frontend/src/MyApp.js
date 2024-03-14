@@ -29,7 +29,7 @@ function MyApp() {
   const [message, setMessage] = useState("");
   const [games, setGames] = useState([]);
   const [profiles, setProfiles] = useState([]);
-  const API_URL = "https://pickupapp.azurewebsites.net"
+  const API_URL = "http://localhost:8000"
   const validDeleteGame = () => toast.success("Game Deleted Successfully");
   const failedDeleteGame= () => toast.error("Error: Failed to Delete Game");
 
@@ -307,7 +307,7 @@ function MyApp() {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
       }),
-      body: JSON.stringify(game), saved_name
+      body: JSON.stringify({game: game, saved_name: saved_name})
     })
       .then((response) => {
           if (response.status === 200) {
