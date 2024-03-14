@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - PickUpApp
 on:
   push:
     branches:
-      - main
+      - demo
   workflow_dispatch:
 
 jobs:
