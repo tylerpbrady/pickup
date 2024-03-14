@@ -307,7 +307,7 @@ function MyApp() {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
       }),
-      body: JSON.stringify(game),
+      body: JSON.stringify(game), saved_name
     })
       .then((response) => {
           if (response.status === 200) {
