@@ -15,32 +15,31 @@ app.use(cors());
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-	res.send(process.env.API_URL);
-});
-
+// will send back user info
 app.get("/users/:name", auth.authenticateUser, (req, res) => {
 	const name = req.params.name;
 
 	userServices.getUser(name).then((result) => res.status(200).send(result));
 });
 
+// create a new game
 app.post("/games", auth.authenticateUser, async (req, res) => {
 	try {
 		const newGame = req.body;
 		const createdGame = await gameServices.createGame(newGame);
-		console.log("Game Created");
 		res.status(201).json(createdGame); // Send the created game as part of the response
 	} catch (error) {
 		res.status(500).send({ error: "Internal server error" });
 	}
 });
 
+// return all available games
 app.get("/games", auth.authenticateUser, async (req, res) => {
 	const games = await gameServices.getGames();
 	res.status(200).send({ games_list: games });
 });
 
+// delete selected game from backend
 app.delete("/games/:id", async (req, res) => {
 	try {
 		const deletedGame = await gameServices.deleteGame(req.params.id);
@@ -56,6 +55,7 @@ app.delete("/games/:id", async (req, res) => {
 	}
 });
 
+// create a user
 app.post("/users", auth.authenticateUser, (req, res) => {
 	const userToAdd = req.body;
 	userServices
@@ -63,6 +63,7 @@ app.post("/users", auth.authenticateUser, (req, res) => {
 		.then((result) => res.status(201).send(result));
 });
 
+// updates user profile
 app.post("/users/:name", auth.authenticateUser, (req, res) => {
 	const name = req.params.name;
 	const profile = req.body;

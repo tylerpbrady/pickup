@@ -23,6 +23,7 @@ import Login from "./Login";
 import CreateAccountPage from "./CreateAccountPage";
 
 function MyApp() {
+  // state variables. Stores token and name into localstorage
   const saved_token = localStorage.getItem("token") || "INVALID_TOKEN";
   const saved_name = localStorage.getItem("name") || "INVALID_USER";
   const [token, setToken] = useState(saved_token);
@@ -122,7 +123,7 @@ function MyApp() {
 
     return promise;
   }
-
+  // returns true if login successfully, false otherwise. 
   function loginUser(creds) {
     const promise = fetch(`${API_URL}/login`, {
       method: "POST",
@@ -151,7 +152,7 @@ function MyApp() {
       });
     return promise;
   }
-  
+  // returns true if sign up is successful, false otherwise. 
   function signupUser(creds) {
     const promise = fetch(`${API_URL}/signup`, {
       method: "POST",
@@ -185,6 +186,7 @@ function MyApp() {
     return promise;
   }
 
+  // will try and grab user and games on start if authenticated
   useEffect(() => {
     fetchGames()
       .then((res) => (res.status === 200 ? res.json() : undefined))
@@ -203,7 +205,6 @@ function MyApp() {
       .then((res) => (res.status === 200 ? res.json() : undefined))
       .then((json) => {
         if (json) {
-          console.log(json[0])
           setProfiles({city: json[0].city, name: json[0].name, sports_of_interest: json[0].sports_of_interest});
         } else {
           setProfiles([]);
@@ -214,6 +215,7 @@ function MyApp() {
       });
   }, [token]);
 
+  // for updating the profile page
   function postProfile(profile) {
     const promise = fetch(`${API_URL}/users/` + saved_name, {
       method: "POST",
@@ -236,7 +238,6 @@ function MyApp() {
         }
       })
       .then(updatedProfile => {
-        console.log(updatedProfile)
         setProfiles(updatedProfile);
       })
       .catch((error) => {

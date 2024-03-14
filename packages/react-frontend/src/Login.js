@@ -61,6 +61,7 @@ function Login(props) {
 
   function submitForm() {
     props.handleSubmit(creds).then((res) => {
+      // if login is successful, add name to localstorage and allow into app
       if (res) {
         setCreds({ username: "", pwd: "" });
         localStorage.setItem("name", creds.username);
