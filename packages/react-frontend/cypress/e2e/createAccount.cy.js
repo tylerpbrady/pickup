@@ -4,7 +4,7 @@ describe('Test user creation with random username and pass', () => {
             username: generateRandomString(),
             password:  generateRandomString()
         }
-
+        //go to create account page and enter username and pass and submit
         cy.visit('https://icy-stone-000b70d1e.4.azurestaticapps.net/create-account');
         cy.get('input[name=username]').type(newUser.username);
         cy.get('input[name=password]').type(newUser.password);
@@ -12,10 +12,12 @@ describe('Test user creation with random username and pass', () => {
 
         cy.wait(1000);
 
+        //make sure after redirection to main page the table exists
         cy.get('table').should('exist');
     })
 })
 
+//simple function to manufacture a random username and password
 function generateRandomString() {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_.';

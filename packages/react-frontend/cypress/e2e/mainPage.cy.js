@@ -19,6 +19,7 @@ describe('Test to make sure everythin is in main page', () => {
     it('check game preview element exists and is correct', () => {
         login();
 
+        //check the game preview for relevant info that should exist within
         cy.get('.rounded-rectangle').first().should('exist');
         cy.get('.rounded-rectangle').first().within(() => {
             cy.get('div').should('have.length', 8);

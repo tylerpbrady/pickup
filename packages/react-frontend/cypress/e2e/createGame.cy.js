@@ -4,6 +4,7 @@ describe('create game test', () => {
   it('displays 9 user input spaces and 1 button', () => {
     cy.visit('https://icy-stone-000b70d1e.4.azurestaticapps.net/create-game');
 
+    //go to create game page and check for every element
     cy.get('form').should('exist');
     cy.get('form label').should('have.length', 9);
     cy.get('form input[type=text]').should('have.length', 4);
@@ -17,7 +18,9 @@ describe('create game test', () => {
   it('input data and submit to backend', () => {
     login();
     cy.get('.create-game-button').click();
-  
+    
+    //login and go to create game page
+    //enter sample user input data
     cy.get('input[name=title]').type("3v3 Basketball");
     cy.get('input[name=sport]').type("Basketball");
     cy.get('textarea[name=description]').type("We will be playing 3 on 3 basketball for about an hour and a half.");

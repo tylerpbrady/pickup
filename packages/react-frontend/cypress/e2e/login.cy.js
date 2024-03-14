@@ -1,9 +1,12 @@
 describe('login', () => {
   it('go to login page', () => {
+    //sample user login data
     const userLogin = {
       username: "isaac",
       password: "isaac"
     };
+
+    //info for login and create account button
     const loginButton = '.box .button-container a[href="/login"] button';
     const createAccountButton = '.box .button-container a[href="/create-account"] button';
 
