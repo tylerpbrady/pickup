@@ -30,6 +30,8 @@ function MyApp() {
   const [games, setGames] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const API_URL = "https://pickupapp.azurewebsites.net"
+
+  // functions used for alerts to the user
   const validDeleteGame = () => toast.success("Game Deleted Successfully");
   const failedDeleteGame= () => toast.error("Error: Failed to Delete Game");
 
@@ -298,6 +300,8 @@ function MyApp() {
     );
   }
 
+  /* In the routing system we used react component to split up the header onto only certain pages
+     we also used react routes, link and route to navigate to the various pages*/
   return (
     <Router>
       <div className="container">

@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
+
+// this header persists on all pages except for prior to logging in
 const Header = () => {
   return (
     <div

@@ -11,6 +11,8 @@ function Login(props) {
   });
 
   const navigate = useNavigate();
+
+  // functions used for alerts to the user
   const validLogin = () => toast.success("Login Successful");
   const failedLogin = () => toast.error("Error: Login failed");
 
@@ -37,7 +39,7 @@ function Login(props) {
         value={props.buttonLabel || "Log In"}
         onClick={submitForm}
       />
-      <ToastContainer
+      <ToastContainer  // allows the take form 
         position="top-center"
       />
     </form>

@@ -17,6 +17,8 @@ function Form(props) {
 
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+
+  // function used for alerts to the user
   const validCreateGame = () => toast.success("Creat Game Successful!");
 
   // handle change and submit form has hacky fixes inplace
@@ -142,7 +144,7 @@ function Form(props) {
         />
       </label>
       <input type="button" value="Submit" onClick={submitForm} />
-      <ToastContainer
+      <ToastContainer  // lets the alert take form
         position="top-center"
       />
     </form>
