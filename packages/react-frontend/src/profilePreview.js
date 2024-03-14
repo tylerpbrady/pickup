@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './profile.css'
 
+// Displays profile boxes with titles, boxes are empty at first
+//are then updated with profile data
+//Made by Andrew Okerlund
 function ProfilePreview({ profileData }) {
-    // Function to display profile information
     const displayProfile = () => {
       return Object.keys(profileData).map((key, index) => (
         <div key={index} className="profile-field">
@@ -15,10 +17,7 @@ function ProfilePreview({ profileData }) {
   
     return (
       <div id="profile-container">
-        {/* Call displayProfile function to render profile information */}
         {displayProfile()}
-        {/* Button */}
-        
         <Link to="/edit-profile" className="button">Update Profile</Link>
       </div>
     );

@@ -3,10 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./settings.css";
 
+//Settings layout and button design
+//Made by Andrew Okerlund
 function Settings() {
   return (
-    //<div className="settings">
-    //<div className='rounded-rectangle' style={rectangleStyles}>
     <div>
       <Link to="/welcome" className="log-out-button">
         Logout

@@ -1,5 +1,8 @@
-import React, { useState } from "react";
 
+import React, { useState } from "react";
+//Provides a form and structure for the profile fields
+//Handles the submission of a new profile which will be stored in fields and added to user data in the backend.
+//Made by Andrew Okerlund
 function ProfileForm(props) {
   const [profile, setProfile] = useState({
     name: "",
