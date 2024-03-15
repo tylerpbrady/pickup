@@ -14,7 +14,11 @@ Follow the steps below to start the application after cloning the github reposit
 3. In MyApp.js at pickup/packages/react-frontend/src, change the API_URL at the top of the file to localhost.
 4. To start the frontend, run **npm run start** (from either the root directory or the react-frontend folder).
 5. To start the backend, run **npm run dev** (from either the root directory or the express-backend folder).
-6. To lint, run **npm run lint** for eslint, and run **npm run prettier** for prettier.  
+6. To lint, run **npm run lint** for eslint, and run **npm run prettier** for prettier.
+
+### Creating a user
+1. On the landing page, select **create account**.
+2. Enter in a username and password of your choosing. Usernames that have already been selected will throw an error.
 
 ### UML Diagrams
 ![UML Diagram of our User and Game Databases in MongoDB](./UMLClassDiagram.drawio.png)
