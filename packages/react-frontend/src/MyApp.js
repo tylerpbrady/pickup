@@ -38,7 +38,7 @@ function MyApp() {
   const failedDeleteGame= () => toast.error("Error: Failed to Delete Game");
 
   // used to convert to local testing vvv
-  // const API_URL = "http://localhost:8000"
+  // const API_URL = "http://localhost:8080"
 
   // function that will remove the game from the backend and from the current list
   function removeOneGame(index) {
