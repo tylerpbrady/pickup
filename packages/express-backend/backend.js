@@ -15,6 +15,11 @@ app.use(cors());
 
 app.use(express.json());
 
+// for pinging the server
+app.get("/", (req, res) => {
+	res.send("For health checks");
+});
+
 // will send back user info
 app.get("/users/:name", auth.authenticateUser, (req, res) => {
 	const name = req.params.name;
